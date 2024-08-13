@@ -1,8 +1,8 @@
 import React from "react";
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink } from 'mdb-react-ui-kit';
+import { MDBNavbarBrand } from 'mdb-react-ui-kit';
 import headerImg from '../../assets/rice-logo.jpg';
-import { useSelector,useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+// import { useSelector,useDispatch } from 'react-redux';
+// import { Link, useHistory } from 'react-router-dom';
 
 //const headerImg = require('../../assets/rice-logo.jpg').default;
 const Header = () => {

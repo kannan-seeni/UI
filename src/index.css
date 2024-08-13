@@ -17,7 +17,9 @@ li{
 .header {
   background-color: #ffc107 !important;
 }
-
+.react-datepicker-wrapper{
+  width: 100%;
+}
 .badge1:after{
   content: attr(value);
   font-size: 15px;

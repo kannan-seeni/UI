@@ -105,7 +105,7 @@ const Login = () => {
                                                                     </div>
                                                                 )}
                                                             </div>
-                                                            <button type="submit" class="loginBtn btn btn-success mt-3 w-25 m-auto">Submit</button>
+                                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-25 m-auto">Submit</button>
                                                         </MDBCardBody>
                                                     </MDBCard>
                                                 </MDBCol>
