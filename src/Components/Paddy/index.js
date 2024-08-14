@@ -1,391 +1,3 @@
-// import React, { useState } from "react";
-// import {
-//     MDBContainer, MDBRow, MDBCol, MDBCard
-// } from 'mdb-react-ui-kit';
-// import DatePicker from 'react-datepicker';
-// import { useNavigate } from "react-router-dom"
-// const Paddy = ({ onSubmit }) => {
-//     const [formValues, setFormValues] = useState({
-//         date: null,
-//         kmsStartYear: '',
-//         kmsEndYear: '',
-//         issueMemoNo: '',
-//         godown: '',
-//         variety: '',
-//         percentMC: '',
-//         lorryNo: '',
-//         noOfBags: '',
-//         weight: '',
-//         gunnyCondition: {
-//             noOfNBBags: '',
-//             noOfONBBags: '',
-//             noOfSSBags: '',
-//             noOfSWPBags: ''
-//         }
-//     });
-
-//     const handleChange = (e) => {
-//         const { name, value } = e.target;
-//         if (name.startsWith('gunnyCondition')) {
-//             const key = name.split('.')[1];
-//             setFormValues(prevState => ({
-//                 ...prevState,
-//                 gunnyCondition: {
-//                     ...prevState.gunnyCondition,
-//                     [key]: value
-//                 }
-//             }));
-//         } else {
-//             setFormValues(prevState => ({
-//                 ...prevState,
-//                 [name]: value
-//             }));
-//         }
-//     };
-
-//     const handleDateChange = (date) => {
-//         setFormValues(prevState => ({
-//             ...prevState,
-//             date
-//         }));
-//     };
-
-//     const navigate = useNavigate();
-
-
-//     const handleSubmitPaddy = (e) => {
-//         e.preventDefault();
-//         onSubmit(formValues);
-
-//         resetForm();
-
-//         navigate("/paddyTable");
-//     }
-
-//     const resetForm = () => {
-//         setFormValues({
-//             date: null,
-//             kmsStartYear: '',
-//             kmsEndYear: '',
-//             issueMemoNo: '',
-//             godown: '',
-//             variety: '',
-//             percentMC: '',
-//             lorryNo: '',
-//             noOfBags: '',
-//             weight: '',
-//             gunnyCondition: {
-//                 noOfNBBags: '',
-//                 noOfONBBags: '',
-//                 noOfSSBags: '',
-//                 noOfSWPBags: ''
-//             }
-//         });
-//         setStartDate(null);
-//         setEndDate(null);
-//     }
-
-//     const [startDate, setStartDate] = useState(null);
-//     const [endDate, setEndDate] = useState(null);
-
-//     const handleStartDateChange = (date) => {
-//         setStartDate(date);
-//         setFormValues(prevState => ({
-//             ...prevState,
-//             kmsStartYear: date ? date.getFullYear().toString() : ''
-//         }));
-
-//         if (endDate && date > endDate) {
-//             setEndDate(null);
-//             setFormValues(prevState => ({
-//                 ...prevState,
-//                 kmsEndYear: '' // Clear end year if the new start date is after the end date
-//             }));
-//         }
-//     };
-
-//     const handleEndDateChange = (date) => {
-//         setEndDate(date);
-//         setFormValues(prevState => ({
-//             ...prevState,
-//             kmsEndYear: date ? date.getFullYear().toString() : ''
-//         }));
-
-//         if (startDate && date < startDate) {
-//             setStartDate(null);
-//             setFormValues(prevState => ({
-//                 ...prevState,
-//                 kmsStartYear: '' // Clear start year if the new end date is before the start date
-//             }));
-//         }
-//     };
-
-//     //const role = "admin";
-
-//     return (
-//         //role === "admin" &&
-//         <MDBContainer fluid className='background p-0'>
-//             <MDBRow className='d-flex h-100'>
-//                 <MDBCol md='12'>
-//                     <MDBCard className='cardBGImg mt-5'>
-//                         <form onSubmit={handleSubmitPaddy}>
-//                             <MDBRow className='p-4'>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="date" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Date</label>
-//                                     <DatePicker
-//                                         selected={formValues.date}
-//                                         onChange={handleDateChange}
-//                                         dateFormat="MM/dd/yyyy"
-//                                         className={`form-control fst-italic fw-bold w-100`}
-//                                     />
-//                                 </div>
-
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="kms" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">KMS</label>
-//                                     <div className="row w-100">
-//                                         <div className="col-md-6">
-//                                             <DatePicker
-//                                                 selected={startDate}
-//                                                 onChange={handleStartDateChange}
-//                                                 placeholderText="Start Year"
-//                                                 showYearPicker
-//                                                 dateFormat="yyyy"
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 maxDate={new Date()} // Prevent future dates
-//                                             />
-//                                         </div>
-//                                         <div className="col-md-6">
-//                                             <DatePicker
-//                                                 selected={endDate}
-//                                                 onChange={handleEndDateChange}
-//                                                 placeholderText="End Year"
-//                                                 showYearPicker
-//                                                 dateFormat="yyyy"
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 maxDate={new Date()} // Prevent future dates
-//                                             />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="godown" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Godown</label>
-//                                     <input
-//                                         type="text"
-//                                         id="godown"
-//                                         name="godown"
-//                                         value={formValues.godown}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="issueMemoNo" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Issue Memo No.</label>
-//                                     <input
-//                                         type="text"
-//                                         id="issueMemoNo"
-//                                         name="issueMemoNo"
-//                                         value={formValues.issueMemoNo}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="variety" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Variety</label>
-//                                     {/* <input
-//                                         type="text"
-//                                         id="variety"
-//                                         name="variety"
-//                                         value={formValues.variety}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     /> */}
-//                                     <select
-//                                         id="variety"
-//                                         name="variety"
-//                                         value={formValues.variety}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     >
-//                                         <option value="">Select Variety</option>
-//                                         <option value="ADT">ADT</option>
-//                                         <option value="CR">CR</option>
-//                                     </select>
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="percentMC" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">% MC</label>
-//                                     <input
-//                                         type="text"
-//                                         id="percentMC"
-//                                         name="percentMC"
-//                                         value={formValues.percentMC}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="qtynett" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Qty Nett</label>
-//                                     <div className="row w-100">
-//                                         <div className='col-md-6'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="noOfBags"
-//                                                 name="noOfBags"
-//                                                 value={formValues.noOfBags}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="Bags"
-//                                             />
-//                                         </div>
-//                                         <div className='col-md-6'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="weight"
-//                                                 name="weight"
-//                                                 value={formValues.weight}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="Weight"
-//                                             />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 {/* <div className='col-md-3'>
-//                                     <label htmlFor="noOfBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Bags</label>
-//                                     <input
-//                                         type="text"
-//                                         id="noOfBags"
-//                                         name="noOfBags"
-//                                         value={formValues.noOfBags}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="weight" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Weight</label>
-//                                     <input
-//                                         type="text"
-//                                         id="weight"
-//                                         name="weight"
-//                                         value={formValues.weight}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div> */}
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="lorryNo" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Lorry No</label>
-//                                     <input
-//                                         type="text"
-//                                         id="lorryNo"
-//                                         name="lorryNo"
-//                                         value={formValues.lorryNo}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className="col-md-6">
-//                                     <label htmlFor="gunnyCondition" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">Gunny Condition</label>
-//                                     <div className="row w-100">
-//                                         <div className='col-md-3'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="nb"
-//                                                 name="gunnyCondition.noOfNBBags"
-//                                                 value={formValues.gunnyCondition.noOfNBBags}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="NB"
-//                                             />
-//                                         </div>
-//                                         <div className='col-md-3'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="onb"
-//                                                 name="gunnyCondition.noOfONBBags"
-//                                                 value={formValues.gunnyCondition.noOfONBBags}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="ONB"
-//                                             />
-//                                         </div>
-//                                         <div className='col-md-3'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="ss"
-//                                                 name="gunnyCondition.noOfSSBags"
-//                                                 value={formValues.gunnyCondition.noOfSSBags}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="SS"
-//                                             />
-//                                         </div>
-//                                         <div className='col-md-3'>
-//                                             <input
-//                                                 type="text"
-//                                                 id="swp"
-//                                                 name="gunnyCondition.noOfSWPBags"
-//                                                 value={formValues.gunnyCondition.noOfSWPBags}
-//                                                 onChange={handleChange}
-//                                                 className={`form-control fst-italic fw-bold`}
-//                                                 placeholder="SWP"
-//                                             />
-//                                         </div>
-//                                     </div>
-//                                 </div>
-//                                 {/* <div className='col-md-3'>
-//                                     <label htmlFor="nb" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">NB</label>
-//                                     <input
-//                                         type="text"
-//                                         id="nb"
-//                                         name="gunnyCondition.noOfNBBags"
-//                                         value={formValues.gunnyCondition.noOfNBBags}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="onb" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">ONB</label>
-//                                     <input
-//                                         type="text"
-//                                         id="onb"
-//                                         name="gunnyCondition.noOfONBBags"
-//                                         value={formValues.gunnyCondition.noOfONBBags}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="ss" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">SS</label>
-//                                     <input
-//                                         type="text"
-//                                         id="ss"
-//                                         name="gunnyCondition.noOfSSBags"
-//                                         value={formValues.gunnyCondition.noOfSSBags}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div>
-//                                 <div className='col-md-3'>
-//                                     <label htmlFor="swp" className="form-label-text mt-2 form-label float-start fst-italic fw-bold">SWP</label>
-//                                     <input
-//                                         type="text"
-//                                         id="swp"
-//                                         name="gunnyCondition.noOfSWPBags"
-//                                         value={formValues.gunnyCondition.noOfSWPBags}
-//                                         onChange={handleChange}
-//                                         className={`form-control fst-italic fw-bold`}
-//                                     />
-//                                 </div> */}
-//                             </MDBRow>
-//                             <button type="submit" className="loginBtn btn btn-success mb-3 mt-3 m-auto">Add Data</button>
-//                         </form>
-//                     </MDBCard>
-//                 </MDBCol>
-//             </MDBRow>
-//         </MDBContainer>
-//     );
-// }
-
-// export default Paddy;
 import React, { useState } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBCard,/*MDBCardImage*/ } from 'mdb-react-ui-kit';
 import DatePicker from 'react-datepicker';
@@ -397,19 +9,24 @@ const Paddy = ({ onSubmit }) => {
         date: null,
         kmsStartYear: '',
         kmsEndYear: '',
+        kms:'',
         issueMemoNo: '',
-        godown: '',
+        godwon: '',
         variety: '',
-        percentMC: '',
+        moitureContent: '',
         lorryNo: '',
         noOfBags: '',
         weight: '',
-        gunnyCondition: {
-            noOfNBBags: '',
-            noOfONBBags: '',
-            noOfSSBags: '',
-            noOfSWPBags: ''
-        }
+        noOfNBBags: '',
+        noOfONBBags: '',
+        noOfSSBags: '',
+        noOfSWPBags: ''
+        // gunnyCondition: {
+        //     noOfNBBags: '',
+        //     noOfONBBags: '',
+        //     noOfSSBags: '',
+        //     noOfSWPBags: ''
+        // }
     });
 
     const [errors, setErrors] = useState({});
@@ -418,29 +35,33 @@ const Paddy = ({ onSubmit }) => {
         const { name, value } = e.target;
         
         // Check if the field requires only numeric input
-        const isNumericField = ['noOfBags', 'weight', 'gunnyCondition.noOfNBBags', 'gunnyCondition.noOfONBBags', 'gunnyCondition.noOfSSBags', 'gunnyCondition.noOfSWPBags'].includes(name);
-        
+        //const isNumericField = ['noOfBags', 'weight', 'gunnyCondition.noOfNBBags', 'gunnyCondition.noOfONBBags', 'gunnyCondition.noOfSSBags', 'gunnyCondition.noOfSWPBags'].includes(name);
+        const isNumericField = ['noOfBags', 'weight', 'noOfNBBags', 'noOfONBBags', 'noOfSSBags', 'noOfSWPBags'].includes(name);
+
         // Allow empty input or numbers only
         if (isNumericField && (value === '' || !/^\d*$/.test(value))) {
             return; // Do not update state if the input is invalid
         }
 
-        if (name.startsWith('gunnyCondition')) {
-            const key = name.split('.')[1];
-            setFormValues(prevState => ({
-                ...prevState,
-                gunnyCondition: {
-                    ...prevState.gunnyCondition,
-                    [key]: value
-                }
-            }));
-        } else {
-            setFormValues(prevState => ({
-                ...prevState,
-                [name]: value
-            }));
-        }
-
+        // if (name.startsWith('gunnyCondition')) {
+        //     const key = name.split('.')[1];
+        //     setFormValues(prevState => ({
+        //         ...prevState,
+        //         gunnyCondition: {
+        //             ...prevState.gunnyCondition,
+        //             [key]: value
+        //         }
+        //     }));
+        // } else {
+        //     setFormValues(prevState => ({
+        //         ...prevState,
+        //         [name]: value
+        //     }));
+        // }
+        setFormValues(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
         // Clear the error for the field being changed
         setErrors(prevErrors => ({
             ...prevErrors,
@@ -468,14 +89,14 @@ const Paddy = ({ onSubmit }) => {
         if (!formValues.kmsEndYear) {
             newErrors.kmsEndYear = "End Year is required";
         }
-        if (!formValues.godown) {
-            newErrors.godown = "Godown is required";
+        if (!formValues.godwon) {
+            newErrors.godwon = "godwon is required";
         }
         if (!formValues.variety) {
             newErrors.variety = "Variety is required";
         }
-        if (!formValues.percentMC) {
-            newErrors.percentMC = "MC is required";
+        if (!formValues.moitureContent) {
+            newErrors.moitureContent = "MC is required";
         }
         if (!formValues.issueMemoNo) {
             newErrors.issueMemoNo = "Memo is required";
@@ -489,16 +110,21 @@ const Paddy = ({ onSubmit }) => {
         if (!formValues.lorryNo) {
             newErrors.lorryNo = "Lorry number is required";
         }
-        Object.keys(formValues.gunnyCondition).forEach(key => {
-            if (formValues.gunnyCondition[key] === '' || isNaN(formValues.gunnyCondition[key])) {
-                newErrors[`gunnyCondition.${key}`] = `${key.replace('noOf', '').replace('Bags', '')} must be a valid number`;
-            }
-        });
-
+        // Object.keys(formValues.gunnyCondition).forEach(key => {
+        //     if (formValues.gunnyCondition[key] === '' || isNaN(formValues.gunnyCondition[key])) {
+        //         newErrors[`gunnyCondition.${key}`] = `${key.replace('noOf', '').replace('Bags', '')} must be a valid number`;
+        //     }
+        // });
+        if (!formValues.kmsStartYear) {
+            newErrors.kmsStartYear = 'Start year is required';
+        }
+        if (!formValues.kmsEndYear) {
+            newErrors.kmsEndYear = 'End year is required';
+        }
         return newErrors;
     };
 
-    const handleSubmitPaddy = (e) => {
+    const handleSubmitPaddy = async(e) => {
         e.preventDefault();
 
         const validationErrors = validateForm();
@@ -507,9 +133,33 @@ const Paddy = ({ onSubmit }) => {
             return; // Prevent submission if there are validation errors
         }
 
-        onSubmit(formValues);
-        resetForm();
-        navigate("/paddyTable");
+        // onSubmit(formValues);
+        // resetForm();
+        // navigate("/paddyTable");
+        try {
+            const response = await fetch('http://localhost:3001/paddyData', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formValues),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.json();
+            console.log('Data submitted successfully:', data);
+    
+            // Optional: Reset the form after successful submission
+            resetForm();
+            onSubmit(formValues);
+            navigate("/paddyTable");
+    
+        } catch (error) {
+            console.error('Error submitting data:', error);
+        }
     };
 
     const resetForm = () => {
@@ -517,19 +167,24 @@ const Paddy = ({ onSubmit }) => {
             date: null,
             kmsStartYear: '',
             kmsEndYear: '',
+            kms:'',
             issueMemoNo: '',
-            godown: '',
+            godwon: '',
             variety: '',
-            percentMC: '',
+            moitureContent: '',
             lorryNo: '',
             noOfBags: '',
             weight: '',
-            gunnyCondition: {
-                noOfNBBags: '',
-                noOfONBBags: '',
-                noOfSSBags: '',
-                noOfSWPBags: ''
-            }
+            noOfNBBags: '',
+            noOfONBBags: '',
+            noOfSSBags: '',
+            noOfSWPBags: ''
+            // gunnyCondition: {
+            //     noOfNBBags: '',
+            //     noOfONBBags: '',
+            //     noOfSSBags: '',
+            //     noOfSWPBags: ''
+            // }
         });
         setErrors({});
         setStartDate(null);
@@ -539,38 +194,82 @@ const Paddy = ({ onSubmit }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
+    // const handleStartDateChange = (date) => {
+    //     setStartDate(date);
+    //     setFormValues(prevState => ({
+    //         ...prevState,
+    //         kmsStartYear: date ? date.getFullYear().toString() : ''
+    //     }));
+
+    //     if (endDate && date > endDate) {
+    //         setEndDate(null);
+    //         setFormValues(prevState => ({
+    //             ...prevState,
+    //             kmsEndYear: '' 
+    //         }));
+    //     }
+    // };
+
+    // const handleEndDateChange = (date) => {
+    //     setEndDate(date);
+    //     setFormValues(prevState => ({
+    //         ...prevState,
+    //         kmsEndYear: date ? date.getFullYear().toString() : ''
+    //     }));
+
+    //     if (startDate && date < startDate) {
+    //         setStartDate(null);
+    //         setFormValues(prevState => ({
+    //             ...prevState,
+    //             kmsStartYear: '' 
+    //         }));
+    //     }
+    // };
     const handleStartDateChange = (date) => {
         setStartDate(date);
-        setFormValues(prevState => ({
-            ...prevState,
-            kmsStartYear: date ? date.getFullYear().toString() : ''
-        }));
+        setFormValues(prevState => {
+            const startYear = date ? date.getFullYear() : '';
+            const endYear = prevState.kmsEndYear || ''; // Retain existing end year
+            const kms = endYear ? `${startYear}-${endYear.toString().slice(-2)}` : ''; // Construct kms
+            return {
+                ...prevState,
+                kmsStartYear: startYear.toString(),
+                kms: kms // Set the kms value
+            };
+        });
 
         if (endDate && date > endDate) {
             setEndDate(null);
             setFormValues(prevState => ({
                 ...prevState,
-                kmsEndYear: '' 
+                kmsEndYear: '',
+                kms: '' // Reset kms if the end date is cleared
             }));
         }
     };
 
     const handleEndDateChange = (date) => {
         setEndDate(date);
-        setFormValues(prevState => ({
-            ...prevState,
-            kmsEndYear: date ? date.getFullYear().toString() : ''
-        }));
+        setFormValues(prevState => {
+            const endYear = date ? date.getFullYear() : '';
+            const startYear = prevState.kmsStartYear || ''; // Retain existing start year
+            const kms = startYear ? `${startYear}-${endYear.toString().slice(-2)}` : ''; // Construct kms
+            return {
+                ...prevState,
+                kmsEndYear: endYear.toString(),
+                kms: kms // Set the kms value
+            };
+        });
 
         if (startDate && date < startDate) {
             setStartDate(null);
             setFormValues(prevState => ({
                 ...prevState,
-                kmsStartYear: '' 
+                kmsStartYear: '',
+                kms: '' // Reset kms if the start date is cleared
             }));
         }
     };
-
     return (
         <MDBContainer fluid className='background p-0'>
             <MDBRow className='d-flex h-100 p-4'>
@@ -622,16 +321,16 @@ const Paddy = ({ onSubmit }) => {
                                     </div>
                                 </div>
                                 <div className='col-md-3'>
-                                    <label htmlFor="godown" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown</label>
+                                    <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">godwon</label>
                                     <input
                                         type="text"
-                                        id="godown"
-                                        name="godown"
-                                        value={formValues.godown}
+                                        id="godwon"
+                                        name="godwon"
+                                        value={formValues.godwon}
                                         onChange={handleChange}
-                                        className={`form-control fst-italic fw-bold ${errors.godown ? 'input-invalid' : '' }`}
+                                        className={`form-control fst-italic fw-bold ${errors.godwon ? 'input-invalid' : '' }`}
                                     />
-                                    {errors.godown && <span className="text-danger fontSize">{errors.godown}</span>}
+                                    {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
                                 </div>
                                 <div className='col-md-3'>
                                     <label htmlFor="issueMemoNo" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Issue Memo No.</label>
@@ -661,16 +360,16 @@ const Paddy = ({ onSubmit }) => {
                                     {errors.variety && <span className="text-danger fontSize">{errors.variety}</span>}
                                 </div>
                                 <div className='col-md-3'>
-                                    <label htmlFor="percentMC" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">% MC</label>
+                                    <label htmlFor="moitureContent" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">% MC</label>
                                     <input
                                         type="text"
-                                        id="percentMC"
-                                        name="percentMC"
-                                        value={formValues.percentMC}
+                                        id="moitureContent"
+                                        name="moitureContent"
+                                        value={formValues.moitureContent}
                                         onChange={handleChange}
-                                        className={`form-control fst-italic fw-bold ${errors.percentMC ? 'input-invalid' : '' }`}
+                                        className={`form-control fst-italic fw-bold ${errors.moitureContent ? 'input-invalid' : '' }`}
                                     />
-                                    {errors.percentMC && <span className="text-danger fontSize">{errors.percentMC}</span>}
+                                    {errors.moitureContent && <span className="text-danger fontSize">{errors.moitureContent}</span>}
                                 </div>
                                 <div className='col-md-3'>
                                     <label htmlFor="qtynett" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Qty Nett</label>
@@ -720,49 +419,50 @@ const Paddy = ({ onSubmit }) => {
                                             <input
                                                 type="number"
                                                 id="nb"
-                                                name="gunnyCondition.noOfNBBags"
-                                                value={formValues.gunnyCondition.noOfNBBags}
+                                                //name="gunnyCondition.noOfNBBags"
+                                                name="noOfNBBags"
+                                                value={formValues.noOfNBBags}
                                                 onChange={handleChange}
-                                                className={`form-control fst-italic fw-bold ${errors['gunnyCondition.noOfNBBags'] ? 'input-invalid' : '' }`}
+                                                className={`form-control fst-italic fw-bold ${errors.noOfNBBags ? 'input-invalid' : '' }`}
                                                 placeholder="NB"
                                             />
-                                            {errors['gunnyCondition.noOfNBBags'] && <span className="text-danger fontSize">{errors['gunnyCondition.noOfNBBags']}</span>}
+                                            {errors.noOfNBBags && <span className="text-danger fontSize">{errors.noOfNBBags}</span>}
                                         </div>
                                         <div className='col-md-3'>
                                             <input
                                                 type="number"
                                                 id="onb"
-                                                name="gunnyCondition.noOfONBBags"
-                                                value={formValues.gunnyCondition.noOfONBBags}
+                                                name="noOfONBBags"
+                                                value={formValues.noOfONBBags}
                                                 onChange={handleChange}
-                                                className={`form-control fst-italic fw-bold ${errors['gunnyCondition.noOfONBBags'] ? 'input-invalid' : '' }`}
+                                                className={`form-control fst-italic fw-bold ${errors.noOfONBBags ? 'input-invalid' : '' }`}
                                                 placeholder="ONB"
                                             />
-                                            {errors['gunnyCondition.noOfONBBags'] && <span className="text-danger fontSize">{errors['gunnyCondition.noOfONBBags']}</span>}
+                                            {errors.noOfONBBags && <span className="text-danger fontSize">{errors.noOfONBBags}</span>}
                                         </div>
                                         <div className='col-md-3'>
                                             <input
                                                 type="number"
                                                 id="ss"
-                                                name="gunnyCondition.noOfSSBags"
-                                                value={formValues.gunnyCondition.noOfSSBags}
+                                                name="noOfSSBags"
+                                                value={formValues.noOfSSBags}
                                                 onChange={handleChange}
-                                                className={`form-control fst-italic fw-bold ${errors['gunnyCondition.noOfSSBags'] ? 'input-invalid' : '' }`}
+                                                className={`form-control fst-italic fw-bold ${errors.noOfSSBags ? 'input-invalid' : '' }`}
                                                 placeholder="SS"
                                             />
-                                            {errors['gunnyCondition.noOfSSBags'] && <span className="text-danger fontSize">{errors['gunnyCondition.noOfSSBags']}</span>}
+                                            {errors.noOfSSBags && <span className="text-danger fontSize">{errors.noOfSSBags}</span>}
                                         </div>
                                         <div className='col-md-3'>
                                             <input
                                                 type="number"
                                                 id="swp"
-                                                name="gunnyCondition.noOfSWPBags"
-                                                value={formValues.gunnyCondition.noOfSWPBags}
+                                                name="noOfSWPBags"
+                                                value={formValues.noOfSWPBags}
                                                 onChange={handleChange}
-                                                className={`form-control fst-italic fw-bold ${errors['gunnyCondition.noOfSWPBags'] ? 'input-invalid' : '' }`}
+                                                className={`form-control fst-italic fw-bold ${errors.noOfSWPBags ? 'input-invalid' : '' }`}
                                                 placeholder="SWP"
                                             />
-                                            {errors['gunnyCondition.noOfSWPBags'] && <span className="text-danger fontSize">{errors['gunnyCondition.noOfSWPBags']}</span>}
+                                            {errors.noOfSWPBags && <span className="text-danger fontSize">{errors.noOfSWPBags}</span>}
                                         </div>
                                     </div>
                                 </div>

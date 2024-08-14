@@ -4,7 +4,7 @@ import './common.css';
 import { MDBTable, MDBTableHead, MDBTableBody, MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 const TableComponent = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 30;
     const totalPages = Math.ceil(data.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -22,7 +22,7 @@ const TableComponent = ({ data }) => {
                                 <tr>
                                     <th rowSpan="2" className='p-0'>Date</th>
                                     <th rowSpan="2" className='p-0'>KMS</th>
-                                    <th rowSpan="2" className='p-0'>Godown</th>
+                                    <th rowSpan="2" className='p-0'>Godwon</th>
                                     <th rowSpan="2" className='p-0'>Issue Memo No.</th>
                                     <th rowSpan="2" className='p-0'>Variety</th>
                                     <th rowSpan="2" className='p-0'>% MC</th>
@@ -42,27 +42,30 @@ const TableComponent = ({ data }) => {
                             <MDBTableBody>
                                 {currentItems.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.date ? item.date.toLocaleDateString() : ''}</td>
+                                         <td>{item.date ? new Date(item.date).toLocaleDateString() : ''}</td>
+                                        {/* <td>{item.date ? item.date.toLocaleDateString() : ''}</td> */}
                                         {/* <td>{item.kmsStartYear}-{item.kmsEndYear}</td> */}
-                                        <td>{item.kmsStartYear && item.kmsEndYear &&
-                                            `${item.kmsStartYear} - ${item.kmsEndYear}`}</td>
-                                        <td>{item.godown}</td>
+                                        {/* <td>{item.kmsStartYear && item.kmsEndYear &&
+                                            `${item.kmsStartYear} - ${item.kmsEndYear}`}</td> */}
+                                            <td>{item.kms}</td>
+                                        <td>{item.godwon}</td>
                                         <td>{item.issueMemoNo}</td>
                                         <td>{item.variety}</td>
-                                        <td>{item.percentMC}</td>
+                                        <td>{item.moitureContent}</td>
                                         <td>{item.noOfBags}</td> 
                                         <td>{item.weight}</td> 
                                         <td>{item.lorryNo}</td>
-                                        <td>{item.gunnyCondition.noOfNBBags}</td>
-                                        <td>{item.gunnyCondition.noOfONBBags}</td>
-                                        <td>{item.gunnyCondition.noOfSSBags}</td>
-                                        <td>{item.gunnyCondition.noOfSWPBags}</td>
+                                        <td>{item.noOfNBBags}</td>
+                                        <td>{item.noOfONBBags}</td>
+                                        <td>{item.noOfSSBags}</td>
+                                        <td>{item.noOfSWPBags}</td> 
                                     </tr>
                                 ))}
                             </MDBTableBody>
                         </MDBTable>
                     </MDBCol>
                 </MDBRow>
+                {/* Uncomment and adjust for pagination if needed */}
                 <MDBRow>
                     <MDBCol className="text-center">
                         <nav>
@@ -85,7 +88,7 @@ const TableComponent = ({ data }) => {
                         <th>Date</th>
                         <th>KMS</th>
                         <th>Issue Memo No.</th>
-                        <th>Godown</th>
+                        <th>Godwon</th>
                         <th>Variety</th>
                         <th>% MC</th>
                         <th colSpan="2" className="text-center">Qty Nett</th>
@@ -109,7 +112,7 @@ const TableComponent = ({ data }) => {
                             <td>{item.date ? item.date.toLocaleDateString() : ''}</td>
                             <td>{item.kmsStartYear}-{item.kmsEndYear}</td>
                             <td>{item.issueMemoNo}</td>
-                            <td>{item.godown}</td>
+                            <td>{item.godwon}</td>
                             <td>{item.variety}</td>
                             <td>{item.percentMC}</td>
                             <td>{item.qtyNett}</td>
