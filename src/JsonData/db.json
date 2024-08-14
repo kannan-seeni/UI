@@ -1,0 +1,14 @@
+{
+    "users": [
+        {
+            "email": "kannanseeni2k@gmail.com",
+            "password": "admin123",
+            "role": "admin"
+        },
+        {
+            "email": "sridharbe4ui@gmail.com",
+            "password": "user123",
+            "role": "user"
+        }
+    ]
+}

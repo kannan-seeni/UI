@@ -16,6 +16,7 @@ const Login = () => {
         password: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [loginError, setLoginError] = useState('');
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues({
@@ -26,6 +27,7 @@ const Login = () => {
             ...errors,
             [name]: '',
         });
+        setLoginError('');
     };
 
 
@@ -50,22 +52,37 @@ const Login = () => {
         setErrors(newErrors);
         return isValid;
     };
-
-    const handleSubmit = (e) => {
-
-        //sridharbe4ui@gmail.com should see paddy route
-        //sridhar@gmail.com should see paddyTable route
+   
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
             setSubmitted(true);
             //   alert(JSON.stringify(formValues, 2, null));
             //   console.log('Form Submitted:', formValues);
 
-            if (formValues.email === "sridharbe4ui@gmail.com") {
-                navigate("/paddy")
-            }
-            else {
-                navigate("/paddyTable")
+            // if (formValues.email === "sridharbe4ui@gmail.com") {
+            //     navigate("/paddy")
+            // }
+            // else {
+            //     navigate("/paddyTable")
+            // }
+            try {
+                // Fetch user data from json-server
+                const response = await fetch(`http://localhost:3001/users`);
+                const users = await response.json();
+                const user = users.find(user => user.email === formValues.email && user.password === formValues.password);
+                if (user) {
+                    if (user.role === 'admin') {
+                        navigate("/paddy");
+                    } else if (user.role === 'user') {
+                        navigate("/paddyTable");
+                    }
+                } else {
+                    setLoginError('Invalid email or password');
+                }
+            } catch (error) {
+                console.error('Error fetching users:', error);
+                setLoginError('Failed to log in, please try again later');
             }
         }
     };
@@ -84,10 +101,18 @@ const Login = () => {
                                                 <MDBCol md='12'>
                                                     <MDBCard className='mx-2 mb-2 p-2 shadow-5'>
                                                         <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
-                                                            {submitted && Object.values(errors).every(error => error === '') && (
+                                                            {/* {submitted && Object.values(errors).every(error => error === '') && (
                                                                 <div color='success'>
                                                                     Form submitted successfully!
                                                                 </div>
+                                                            )} */}
+                                                             {/* {submitted && Object.values(errors).every(error => error === '') && (
+                                                                <div color='success'>
+                                                                    Form submitted successfully!
+                                                                </div>
+                                                            )} */}
+                                                            {loginError && (
+                                                                <div className="text-danger mb-2">{loginError}</div>
                                                             )}
                                                             <div className='col-md-12'>
                                                                 <label htmlFor="email" className="form-label-text form-label float-start fst-italic fw-bold">Email</label>
