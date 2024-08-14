@@ -3,7 +3,10 @@ import {
     MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody
 } from 'mdb-react-ui-kit';
 import './login.css';
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+    const navigate = useNavigate();
+
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
@@ -25,35 +28,48 @@ const Login = () => {
         });
     };
 
+
+
     const validate = () => {
         let isValid = true;
         let newErrors = { email: '', password: '' };
-    
+
         if (!formValues.email) {
-          newErrors.email = 'Email is required';
-          isValid = false;
+            newErrors.email = 'Email is required';
+            isValid = false;
         } else if (!/\S+@\S+\.\S+/.test(formValues.email)) {
-          newErrors.email = 'Invalid email format';
-          isValid = false;
+            newErrors.email = 'Invalid email format';
+            isValid = false;
         }
-    
+
         if (!formValues.password) {
-          newErrors.password = 'Password is required';
-          isValid = false;
+            newErrors.password = 'Password is required';
+            isValid = false;
         }
-    
+
         setErrors(newErrors);
         return isValid;
-      };
-    
-      const handleSubmit = (e) => {
+    };
+
+    const handleSubmit = (e) => {
+
+        //sridharbe4ui@gmail.com should see paddy route
+        //sridhar@gmail.com should see paddyTable route
         e.preventDefault();
         if (validate()) {
-          setSubmitted(true);
-          console.log('Form Submitted:', formValues);
+            setSubmitted(true);
+            //   alert(JSON.stringify(formValues, 2, null));
+            //   console.log('Form Submitted:', formValues);
+
+            if (formValues.email === "sridharbe4ui@gmail.com") {
+                navigate("/paddy")
+            }
+            else {
+                navigate("/paddyTable")
+            }
         }
-      };
-    
+    };
+
     return (
         <MDBContainer fluid className='background p-0'>
             <MDBRow className='d-flex justify-content-center align-items-center h-100'>

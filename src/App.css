@@ -57,3 +57,9 @@
   border: 2px solid yellow;
   width: 33.33%;
 }
+input.form-control.fst-italic.fw-bold::placeholder {
+  font-size: 12px !important;
+}
+.fontSize{
+  font-size: 12px;
+}

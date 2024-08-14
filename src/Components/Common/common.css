@@ -1,0 +1,30 @@
+.qtyColor{
+    background-color: #8db4e2 !important;
+}
+.qtyColorSub{
+    background-color: #c5d9f1 !important;
+}
+.gunnyColor{
+    background-color: #e5b8b7 !important;
+}
+.gunnyColorSub{background-color: #f2dbdb !important;}
+thead th{
+    background-color: #fde9d9 !important;
+    font-weight: bold !important;
+}
+tbody tr td{
+    /* padding: 1px !important; */
+}
+.input-valid {
+    border: 1px solid #28a745 !important; /* Green border for valid input */
+    background-color: #d4edda; /* Light green background */
+}
+
+.input-invalid {
+    border: 1px solid #dc3545 !important; /* Red border for invalid input */
+    background-color: #f8d7da; /* Light red background */
+}
+
+.text-danger {
+    color: #dc3545 !important;  /* Red color for error messages */
+}
