@@ -4,7 +4,7 @@ import {
 } from 'mdb-react-ui-kit';
 import './login.css';
 import { useNavigate } from "react-router-dom";
-const Login = () => {
+const Login = ({setIsAuthenticated}) => {
     const navigate = useNavigate();
 
     const [formValues, setFormValues] = useState({
@@ -74,8 +74,10 @@ const Login = () => {
                 if (user) {
                     if (user.role === 'admin') {
                         navigate("/paddy");
+                        setIsAuthenticated(true);
                     } else if (user.role === 'user') {
                         navigate("/paddyTable");
+                        setIsAuthenticated(true);
                     }
                 } else {
                     setLoginError('Invalid email or password');
