@@ -26,3 +26,14 @@ tbody tr td{
 .text-danger {
     color: #dc3545 !important; 
 }
+/* Add this CSS to your stylesheet */
+.transition-dropdown {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.transition-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+}

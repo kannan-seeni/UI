@@ -1,0 +1,30 @@
+.background {
+    background-color: #f5f5f5;
+}
+
+.cardBGImg {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.input-invalid {
+    border-color: #dc3545;
+}
+
+.fontSize {
+    font-size: 0.875rem;
+}
+
+.loginBtn {
+    background-color: #28a745;
+    border: none;
+}
+
+.loginBtn:hover {
+    background-color: #218838;
+}
