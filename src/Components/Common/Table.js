@@ -95,9 +95,19 @@ const TableComponent = ({ data }) => {
 
     // Handle filter change
     const handleFilterChange = (column, value) => {
-        //setFilters({ ...filters, [column]: value });
-        setFilters(prevFilters => ({ ...prevFilters, [column]: value }));
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [column]: value
+        }));
         setCurrentPage(1); // Reset to first page
+    };
+
+    // Handle filter selection from dropdown
+    const handleFilterSelect = (value) => {
+        if (currentFilterColumn && value !== undefined) {
+            handleFilterChange(currentFilterColumn, value);
+        }
+        toggleDropdown('');
     };
 
     // Handle dropdown toggle
@@ -106,16 +116,12 @@ const TableComponent = ({ data }) => {
         setCurrentFilterColumn(column);
     };
 
-    // Handle filter selection from dropdown
-    const handleFilterSelect = (value) => {
-        handleFilterChange(currentFilterColumn, value);
-        toggleDropdown('');
-    };
     // Clear filter for a column
     const clearFilter = () => {
         handleFilterChange(currentFilterColumn, '');
         toggleDropdown('');
     };
+
     // Get unique values for dropdown options
     const getUniqueValues = (column) => {
         const values = new Set(data.map(item => item[column]).filter(Boolean));
@@ -141,23 +147,23 @@ const TableComponent = ({ data }) => {
             {viewMode === 'table' ? (
                 <>
                     <MDBRow className="mt-2 g-0">
-                        <MDBCol className="table-bordered ml-auto mt-2 mb-2" md='12'>
-                            <MDBTable className="table-bordered border" bordered borderColor="primary" responsive>
+                        <MDBCol className="ml-auto mt-2 mb-2" md='12'>
+                            <MDBTable  responsive>
                                 <MDBTableHead>
                                     <tr>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Date</span>
-                                                <MDBDropdown isOpen={dropdownOpen === 'date'} toggle={() => toggleDropdown('date')}>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                <MDBDropdown>
+                                                    <MDBDropdownToggle tag='a' className='btn  ms-2 p-0'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
-                                                        <MDBDropdownItem onClick={clearFilter}>
+                                                        <MDBDropdownItem onClick={() => clearFilter()}>
                                                             Clear Filter
                                                         </MDBDropdownItem>
                                                         {getUniqueValues('date').map((value, index) => (
-                                                            <MDBDropdownItem key={index} onClick={() => handleFilterSelect('date')}>
+                                                            <MDBDropdownItem key={index} onClick={() => handleFilterSelect(value)}>
                                                                 {value}
                                                             </MDBDropdownItem>
                                                         ))}
@@ -166,10 +172,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>KMS</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn ms-2 p-0'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -186,10 +192,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Godwon</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -206,10 +212,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Issue Memo No.</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -223,10 +229,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Variety</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -243,10 +249,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>% MC</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -268,10 +274,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th rowSpan="2" className='p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Lorry No</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -295,10 +301,10 @@ const TableComponent = ({ data }) => {
                                     </tr>
                                     <tr>
                                         <th className='qtyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Bags</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -315,10 +321,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th className='qtyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>Weight</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -335,10 +341,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>NB</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -355,10 +361,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>ONB</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -375,10 +381,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>SS</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>
@@ -395,10 +401,10 @@ const TableComponent = ({ data }) => {
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
-                                            <div className="d-flex align-items-center">
+                                            <div className="d-flex align-items-center justify-content-center">
                                                 <span>SWP</span>
                                                 <MDBDropdown>
-                                                    <MDBDropdownToggle tag='a' className='btn btn-light ms-2'>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
                                                     <MDBDropdownMenu>

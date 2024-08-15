@@ -11,7 +11,7 @@ const Header = () => {
     }
     return (
         <>
-            <div light className='header'>
+            <div className='header'>
                 <MDBNavbarBrand>
                     <MDBNavbarBrand className='text-black'>
                         <img src={headerImg} alt='Logo' height='90px' width='90px' className=' text-black d-inline-block align-top me-2' />
