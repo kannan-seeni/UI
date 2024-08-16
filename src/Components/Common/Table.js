@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './common.css';
 import { MDBTable, MDBTableHead, MDBTableBody, MDBContainer, MDBRow, MDBCol, MDBInput, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';
-const exportToExcel = (data) => {
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'data.xlsx');
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+import { useNavigate } from 'react-router-dom';
+const exportToPDF = (data) => {
+    const doc = new jsPDF();
+    autoTable(doc, {
+        head: [
+            ["Date", "KMS", "Region", "Godwon", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]
+        ],
+        body: data.map(item => [
+            item.date ? new Date(item.date).toLocaleDateString() : '',
+            item.kms,
+            item.region,
+            item.godwon,
+            item.issueMemoNo,
+            item.variety,
+            item.moitureContent,
+            item.noOfBags,
+            item.weight,
+            item.lorryNo,
+            item.noOfNBBags,
+            item.noOfONBBags,
+            item.noOfSSBags,
+            item.noOfSWPBags
+        ])
+    });
+    doc.save("data.pdf");
 };
 // Grid View Component
 const GridView = ({ items }) => (
@@ -22,6 +41,7 @@ const GridView = ({ items }) => (
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Date</span> : {item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>KMS</span> : {item.kms}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Godwon</span> : {item.godwon}</p>
+                        <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Region</span> : {item.region}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Variety</span> : {item.variety}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>% MC</span> : {item.moitureContent}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Qty Nett</span> - Bags: {item.noOfBags}, Weight: {item.weight}</p>
@@ -38,10 +58,12 @@ const TableComponent = ({ data }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [viewMode, setViewMode] = useState('table'); // 'table' or 'grid'
     const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
     const [filters, setFilters] = useState({
         date: '',
         kms: '',
         godwon: '',
+        region:'',
         issueMemoNo: '',
         variety: '',
         moitureContent: '',
@@ -55,14 +77,34 @@ const TableComponent = ({ data }) => {
     });
     const [dropdownOpen, setDropdownOpen] = useState('');
     const [currentFilterColumn, setCurrentFilterColumn] = useState('');
+    const [filteredData, setFilteredData] = useState(data); 
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:3001/paddyData');
+            if (!response.ok) throw new Error('Network response was not ok');
+            const data = await response.json();
+            setFilteredData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
+    useEffect(() => {
+        fetchData(); // Fetch data when component mounts
+    }, []);
+
+    useEffect(() => {
+        applyFilters(); // Reapply filters when data or filters change
+    }, [data, filters, searchQuery]);
     // Filter data based on search and filters
-    const filteredData = data.filter(item => {
+    const applyFilters = () => {
+    const filtered = data.filter(item => {
         return (
             (!searchQuery || Object.values(item).some(val => val.toString().toLowerCase().includes(searchQuery))) &&
             (!filters.date || item.date === filters.date) &&
             (!filters.kms || item.kms === filters.kms) &&
             (!filters.godwon || item.godwon === filters.godwon) &&
+            (!filters.region || item.region === filters.region) &&
             (!filters.issueMemoNo || item.issueMemoNo === filters.issueMemoNo) &&
             (!filters.variety || item.variety === filters.variety) &&
             (!filters.moitureContent || item.moitureContent === filters.moitureContent) &&
@@ -75,7 +117,8 @@ const TableComponent = ({ data }) => {
             (!filters.noOfSWPBags || item.noOfSWPBags === filters.noOfSWPBags)
         );
     });
-
+    setFilteredData(filtered);
+};
     const itemsPerPage = 30;
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -107,6 +150,7 @@ const TableComponent = ({ data }) => {
         if (currentFilterColumn && value !== undefined) {
             handleFilterChange(currentFilterColumn, value);
         }
+        //setFilters(currentFilterColumn[value]); 
         toggleDropdown('');
     };
 
@@ -127,11 +171,36 @@ const TableComponent = ({ data }) => {
         const values = new Set(data.map(item => item[column]).filter(Boolean));
         return Array.from(values);
     };
-    const handleExportToExcel = () => {
-        exportToExcel(currentItems);
+    const handleExportToPDF = () => {
+        exportToPDF(currentItems);
+    }
+    const handleAddData = () => {
+        navigate("/paddy");
+    }
+    const [editIndex, setEditIndex] = useState(null);
+    const handleEdit = (id) =>{
+        alert(id)
+        // setEditIndex(index);
+        // setFilters(data[index]); 
+        navigate(`/edit/${id}`);
+    }
+    const handleDelete = async (id) => {
+        // Send a delete request to the server
+        try {
+            const response = await fetch(`http://localhost:3001/paddyData/${id}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            // Update the state to remove the deleted item
+            setFilteredData(prevData => prevData.filter(item => item.id !== id));
+            applyFilters();
+        } catch (error) {
+            console.error('Error deleting data:', error);
+        }
     };
     return (
-        <MDBContainer>
+        <div className='container-fluid p-4'>
             <MDBRow>
                 <MDBCol md='6' className='my-3'>
                     <MDBInput label='Search' onChange={handleSearchChange} />
@@ -139,8 +208,11 @@ const TableComponent = ({ data }) => {
                 <MDBCol md='6' className='my-3'>
                     <button onClick={() => setViewMode('table')} className={`btn btn-${viewMode === 'table' ? 'primary' : 'secondary'} mx-2 `}>Table View</button>
                     <button onClick={() => setViewMode('grid')} className={`btn btn-${viewMode === 'grid' ? 'primary' : 'secondary'}`}>Grid View</button>
-                    <button onClick={handleExportToExcel} className="btn btn-success mx-2">
-                        <i className="fas fa-file-excel"></i> Export to Excel
+                    <button onClick={handleExportToPDF} className="btn btn-light mx-2 btn-outline-primary">
+                        <i className="fas fa-file-pdf"></i> Export to PDF
+                    </button>
+                    <button className="btn btn-success mx-2" onClick={handleAddData}>
+                        Add Data
                     </button>
                 </MDBCol>
             </MDBRow>
@@ -148,7 +220,7 @@ const TableComponent = ({ data }) => {
                 <>
                     <MDBRow className="mt-2 g-0">
                         <MDBCol className="ml-auto mt-2 mb-2" md='12'>
-                            <MDBTable  responsive>
+                            <MDBTable  responsive className='table table-striped table-bordered table-hover table-sm'>
                                 <MDBTableHead>
                                     <tr>
                                         <th rowSpan="2" className='p-0'>
@@ -183,6 +255,26 @@ const TableComponent = ({ data }) => {
                                                             Clear Filter
                                                         </MDBDropdownItem>
                                                         {getUniqueValues('kms').map((value, index) => (
+                                                            <MDBDropdownItem key={index} onClick={() => handleFilterSelect(value)}>
+                                                                {value}
+                                                            </MDBDropdownItem>
+                                                        ))}
+                                                    </MDBDropdownMenu>
+                                                </MDBDropdown>
+                                            </div>
+                                        </th>
+                                        <th rowSpan="2" className='p-0'>
+                                            <div className="d-flex align-items-center justify-content-center">
+                                                <span>Region</span>
+                                                <MDBDropdown>
+                                                    <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
+                                                        <i className="fas fa-filter"></i>
+                                                    </MDBDropdownToggle>
+                                                    <MDBDropdownMenu>
+                                                        <MDBDropdownItem onClick={clearFilter}>
+                                                            Clear Filter
+                                                        </MDBDropdownItem>
+                                                        {getUniqueValues('region').map((value, index) => (
                                                             <MDBDropdownItem key={index} onClick={() => handleFilterSelect(value)}>
                                                                 {value}
                                                             </MDBDropdownItem>
@@ -420,6 +512,7 @@ const TableComponent = ({ data }) => {
                                                 </MDBDropdown>
                                             </div>
                                         </th>
+                                        <th>Actions</th>
                                     </tr>
                                 </MDBTableHead>
                                 <MDBTableBody>
@@ -427,6 +520,7 @@ const TableComponent = ({ data }) => {
                                         <tr key={index}>
                                             <td>{item.date ? new Date(item.date).toLocaleDateString() : ''}</td>
                                             <td>{item.kms}</td>
+                                            <td>{item.region}</td>
                                             <td>{item.godwon}</td>
                                             <td>{item.issueMemoNo}</td>
                                             <td>{item.variety}</td>
@@ -438,6 +532,10 @@ const TableComponent = ({ data }) => {
                                             <td>{item.noOfONBBags}</td>
                                             <td>{item.noOfSSBags}</td>
                                             <td>{item.noOfSWPBags}</td>
+                                            <td>
+                                                <i className="fas fa-xs fa-pen p-1 " onClick={() => handleEdit(item.id)}></i>
+                                                <i className="fas fa-trash" onClick={() => handleDelete(item.id)}></i>
+                                            </td>
                                         </tr>
                                     ))}
                                 </MDBTableBody>
@@ -463,7 +561,7 @@ const TableComponent = ({ data }) => {
             ) : (
                 <GridView items={currentItems} />
             )}
-        </MDBContainer>
+        </div>
     );
 };
 

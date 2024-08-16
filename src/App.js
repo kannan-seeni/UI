@@ -6,6 +6,7 @@ import Login from './Components/Login/index';
 import Header from './Components/Common/Header';
 import Paddy from './Components/Paddy/index';
 import TableComponent from './Components/Common/Table';
+import EditForm from './Components/Paddy/EditForm';
 
 function App() {
   const [data, setData] = useState([]);
@@ -42,16 +43,7 @@ function App() {
   }
   return (
     <div className="App">
-      {/* <Router>
-        <Header />
-        <Routes>
-          <Route path="/" exact element={<Login />} />
-          <Route path="/paddy" element={<Paddy onSubmit={handleFormSubmit}></Paddy>} />
-
-          <Route path="/paddyTable" element={<TableComponent data={data} />} />
-
-        </Routes>
-      </Router> */}
+      
       <Router>
         <Header />
         <Routes>
@@ -60,6 +52,7 @@ function App() {
           {/* Protected routes */}
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit} /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <TableComponent data={data} /> : <Navigate to="/" />} />
+          <Route path='/edit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
         </Routes>
       </Router>
     </div>

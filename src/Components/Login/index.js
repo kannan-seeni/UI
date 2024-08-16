@@ -73,10 +73,10 @@ const Login = ({setIsAuthenticated}) => {
                 const user = users.find(user => user.email === formValues.email && user.password === formValues.password);
                 if (user) {
                     if (user.role === 'admin') {
-                        navigate("/paddy");
+                        navigate("/paddyTable");
                         setIsAuthenticated(true);
                     } else if (user.role === 'user') {
-                        navigate("/paddyTable");
+                        navigate("/paddy");
                         setIsAuthenticated(true);
                     }
                 } else {

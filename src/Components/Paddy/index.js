@@ -3,17 +3,18 @@ import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBInput, MDBCardImage } from 'm
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
-import headerImg from '../../assets/rice-logo.jpg';
-import './Paddy.css'; 
+import headerImg from '../../assets/paddyfield.jpg';
+import './Paddy.css';
 
 const Paddy = ({ onSubmit }) => {
     const [formValues, setFormValues] = useState({
-        date: null,
+        date: new Date(),
         kmsStartYear: '',
         kmsEndYear: '',
         kms: '',
         issueMemoNo: '',
         godwon: '',
+        region: '',
         variety: '',
         moitureContent: '',
         lorryNo: '',
@@ -22,7 +23,9 @@ const Paddy = ({ onSubmit }) => {
         noOfNBBags: '',
         noOfONBBags: '',
         noOfSSBags: '',
-        noOfSWPBags: ''
+        noOfSWPBags: '',
+        // yearRange: '',
+        // range: '' 
     });
 
     const [errors, setErrors] = useState({});
@@ -60,6 +63,7 @@ const Paddy = ({ onSubmit }) => {
         if (!formValues.kmsStartYear) newErrors.kmsStartYear = "Start Year is required";
         if (!formValues.kmsEndYear) newErrors.kmsEndYear = "End Year is required";
         if (!formValues.godwon) newErrors.godwon = "Godwon is required";
+        if (!formValues.region) newErrors.region = "Region is required";
         if (!formValues.variety) newErrors.variety = "Variety is required";
         if (!formValues.moitureContent) newErrors.moitureContent = "MC is required";
         if (!formValues.issueMemoNo) newErrors.issueMemoNo = "Memo is required";
@@ -101,11 +105,12 @@ const Paddy = ({ onSubmit }) => {
 
     const resetForm = () => {
         setFormValues({
-            date: null,
+            date: new Date(),
             kmsStartYear: '',
             kmsEndYear: '',
             kms: '',
             issueMemoNo: '',
+            region: '',
             godwon: '',
             variety: '',
             moitureContent: '',
@@ -115,7 +120,9 @@ const Paddy = ({ onSubmit }) => {
             noOfNBBags: '',
             noOfONBBags: '',
             noOfSSBags: '',
-            noOfSWPBags: ''
+            noOfSWPBags: '',
+            // yearRange: '',
+            // range: '' 
         });
         setErrors({});
         setStartDate(null);
@@ -165,18 +172,59 @@ const Paddy = ({ onSubmit }) => {
             }));
         }
     };
-
+    // const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
+    // const handleDateChangeYear = (date) => {
+    //     if (!startDate) {
+    //         // Set start date if not already set
+    //         setStartDate(date);
+    //         setIsSelectingEndDate(true);
+    //         setErrors({ range: '' });
+    //         setFormValues(prevState => ({
+    //             ...prevState,
+    //             range: ''
+    //         }));
+    //     } else if (startDate && !endDate) {
+    //         // Set end date if start date is already set
+    //         if (date < startDate) {
+    //             setErrors({ range: 'End date cannot be before start date' });
+    //             return;
+    //         }
+    //         setEndDate(date);
+    //         setIsSelectingEndDate(false);
+    //         setFormValues(prevState => ({
+    //             ...prevState,
+    //             range: `${startDate.getFullYear()}-${date.getFullYear()}`
+    //         }));
+    //     }
+    // }
     return (
         <MDBContainer fluid className='background p-0'>
             <MDBRow className='d-flex h-100 p-4'>
                 <MDBCol md='4' className="d-none d-md-block text-center">
-                    <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100" fluid />
+                    <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />
                 </MDBCol>
                 <MDBCol md='8'>
                     <MDBCard className='cardBGImg p-4'>
                         <form onSubmit={handleSubmitPaddy}>
                             <MDBRow className='g-4'>
-                                <MDBCol md='6'>
+                                {/* <MDBCol md='4'>
+                                    <label htmlFor="date-range" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Date Range</label>
+                                    <DatePicker
+                                        selected={isSelectingEndDate ? endDate : startDate}
+                                        onChange={handleDateChangeYear}
+                                        placeholderText={isSelectingEndDate ? "End Date" : "Start Date"}
+                                        selectsStart={!isSelectingEndDate}
+                                        selectsEnd={isSelectingEndDate}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        dateFormat="yyyy"
+                                        showYearPicker
+                                        className={`form-control ${errors.range ? 'input-invalid' : ''}`}
+                                        maxDate={new Date()}
+                                    />
+                                    {errors.range && <span className="text-danger fontSize">{errors.range}</span>}
+                                </MDBCol> */}
+                                <MDBCol md='2'>
                                     <label htmlFor="date" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Date</label>
                                     <DatePicker
                                         selected={formValues.date}
@@ -186,7 +234,7 @@ const Paddy = ({ onSubmit }) => {
                                     />
                                     {errors.date && <span className="text-danger fontSize">{errors.date}</span>}
                                 </MDBCol>
-                                <MDBCol md='6'>
+                                <MDBCol md='4'>
                                     <label htmlFor="kms" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS</label>
                                     <div className="row w-100">
                                         <MDBCol md='6'>
@@ -214,10 +262,26 @@ const Paddy = ({ onSubmit }) => {
                                             {errors.kmsEndYear && <span className="text-danger fontSize">{errors.kmsEndYear}</span>}
                                         </MDBCol>
                                     </div>
+                                </MDBCol> 
+                                <MDBCol md='6'>
+                                    <label htmlFor="region" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Region</label>
+                                    <select
+                                        id="region"
+                                        name="region"
+                                        value={formValues.region}
+                                        onChange={handleChange}
+                                        className={`form-control ${errors.region ? 'input-invalid' : ''}`}
+                                    >
+                                        <option value="">Select Region</option>
+                                        <option value="Madurai">Madurai</option>
+                                        <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                        <option value="Thanjavur">Thanjavur</option>
+                                    </select>
+                                    {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                                 </MDBCol>
                                 <MDBCol md='6 mt-2'>
-                                <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
-                                     <select
+                                    <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
+                                    <select
                                         id="godwon"
                                         name="godwon"
                                         value={formValues.godwon}
@@ -252,6 +316,7 @@ const Paddy = ({ onSubmit }) => {
                                     />
                                     {errors.issueMemoNo && <span className="text-danger fontSize">{errors.issueMemoNo}</span>}
                                 </MDBCol>
+
                                 <MDBCol md='6 mt-2'>
                                     <label htmlFor="variety" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Variety</label>
                                     <select
