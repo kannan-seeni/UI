@@ -45,7 +45,15 @@
     border-color: #1e7e34;     /* Button hover border color */
 }
 .heightView{
-    height: 90vh;
+    height: 100vh;
     overflow: hidden;
+}
+.borderColor{
+    background-color: transparent;
+    border: 2px solid #d8cd9c;
+    border-top-right-radius: unset !important;
+    border-bottom-left-radius: unset !important;
+    border-top-left-radius: 70px !important;
+    border-bottom-right-radius: 70px !important;
 }
 /* Other styles if necessary */

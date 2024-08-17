@@ -83,62 +83,55 @@ const Login = ({ setIsAuthenticated }) => {
         <MDBContainer fluid className='p-0 heightView'>
             <MDBRow className='d-flex justify-content-center align-items-center h-100'>
                 <MDBCol md='6'>
-                    <MDBCard className='cardBGImg mt-5'>
-                        <MDBRow className='g-0'>
-                            <MDBCol md='12'>
-                                <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
-                                    <form onSubmit={handleSubmit}>
-                                        <MDBContainer>
-                                            <MDBRow className='g-0'>
-                                                <MDBCol md='12'>
-                                                    <MDBCard className='mx-2 mb-2 p-2 shadow-5'>
-                                                        <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
-                                                            {loginError && (
-                                                                <div className="text-danger mb-2">{loginError}</div>
-                                                            )}
-                                                            <div className='col-md-12'>
-                                                                <label htmlFor="email" className="form-label-text form-label float-start fst-italic fw-bold">Email</label>
-                                                                <input
-                                                                    type="email"
-                                                                    id="email"
-                                                                    name="email"
-                                                                    value={formValues.email}
-                                                                    onChange={handleChange}
-                                                                    className={`form-control fst-italic fw-bold ${errors.email ? 'is-invalid' : ''}`}
-                                                                />
-                                                                {errors.email && (
-                                                                    <div className="invalid-feedback">
-                                                                        {errors.email}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                            <div className='col-md-12 mt-3'>
-                                                                <label htmlFor="password" className="form-label-text form-label float-start fst-italic fw-bold">Password</label>
-                                                                <input
-                                                                    type="password"
-                                                                    id="password"
-                                                                    name="password"
-                                                                    value={formValues.password}
-                                                                    onChange={handleChange}
-                                                                    className={`form-control fst-italic fw-bold ${errors.password ? 'is-invalid' : ''}`}
-                                                                />
-                                                                {errors.password && (
-                                                                    <div className="invalid-feedback">
-                                                                        {errors.password}
-                                                                    </div>
-                                                                )}
-                                                            </div>
-                                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-25 m-auto">Submit</button>
-                                                        </MDBCardBody>
-                                                    </MDBCard>
-                                                </MDBCol>
-                                            </MDBRow>
-                                        </MDBContainer>
-                                    </form>
-                                </MDBCardBody>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
+                    <form onSubmit={handleSubmit}>
+                        <MDBContainer>
+                            <MDBRow className='g-0'>
+                                <MDBCol md='12'>
+                                    <h4 className="text-white mb-4">TN Hulling Management System</h4>
+                                    <MDBCard className='mx-2 mb-2 p-2 shadow-5 borderColor'>
+                                        <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
+                                            {loginError && (
+                                                <div className="text-danger mb-2">{loginError}</div>
+                                            )}
+                                            <div className='col-md-12'>
+                                                <label htmlFor="email" className="form-label-text form-label float-start fst-italic fw-bold">Email</label>
+                                                <input
+                                                    type="email"
+                                                    id="email"
+                                                    name="email"
+                                                    value={formValues.email}
+                                                    onChange={handleChange}
+                                                    className={`form-control fst-italic fw-bold ${errors.email ? 'is-invalid' : ''}`}
+                                                />
+                                                {errors.email && (
+                                                    <div className="invalid-feedback">
+                                                        {errors.email}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className='col-md-12 mt-3'>
+                                                <label htmlFor="password" className="form-label-text form-label float-start fst-italic fw-bold">Password</label>
+                                                <input
+                                                    type="password"
+                                                    id="password"
+                                                    name="password"
+                                                    value={formValues.password}
+                                                    onChange={handleChange}
+                                                    className={`form-control fst-italic fw-bold ${errors.password ? 'is-invalid' : ''}`}
+                                                />
+                                                {errors.password && (
+                                                    <div className="invalid-feedback">
+                                                        {errors.password}
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-25 m-auto">Login</button>
+                                        </MDBCardBody>
+                                    </MDBCard>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBContainer>
+                    </form>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
