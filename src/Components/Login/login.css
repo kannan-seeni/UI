@@ -16,3 +16,36 @@
     border-top-right-radius: 12px !important;
     border-bottom-left-radius: 12px !important;
 }
+/* login.css */
+
+.heightView {
+    background-image: url('../../assets/paddyfield.jpg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Full viewport height */
+    width: 100vw;  /* Full viewport width */
+}
+
+.cardBGImg {
+    background: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background for card */
+}
+
+/* Adjust form control and button styles */
+.form-label-text {
+    color: #333; /* Adjust as needed */
+}
+
+.loginBtn {
+    background-color: #28a745; /* Button color */
+    border-color: #28a745;     /* Button border color */
+}
+
+.loginBtn:hover {
+    background-color: #218838; /* Button hover color */
+    border-color: #1e7e34;     /* Button hover border color */
+}
+.heightView{
+    height: 90vh;
+    overflow: hidden;
+}
+/* Other styles if necessary */
