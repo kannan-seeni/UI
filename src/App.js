@@ -7,6 +7,7 @@ import Header from './Components/Common/Header';
 import Paddy from './Components/Paddy/index';
 import TableComponent from './Components/Common/Table';
 import EditForm from './Components/Paddy/EditForm';
+import RiceTable from './Components/Rice/RiceTable';
 
 function App() {
   const [data, setData] = useState([]);
@@ -53,6 +54,7 @@ function App() {
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit} /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <TableComponent data={data} /> : <Navigate to="/" />} />
           <Route path='/edit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
+          <Route path="riceTable" element={<RiceTable />} />
         </Routes>
       </Router>
     </div>
