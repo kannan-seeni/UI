@@ -4,7 +4,8 @@ import {
 } from 'mdb-react-ui-kit';
 import './login.css';
 import { useNavigate } from "react-router-dom";
-const Login = ({setIsAuthenticated}) => {
+
+const Login = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
 
     const [formValues, setFormValues] = useState({
@@ -17,6 +18,7 @@ const Login = ({setIsAuthenticated}) => {
     });
     const [submitted, setSubmitted] = useState(false);
     const [loginError, setLoginError] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues({
@@ -29,8 +31,6 @@ const Login = ({setIsAuthenticated}) => {
         });
         setLoginError('');
     };
-
-
 
     const validate = () => {
         let isValid = true;
@@ -52,22 +52,12 @@ const Login = ({setIsAuthenticated}) => {
         setErrors(newErrors);
         return isValid;
     };
-   
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
             setSubmitted(true);
-            //   alert(JSON.stringify(formValues, 2, null));
-            //   console.log('Form Submitted:', formValues);
-
-            // if (formValues.email === "sridharbe4ui@gmail.com") {
-            //     navigate("/paddy")
-            // }
-            // else {
-            //     navigate("/paddyTable")
-            // }
             try {
-                // Fetch user data from json-server
                 const response = await fetch(`http://localhost:3001/users`);
                 const users = await response.json();
                 const user = users.find(user => user.email === formValues.email && user.password === formValues.password);
@@ -90,7 +80,7 @@ const Login = ({setIsAuthenticated}) => {
     };
 
     return (
-        <MDBContainer fluid className='background p-0'>
+        <MDBContainer fluid className='p-0 heightView'>
             <MDBRow className='d-flex justify-content-center align-items-center h-100'>
                 <MDBCol md='6'>
                     <MDBCard className='cardBGImg mt-5'>
@@ -103,16 +93,6 @@ const Login = ({setIsAuthenticated}) => {
                                                 <MDBCol md='12'>
                                                     <MDBCard className='mx-2 mb-2 p-2 shadow-5'>
                                                         <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
-                                                            {/* {submitted && Object.values(errors).every(error => error === '') && (
-                                                                <div color='success'>
-                                                                    Form submitted successfully!
-                                                                </div>
-                                                            )} */}
-                                                             {/* {submitted && Object.values(errors).every(error => error === '') && (
-                                                                <div color='success'>
-                                                                    Form submitted successfully!
-                                                                </div>
-                                                            )} */}
                                                             {loginError && (
                                                                 <div className="text-danger mb-2">{loginError}</div>
                                                             )}
@@ -164,4 +144,5 @@ const Login = ({setIsAuthenticated}) => {
         </MDBContainer>
     )
 }
+
 export default Login;
