@@ -74,9 +74,14 @@ const Paddy = ({ onSubmit }) => {
         if (formValues.noOfONBBags === '' || isNaN(formValues.noOfONBBags)) newErrors.noOfONBBags = 'ONBBags must be a valid number';
         if (formValues.noOfSSBags === '' || isNaN(formValues.noOfSSBags)) newErrors.noOfSSBags = 'SSBags must be a valid number';
         if (formValues.noOfSWPBags === '' || isNaN(formValues.noOfSWPBags)) newErrors.noOfSWPBags = 'SWPBags must be a valid number';
+        const validateWeight = () => {
+            const { noOfBags, noOfNBBags, noOfONBBags, noOfSSBags, noOfSWPBags } = formValues;
+            const totalBags = parseFloat(noOfNBBags || 0) + parseFloat(noOfONBBags || 0) + parseFloat(noOfSSBags || 0) + parseFloat(noOfSWPBags || 0);
+            return parseFloat(noOfBags) === totalBags;
+        };
+        if (!validateWeight()) newErrors.noOfBags = 'Bags must be equal to the sum of No of NB Bags, No of ONB Bags, No of SS Bags, and No of SWP Bags';
         return newErrors;
     };
-
     const handleSubmitPaddy = async (e) => {
         e.preventDefault();
         const validationErrors = validateForm();
@@ -262,7 +267,7 @@ const Paddy = ({ onSubmit }) => {
                                             {errors.kmsEndYear && <span className="text-danger fontSize">{errors.kmsEndYear}</span>}
                                         </MDBCol>
                                     </div>
-                                </MDBCol> 
+                                </MDBCol>
                                 <MDBCol md='6'>
                                     <label htmlFor="region" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Region</label>
                                     <select
@@ -437,7 +442,7 @@ const Paddy = ({ onSubmit }) => {
                                     </div>
                                 </MDBCol>
                             </MDBRow>
-                            <button type="submit" className="loginBtn btn btn-success mb-3 mt-3">Add Data</button>
+                            <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Add Data</button>
                         </form>
                     </MDBCard>
                 </MDBCol>

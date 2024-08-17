@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardImage, MDBInput } from 'mdb-react-ui-kit';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import headerImg from '../../assets/paddyfield.jpg';
+
 const EditForm = () => {
-    // State to manage form values and errors
     const [formValues, setFormValues] = useState({
         date: new Date(),
         kmsStartYear: null,
@@ -26,9 +26,10 @@ const EditForm = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        // Fetch the data for the selected item
         fetch(`http://localhost:3001/paddyData/${id}`)
             .then(response => response.json())
             .then(data => {
@@ -38,16 +39,11 @@ const EditForm = () => {
                     date: data.date ? new Date(data.date) : new Date(),
                     kmsStartYear: data.kmsStartYear ? new Date(data.kmsStartYear) : null,
                     kmsEndYear: data.kmsEndYear ? new Date(data.kmsEndYear) : null
-
                 });
             })
             .catch(error => console.error('Error fetching data:', error));
     }, [id]);
-    const [errors, setErrors] = useState({});
-    const [editIndex, setEditIndex] = useState(null);
-    const [data, setData] = useState([]);
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues(prevState => ({
@@ -60,34 +56,37 @@ const EditForm = () => {
         }));
     };
 
-    // Handle date changes
     const handleDateChange = (date) => {
-        setFormValues((prevValues) => ({
+        setFormValues(prevValues => ({
             ...prevValues,
             date: date
         }));
     };
 
     const handleStartDateChange = (date) => {
-        setFormValues((prevValues) => ({
+        setFormValues(prevValues => ({
             ...prevValues,
             kmsStartYear: date
         }));
     };
 
     const handleEndDateChange = (date) => {
-        setFormValues((prevValues) => ({
+        setFormValues(prevValues => ({
             ...prevValues,
             kmsEndYear: date
         }));
     };
 
-    // Handle form submission
     const handleSubmitPaddy = (e) => {
         e.preventDefault();
 
-        // Validate form values
         const newErrors = {};
+        const validateWeight = () => {
+            const { noOfBags, noOfNBBags, noOfONBBags, noOfSSBags, noOfSWPBags } = formValues;
+            const totalBags = parseFloat(noOfNBBags || 0) + parseFloat(noOfONBBags || 0) + parseFloat(noOfSSBags || 0) + parseFloat(noOfSWPBags || 0);
+            return parseFloat(noOfBags) === totalBags;
+        };
+        if (!validateWeight()) newErrors.noOfBags = 'Bags must be equal to the sum of No of NB Bags, No of ONB Bags, No of SS Bags, and No of SWP Bags';
         if (!formValues.date) newErrors.date = 'Date is required';
         // Add other validations as needed
 
@@ -96,89 +95,29 @@ const EditForm = () => {
             return;
         }
 
-        // Update the data
-        const updatedData = [...data];
-        if (editIndex !== null) {
-            updatedData[editIndex] = formValues;
-            setData(updatedData);
-        } else {
-            setData([...data, formValues]);
-        }
-
-        // Reset form and edit state
-        setFormValues({
-            date: new Date(),
-            kmsStartYear: null,
-            kmsEndYear: null,
-            region: '',
-            godwon: '',
-            issueMemoNo: '',
-            variety: '',
-            moitureContent: '',
-            noOfBags: '',
-            weight: '',
-            lorryNo: '',
-            noOfNBBags: '',
-            noOfONBBags: '',
-            noOfSSBags: '',
-            noOfSWPBags: ''
-        });
-        setEditIndex(null);
+        const updatedData = { ...formValues };
+        fetch(`http://localhost:3001/paddyData/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData),
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                navigate('/paddyTable'); // Redirect back to the main page after saving
+            })
+            .catch(error => console.error('Error updating data:', error));
     };
 
-    // Handle editing a row
-    const handleEdit = (index) => {
-        const itemToEdit = data[index];
-        setEditIndex(index);
-        setFormValues({
-            date: itemToEdit.date ? new Date(itemToEdit.date) : new Date(),
-            kmsStartYear: itemToEdit.kmsStartYear ? new Date(itemToEdit.kmsStartYear) : null,
-            kmsEndYear: itemToEdit.kmsEndYear ? new Date(itemToEdit.kmsEndYear) : null,
-            region: itemToEdit.region,
-            godwon: itemToEdit.godwon,
-            issueMemoNo: itemToEdit.issueMemoNo,
-            variety: itemToEdit.variety,
-            moitureContent: itemToEdit.moitureContent,
-            noOfBags: itemToEdit.noOfBags,
-            weight: itemToEdit.weight,
-            lorryNo: itemToEdit.lorryNo,
-            noOfNBBags: itemToEdit.noOfNBBags,
-            noOfONBBags: itemToEdit.noOfONBBags,
-            noOfSSBags: itemToEdit.noOfSSBags,
-            noOfSWPBags: itemToEdit.noOfSWPBags
-        });
+    const handleCancel = () => {
+        navigate('/paddyTable');
     };
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setFormValues(prevState => ({
-    //         ...prevState,
-    //         [name]: value
-    //     }));
-    //     setErrors(prevErrors => ({
-    //         ...prevErrors,
-    //         [name]: ''
-    //     }));
-    // };
+    
+    const toggleEditMode = () => {
+        setEditMode(prevMode => !prevMode);
+    };
 
-    const handleSave = async () => {
-        // Validate and save data
-        try {
-            const response = await fetch(`http://localhost:3001/paddyData/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formValues),
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            navigate('/paddyTable'); // Redirect back to the main page after saving
-        } catch (error) {
-            console.error('Error updating data:', error);
-        }
-    };
-    const handleCancel = () =>{
-        navigate('/paddyTable');  
-    }
     return (
         <MDBContainer fluid className='background p-0'>
             <MDBRow className='d-flex h-100 p-4'>
@@ -196,6 +135,7 @@ const EditForm = () => {
                                         onChange={handleDateChange}
                                         dateFormat="MM/dd/yyyy"
                                         className={`form-control ${errors.date ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.date && <span className="text-danger fontSize">{errors.date}</span>}
                                 </MDBCol>
@@ -209,6 +149,7 @@ const EditForm = () => {
                                         dateFormat="yyyy"
                                         className={`form-control ${errors.kmsStartYear ? 'input-invalid' : ''}`}
                                         maxDate={new Date()}
+                                        disabled={!editMode}
                                     />
                                     {errors.kmsStartYear && <span className="text-danger fontSize">{errors.kmsStartYear}</span>}
                                 </MDBCol>
@@ -222,6 +163,7 @@ const EditForm = () => {
                                         dateFormat="yyyy"
                                         className={`form-control ${errors.kmsEndYear ? 'input-invalid' : ''}`}
                                         maxDate={new Date()}
+                                        disabled={!editMode}
                                     />
                                     {errors.kmsEndYear && <span className="text-danger fontSize">{errors.kmsEndYear}</span>}
                                 </MDBCol>
@@ -233,6 +175,7 @@ const EditForm = () => {
                                         value={formValues.region}
                                         onChange={handleChange}
                                         className={`form-control ${errors.region ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     >
                                         <option value="">Select Region</option>
                                         <option value="Madurai">Madurai</option>
@@ -241,7 +184,7 @@ const EditForm = () => {
                                     </select>
                                     {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                                 </MDBCol>
-                                <MDBCol md='6 mt-2'>
+                                <MDBCol md='6'>
                                     <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
                                     <select
                                         id="godwon"
@@ -249,6 +192,7 @@ const EditForm = () => {
                                         value={formValues.godwon}
                                         onChange={handleChange}
                                         className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     >
                                         <option value="">Select Godwon</option>
                                         <option value="RailHead">RailHead</option>
@@ -266,10 +210,10 @@ const EditForm = () => {
                                         id='issueMemoNo'
                                         label='Issue Memo No'
                                         className={`form-control ${errors.issueMemoNo ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.issueMemoNo && <span className="text-danger fontSize">{errors.issueMemoNo}</span>}
                                 </MDBCol>
-
                                 <MDBCol md='6 mt-2'>
                                     <label htmlFor="variety" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Variety</label>
                                     <select
@@ -278,6 +222,7 @@ const EditForm = () => {
                                         value={formValues.variety}
                                         onChange={handleChange}
                                         className={`form-control ${errors.variety ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     >
                                         <option value="">Select Variety</option>
                                         <option value="Samba">Samba</option>
@@ -293,6 +238,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='moitureContent'
                                         className={`form-control ${errors.moitureContent ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.moitureContent && <span className="text-danger fontSize">{errors.moitureContent}</span>}
                                 </MDBCol>
@@ -304,6 +250,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='noOfBags'
                                         className={`form-control ${errors.noOfBags ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
                                 </MDBCol>
@@ -315,6 +262,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='weight'
                                         className={`form-control ${errors.weight ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.weight && <span className="text-danger fontSize">{errors.weight}</span>}
                                 </MDBCol>
@@ -326,6 +274,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='lorryNo'
                                         className={`form-control ${errors.lorryNo ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.lorryNo && <span className="text-danger fontSize">{errors.lorryNo}</span>}
                                 </MDBCol>
@@ -337,6 +286,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='noOfNBBags'
                                         className={`form-control ${errors.noOfNBBags ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.noOfNBBags && <span className="text-danger fontSize">{errors.noOfNBBags}</span>}
                                 </MDBCol>
@@ -348,6 +298,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='noOfONBBags'
                                         className={`form-control ${errors.noOfONBBags ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.noOfONBBags && <span className="text-danger fontSize">{errors.noOfONBBags}</span>}
                                 </MDBCol>
@@ -359,6 +310,7 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='noOfSSBags'
                                         className={`form-control ${errors.noOfSSBags ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.noOfSSBags && <span className="text-danger fontSize">{errors.noOfSSBags}</span>}
                                 </MDBCol>
@@ -370,28 +322,26 @@ const EditForm = () => {
                                         onChange={handleChange}
                                         id='noOfSWPBags'
                                         className={`form-control ${errors.noOfSWPBags ? 'input-invalid' : ''}`}
+                                        disabled={!editMode}
                                     />
                                     {errors.noOfSWPBags && <span className="text-danger fontSize">{errors.noOfSWPBags}</span>}
                                 </MDBCol>
                             </MDBRow>
-                            <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSave}>Update Data</button>
-                            <button type="submit" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button>
+                            
+                            {editMode && (
+                                <>
+                                    <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Update Data</button>
+                                    {/* <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button> */}
+                                </>
+                            )}
+                            {!editMode && (
+                            <button type="button" className="loginBtn btn btn-primary mb-3 mt-3  mx-2" onClick={toggleEditMode}>
+                                {/* {editMode ? 'Disable Editing' : 'Enable Editing'} */}
+                                Enable Editing
+                            </button>
+                            )}
+                            <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button>
                         </form>
-                        {/* <MDBRow className="mt-4">
-                            {data.map((item, index) => (
-                                <MDBCol key={index} md="4" className="mb-3">
-                                    <MDBCard className='p-3'>
-                                        <MDBCard.Body>
-                                            <h5>Entry {index + 1}</h5>
-                                            <p>Date: {item.date ? item.date.toDateString() : 'N/A'}</p>
-                                            <p>KMS Start Year: {item.kmsStartYear ? item.kmsStartYear.getFullYear() : 'N/A'}</p>
-                                            <p>KMS End Year: {item.kmsEndYear ? item.kmsEndYear.getFullYear() : 'N/A'}</p>
-                                            <button onClick={() => handleEdit(index)} className="btn btn-primary">Edit</button>
-                                        </MDBCard.Body>
-                                    </MDBCard>
-                                </MDBCol>
-                            ))}
-                        </MDBRow> */}
                     </MDBCard>
                 </MDBCol>
             </MDBRow>
