@@ -9,12 +9,12 @@ const exportToPDF = (data) => {
     const doc = new jsPDF();
     autoTable(doc, {
         head: [
-            ["Date", "KMS", "Region", "Godwon", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]
+            ["Date", "KMS", "Godwon", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]
         ],
         body: data.map(item => [
             item.date ? new Date(item.date).toLocaleDateString() : '',
             item.kms,
-            item.region,
+            // item.region,
             item.godwon,
             item.issueMemoNo,
             item.variety,
@@ -41,7 +41,7 @@ const GridView = ({ items }) => (
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Date</span> : {item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>KMS</span> : {item.kms}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Godwon</span> : {item.godwon}</p>
-                        <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Region</span> : {item.region}</p>
+                        {/* <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Region</span> : {item.region}</p> */}
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Variety</span> : {item.variety}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>% MC</span> : {item.moitureContent}</p>
                         <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Qty Nett</span> - Bags: {item.noOfBags}, Weight: {item.weight}</p>
@@ -63,7 +63,7 @@ const TableComponent = ({ data }) => {
         date: '',
         kms: '',
         godwon: '',
-        region:'',
+        // region:'',
         issueMemoNo: '',
         variety: '',
         moitureContent: '',
@@ -104,7 +104,7 @@ const TableComponent = ({ data }) => {
             (!filters.date || item.date === filters.date) &&
             (!filters.kms || item.kms === filters.kms) &&
             (!filters.godwon || item.godwon === filters.godwon) &&
-            (!filters.region || item.region === filters.region) &&
+            // (!filters.region || item.region === filters.region) &&
             (!filters.issueMemoNo || item.issueMemoNo === filters.issueMemoNo) &&
             (!filters.variety || item.variety === filters.variety) &&
             (!filters.moitureContent || item.moitureContent === filters.moitureContent) &&
@@ -146,13 +146,13 @@ const TableComponent = ({ data }) => {
     };
 
     // Handle filter selection from dropdown
-    const handleFilterSelect = (value) => {
-        if (currentFilterColumn && value !== undefined) {
-            handleFilterChange(currentFilterColumn, value);
-        }
-        //setFilters(currentFilterColumn[value]); 
-        toggleDropdown('');
-    };
+    // const handleFilterSelect = (value) => {
+    //     if (currentFilterColumn && value !== undefined) {
+    //         handleFilterChange(currentFilterColumn, value);
+    //     }
+    //     //setFilters(currentFilterColumn[value]); 
+    //     toggleDropdown('');
+    // };
 
     // Handle dropdown toggle
     const toggleDropdown = (column) => {
@@ -167,9 +167,16 @@ const TableComponent = ({ data }) => {
     };
 
     // Get unique values for dropdown options
-    const getUniqueValues = (column) => {
-        const values = new Set(data.map(item => item[column]).filter(Boolean));
-        return Array.from(values);
+    const getUniqueValues = (key) => {
+        // const values = new Set(data.map(item => item[column]).filter(Boolean));
+        // return Array.from(values);
+        const uniqueValues = [...new Set(data.map(item => item[key]))];
+        return uniqueValues;
+    };
+    const handleFilterSelect = (value) => {
+        setFilters(value);
+        const filteredItems = data.filter(item => item.lorryNo === value);
+        setCurrentFilterColumn(filteredItems);
     };
     const handleExportToPDF = () => {
         exportToPDF(currentItems);
@@ -179,26 +186,26 @@ const TableComponent = ({ data }) => {
     }
     const [editIndex, setEditIndex] = useState(null);
     const handleEdit = (id) =>{
-        alert(id)
+        //alert(id)
         // setEditIndex(index);
         // setFilters(data[index]); 
         navigate(`/edit/${id}`);
     }
-    const handleDelete = async (id) => {
-        // Send a delete request to the server
-        try {
-            const response = await fetch(`http://localhost:3001/paddyData/${id}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
+    // const handleDelete = async (id) => {
+    //     // Send a delete request to the server
+    //     try {
+    //         const response = await fetch(`http://localhost:3001/paddyData/${id}`, {
+    //             method: 'DELETE',
+    //         });
+    //         if (!response.ok) throw new Error('Network response was not ok');
 
-            // Update the state to remove the deleted item
-            setFilteredData(prevData => prevData.filter(item => item.id !== id));
-            applyFilters();
-        } catch (error) {
-            console.error('Error deleting data:', error);
-        }
-    };
+    //         // Update the state to remove the deleted item
+    //         setFilteredData(prevData => prevData.filter(item => item.id !== id));
+    //         applyFilters();
+    //     } catch (error) {
+    //         console.error('Error deleting data:', error);
+    //     }
+    // };
     return (
         <div className='container-fluid p-4'>
             <MDBRow>
@@ -207,7 +214,7 @@ const TableComponent = ({ data }) => {
                 </MDBCol>
                 <MDBCol md='6' className='my-3'>
                     <button onClick={() => setViewMode('table')} className={`btn btn-${viewMode === 'table' ? 'primary' : 'secondary'} mx-2 `}>Table View</button>
-                    <button onClick={() => setViewMode('grid')} className={`btn btn-${viewMode === 'grid' ? 'primary' : 'secondary'}`}>Grid View</button>
+                    {/* <button onClick={() => setViewMode('grid')} className={`btn btn-${viewMode === 'grid' ? 'primary' : 'secondary'}`}>Grid View</button> */}
                     <button onClick={handleExportToPDF} className="btn btn-light mx-2 btn-outline-primary">
                         <i className="fas fa-file-pdf"></i> Export to PDF
                     </button>
@@ -263,7 +270,7 @@ const TableComponent = ({ data }) => {
                                                 </MDBDropdown>
                                             </div>
                                         </th>
-                                        <th rowSpan="2" className='p-0'>
+                                        {/* <th rowSpan="2" className='p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>Region</span>
                                                 <MDBDropdown>
@@ -282,7 +289,7 @@ const TableComponent = ({ data }) => {
                                                     </MDBDropdownMenu>
                                                 </MDBDropdown>
                                             </div>
-                                        </th>
+                                        </th> */}
                                         <th rowSpan="2" className='p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>Godwon</span>
@@ -395,7 +402,7 @@ const TableComponent = ({ data }) => {
                                         <th className='qtyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>Bags</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -409,13 +416,13 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th className='qtyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>Weight</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -429,13 +436,13 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>NB</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -449,13 +456,13 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>ONB</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -469,13 +476,13 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>SS</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -489,13 +496,13 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th className='gunnyColorSub p-0'>
                                             <div className="d-flex align-items-center justify-content-center">
                                                 <span>SWP</span>
-                                                <MDBDropdown>
+                                                {/* <MDBDropdown>
                                                     <MDBDropdownToggle tag='a' className='btn p-0 ms-2'>
                                                         <i className="fas fa-filter"></i>
                                                     </MDBDropdownToggle>
@@ -509,7 +516,7 @@ const TableComponent = ({ data }) => {
                                                             </MDBDropdownItem>
                                                         ))}
                                                     </MDBDropdownMenu>
-                                                </MDBDropdown>
+                                                </MDBDropdown> */}
                                             </div>
                                         </th>
                                         <th>Actions</th>
@@ -520,7 +527,7 @@ const TableComponent = ({ data }) => {
                                         <tr key={index}>
                                             <td>{item.date ? new Date(item.date).toLocaleDateString() : ''}</td>
                                             <td>{item.kms}</td>
-                                            <td>{item.region}</td>
+                                            {/* <td>{item.region}</td> */}
                                             <td>{item.godwon}</td>
                                             <td>{item.issueMemoNo}</td>
                                             <td>{item.variety}</td>
@@ -533,8 +540,9 @@ const TableComponent = ({ data }) => {
                                             <td>{item.noOfSSBags}</td>
                                             <td>{item.noOfSWPBags}</td>
                                             <td>
-                                                <i className="fas fa-xs fa-pen p-1 " onClick={() => handleEdit(item.id)}></i>
-                                                <i className="fas fa-trash" onClick={() => handleDelete(item.id)}></i>
+                                                <i class="fas fa-arrow-right-long"onClick={() => handleEdit(item.id)}></i>
+                                                {/* <i className="fas fa-xs fa-pen p-1 " onClick={() => handleEdit(item.id)}></i> */}
+                                                {/* <i className="fas fa-trash" onClick={() => handleDelete(item.id)}></i> */}
                                             </td>
                                         </tr>
                                     ))}
