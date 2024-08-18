@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom'; // Add for navigation
-
+import './rice.css';
 const RiceTable = () => {
     const [ricedata, setRiceData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
@@ -24,17 +24,10 @@ const RiceTable = () => {
         weightOfFRK: '',
         adNo: '',
         adDate: '',
-        qcMoitureContent: '',
-        qcNo: '',
-        qcDeHUsted: '',
-        qcfrk: '',
         lorryNo: '',
-        noOfONBBags: '',
-        noOfSSBags: '',
-        noOfSWPBags: ''
     });
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 30;
     const navigate = useNavigate(); // Initialize useNavigate
 
     // Fetch data from server
@@ -85,7 +78,7 @@ const RiceTable = () => {
     const generatePDF = () => {
         const doc = new jsPDF();
         doc.autoTable({
-            head: [['Date', 'Truck Memo No', 'Variety', 'No Of Bags', 'Weight Of Rice', 'Weight Of Rice With FRK', 'Weight Of FRK', 'AD No', 'AD Date', 'QC Moiture Content', 'QC No', 'QC De HUsted', 'QC FRK', 'Lorry No', 'No Of ONB Bags', 'No Of SS Bags', 'No Of SWP Bags']],
+            head: [['Date', 'Truck', 'Variety', 'No Of Bags', 'Weight Of Rice', 'Weight Of Rice With FRK', 'Weight Of FRK', 'AD No', 'AD Date', 'Lorry No']],
             body: filteredData.map(item => [
                 item.date || '',
                 item.truckMemoNo || '',
@@ -96,14 +89,7 @@ const RiceTable = () => {
                 item.weightOfFRK || '',
                 item.adNo || '',
                 item.adDate || '',
-                item.qcMoitureContent || '',
-                item.qcNo || '',
-                item.qcDeHUsted || '',
-                item.qcfrk || '',
                 item.lorryNo || '',
-                item.noOfONBBags || '',
-                item.noOfSSBags || '',
-                item.noOfSWPBags || ''
             ]),
         });
         doc.save('data.pdf');
@@ -129,7 +115,9 @@ const RiceTable = () => {
     const handleAddDataClick = () => {
         navigate('/add-data'); // Replace with the actual route for adding data
     };
-
+    const handleEdit = (id) =>{
+        navigate(`/edit/${id}`);
+    }
     return (
         <div className="mt-4 container-fluid p-4">
             <MDBRow>
@@ -143,8 +131,8 @@ const RiceTable = () => {
                     </InputGroup>
                 </MDBCol>
                 <MDBCol md='6' className='my-3 text-end'>
-                <Button variant="primary" onClick={generatePDF}>Download PDF</Button>
-                <Button variant="success" onClick={handleAddDataClick} className="ms-2 mx-2">Add Data</Button>
+                    <Button variant="primary" onClick={generatePDF}>Download PDF</Button>
+                    <Button variant="success" onClick={handleAddDataClick} className="ms-2 mx-2">Add Data</Button>
                     <Button variant="info" onClick={() => toggleViewMode('table')}>Table View</Button>
                     <Button variant="info" onClick={() => toggleViewMode('grid')} className="ms-2">Grid View</Button>
                 </MDBCol>
@@ -156,24 +144,167 @@ const RiceTable = () => {
                         <MDBTable striped bordered hover responsive>
                             <MDBTableHead>
                                 <tr>
-                                    {Object.keys(filters).map((key) => (
-                                        <th key={key} className="px-2 fs-6">
-                                            {key.replace(/([A-Z])/g, ' $1').toUpperCase()}
+                                    <th className="px-2 fs-6">
+                                            Date
                                             <DropdownButton
                                                 variant="link"
-                                                id={`dropdown-${key}`}
-                                                title={<i className="fas fa-filter"></i>} // Filter icon
+                                                id="dropdown-date"
+                                                title={<i className="fas fa-filter"></i>}
                                                 className="float-end"
                                             >
-                                                <Dropdown.Item onClick={() => handleFilterChange(key, '')}>All</Dropdown.Item>
-                                                {Array.from(new Set(ricedata.map(item => item[key]))).map((value, index) => (
-                                                    <Dropdown.Item key={index} onClick={() => handleFilterChange(key, value)}>
+                                                <Dropdown.Item onClick={() => handleFilterChange('date', '')}>All</Dropdown.Item>
+                                                {Array.from(new Set(ricedata.map(item => item.date))).map((value, index) => (
+                                                    <Dropdown.Item key={index} onClick={() => handleFilterChange('date', value)}>
                                                         {value}
                                                     </Dropdown.Item>
                                                 ))}
                                             </DropdownButton>
-                                        </th>
-                                    ))}
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Truck Memo
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-truckMemoNo"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('truckMemoNo', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.truckMemoNo))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('truckMemoNo', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Variety
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-variety"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                       Bags
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-noOfBags"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('noOfBags', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.noOfBags))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfBags', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Rice
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-weightOfRice"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfRice', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.weightOfRice))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfRice', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Weight 
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-weightOfRiceWithFRK"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfRiceWithFRK', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.weightOfRiceWithFRK))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfRiceWithFRK', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        FRK
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-weightOfFRK"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfFRK', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.weightOfFRK))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfFRK', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        AD Number
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-adNo"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('adNo', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.adNo))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('adNo', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Date
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-adDate"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('adDate', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.adDate))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('adDate', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">
+                                        Lorry No
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-lorryNo"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('lorryNo', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.lorryNo))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('lorryNo', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th className="px-2 fs-6">Actions</th>
                                 </tr>
                             </MDBTableHead>
                             <MDBTableBody>
@@ -188,14 +319,10 @@ const RiceTable = () => {
                                         <td>{item.weightOfFRK || ''}</td>
                                         <td>{item.adNo || ''}</td>
                                         <td>{item.adDate || ''}</td>
-                                        <td>{item.qcMoitureContent || ''}</td>
-                                        <td>{item.qcNo || ''}</td>
-                                        <td>{item.qcDeHUsted || ''}</td>
-                                        <td>{item.qcfrk || ''}</td>
                                         <td>{item.lorryNo || ''}</td>
-                                        <td>{item.noOfONBBags || ''}</td>
-                                        <td>{item.noOfSSBags || ''}</td>
-                                        <td>{item.noOfSWPBags || ''}</td>
+                                        <td>
+                                            <i class="fas fa-arrow-right-long"onClick={() => handleEdit(item.id)}></i>
+                                        </td>
                                     </tr>
                                 ))}
                             </MDBTableBody>
@@ -205,7 +332,7 @@ const RiceTable = () => {
             ) : (
                 <MDBRow className="mt-2 g-0">
                     {currentData.map((item, index) => (
-                        <MDBCol md="4" key={index} className="mb-3">
+                        <MDBCol md="3" key={index} className="mb-3">
                             <MDBCard>
                                 <MDBCardBody>
                                     <h5>Date: {item.date || ''}</h5>
@@ -217,14 +344,7 @@ const RiceTable = () => {
                                     <p>Weight Of FRK: {item.weightOfFRK || ''}</p>
                                     <p>AD No: {item.adNo || ''}</p>
                                     <p>AD Date: {item.adDate || ''}</p>
-                                    <p>QC Moiture Content: {item.qcMoitureContent || ''}</p>
-                                    <p>QC No: {item.qcNo || ''}</p>
-                                    <p>QC De HUsted: {item.qcDeHUsted || ''}</p>
-                                    <p>QC FRK: {item.qcfrk || ''}</p>
                                     <p>Lorry No: {item.lorryNo || ''}</p>
-                                    <p>No Of ONB Bags: {item.noOfONBBags || ''}</p>
-                                    <p>No Of SS Bags: {item.noOfSSBags || ''}</p>
-                                    <p>No Of SWP Bags: {item.noOfSWPBags || ''}</p>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
@@ -256,3 +376,6 @@ const RiceTable = () => {
 };
 
 export default RiceTable;
+
+
+
