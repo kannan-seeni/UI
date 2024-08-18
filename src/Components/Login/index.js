@@ -85,8 +85,8 @@ const Login = ({ setIsAuthenticated }) => {
                 <MDBCol md='6'>
                     <form onSubmit={handleSubmit}>
                         <MDBContainer>
-                            <MDBRow className='g-0'>
-                                <MDBCol md='12'>
+                            <MDBRow className='g-0 justify-content-center'>
+                                <MDBCol md='8'>
                                     <h4 className="text-white mb-4">TN Hulling Management System</h4>
                                     <MDBCard className='mx-2 mb-2 p-2 shadow-5 borderColor'>
                                         <MDBCardBody className='text-black d-flex flex-column justify-content-center'>
@@ -94,7 +94,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                 <div className="text-danger mb-2">{loginError}</div>
                                             )}
                                             <div className='col-md-12'>
-                                                <label htmlFor="email" className="form-label-text form-label float-start fst-italic fw-bold">Email</label>
+                                                <label htmlFor="email" className="form-label-text text-white form-label float-start fst-italic fw-bold">Email</label>
                                                 <input
                                                     type="email"
                                                     id="email"
@@ -110,7 +110,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                 )}
                                             </div>
                                             <div className='col-md-12 mt-3'>
-                                                <label htmlFor="password" className="form-label-text form-label float-start fst-italic fw-bold">Password</label>
+                                                <label htmlFor="password" className="form-label-text text-white form-label float-start fst-italic fw-bold">Password</label>
                                                 <input
                                                     type="password"
                                                     id="password"
@@ -125,7 +125,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                     </div>
                                                 )}
                                             </div>
-                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-25 m-auto">Login</button>
+                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-100 m-auto">Login</button>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>
