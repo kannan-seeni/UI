@@ -49,8 +49,8 @@
     overflow: hidden;
 }
 .borderColor{
-    background-color: transparent;
-    border: 2px solid #d8cd9c;
+    background-color: transparent !important;
+    border: 2px solid #d8cd9c !important;
     border-top-right-radius: unset !important;
     border-bottom-left-radius: unset !important;
     border-top-left-radius: 70px !important;

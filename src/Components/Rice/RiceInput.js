@@ -192,7 +192,7 @@ const Rice = ({ onSubmit }) => {
     };
 
     return (
-        <MDBContainer fluid className='p-0'>
+        <MDBContainer fluid className='p-0 bgImg'>
             <MDBRow className='d-flex h-100 p-4'>
                 {/* <MDBCol md='4' className="d-none d-md-block text-center">
                     <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />

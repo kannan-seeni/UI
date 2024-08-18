@@ -12,8 +12,8 @@
   .form-control.disabled {
     background-color: #e9ecef;
   }
-  body {
-    background: url('./../../assets//rice-bags.jpg') no-repeat center center fixed;
+  .bgImg {
+    background: url('./../../assets/rice-bags.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
