@@ -101,7 +101,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                     name="email"
                                                     value={formValues.email}
                                                     onChange={handleChange}
-                                                    className={`form-control fst-italic fw-bold ${errors.email ? 'is-invalid' : ''}`}
+                                                    className={`form-control fst-italic fw-bold text-white ${errors.email ? 'is-invalid' : ''}`}
                                                 />
                                                 {errors.email && (
                                                     <div className="invalid-feedback">
@@ -117,7 +117,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                     name="password"
                                                     value={formValues.password}
                                                     onChange={handleChange}
-                                                    className={`form-control fst-italic fw-bold ${errors.password ? 'is-invalid' : ''}`}
+                                                    className={`form-control fst-italic fw-bold text-white ${errors.password ? 'is-invalid' : ''}`}
                                                 />
                                                 {errors.password && (
                                                     <div className="invalid-feedback">
@@ -125,7 +125,7 @@ const Login = ({ setIsAuthenticated }) => {
                                                     </div>
                                                 )}
                                             </div>
-                                            <button type="submit" className="loginBtn btn btn-success mt-3 w-100 m-auto">Login</button>
+                                            <button type="submit" className="loginBtn btn btn-success mt-5 w-100 m-auto">Login</button>
                                         </MDBCardBody>
                                     </MDBCard>
                                 </MDBCol>

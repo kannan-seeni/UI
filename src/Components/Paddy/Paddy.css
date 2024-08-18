@@ -28,3 +28,33 @@
 .loginBtn:hover {
     background-color: #218838;
 }
+
+.qtyColor{
+    background-color: #8db4e2 !important;
+}
+.qtyColorSub{
+    background-color: #c5d9f1 !important;
+}
+.gunnyColor{
+    background-color: #e5b8b7 !important;
+}
+.gunnyColorSub{background-color: #f2dbdb !important;}
+thead th{
+    background-color: #fde9d9 !important;
+    font-weight: bold !important;
+}
+tbody tr td{
+    padding: 4px !important;
+}
+.bgImgPaddy {
+    background: url('./../../assets/paddy.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 90vh;
+    overflow: hidden;
+}
+.bgColor{
+    background: rgba(255, 255, 255, 0.8) !important; /* Translucent white background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    border-radius: 8px; /* Optional: rounded corners */
+    padding: 20px; /* Optional: spacing inside the card */
+}

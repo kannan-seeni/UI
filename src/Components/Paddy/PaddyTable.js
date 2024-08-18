@@ -5,9 +5,9 @@ import ReactPaginate from 'react-paginate';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { useNavigate } from 'react-router-dom'; // Add for navigation
-import './rice.css';
-const RiceTable = () => {
-    const [ricedata, setRiceData] = useState([]);
+// import './rice.css';
+const PaddyTable = ({data}) => {
+    const [paddydata, setPaddyData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
@@ -16,15 +16,18 @@ const RiceTable = () => {
     // State for filters
     const [filters, setFilters] = useState({
         date: '',
-        truckMemoNo: '',
+        kms: '',
+        godwon: '',
+        issueMemoNo: '',
         variety: '',
+        moitureContent: '',
         noOfBags: '',
-        weightOfRice: '',
-        weightOfRiceWithFRK: '',
-        weightOfFRK: '',
-        adNo: '',
-        adDate: '',
+        weight: '',
         lorryNo: '',
+        noOfNBBags: '',
+        noOfONBBags: '',
+        noOfSSBags: '',
+        noOfSWPBags: ''
     });
 
     const itemsPerPage = 30;
@@ -32,10 +35,10 @@ const RiceTable = () => {
     // Fetch data from server
     const fetchData = async () => {
         try {
-            const response = await fetch('http://localhost:3001/riceData');
+            const response = await fetch('http://localhost:3001/paddyData');
             if (!response.ok) throw new Error('Network response was not ok');
             const data = await response.json();
-            setRiceData(data);
+            setPaddyData(data);
             //setFilters(data);
             setFilteredData(data);
         } catch (error) {
@@ -62,7 +65,7 @@ const RiceTable = () => {
 
     // Filter data based on search term and filter values
     useEffect(() => {
-        const filtered = ricedata.filter(item =>
+        const filtered = paddydata.filter(item =>
             Object.keys(filters).every(key =>
                 !filters[key] || item[key] === filters[key]
             ) &&
@@ -72,27 +75,30 @@ const RiceTable = () => {
         );
         setFilteredData(filtered);
         setCurrentPage(0); // Reset to first page on search or filter
-    }, [searchTerm, filters, ricedata]);
+    }, [searchTerm, filters, paddydata]);
 
     // Generate PDF
     const generatePDF = () => {
         const doc = new jsPDF();
         doc.autoTable({
-            head: [['Date', 'Truck', 'Variety', 'No Of Bags', 'Weight Of Rice', 'Weight Of Rice With FRK', 'Weight Of FRK', 'AD No', 'AD Date', 'Lorry No']],
+            head: [["Date", "KMS", "Godwon", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]],
             body: filteredData.map(item => [
                 item.date || '',
-                item.truckMemoNo || '',
+                item.kms || '',
+                item.godwon || '',
+                item.issueMemoNo || '',
                 item.variety || '',
+                item.moitureContent || '',
                 item.noOfBags || '',
-                item.weightOfRice || '',
-                item.weightOfRiceWithFRK || '',
-                item.weightOfFRK || '',
-                item.adNo || '',
-                item.adDate || '',
+                item.weight || '',
                 item.lorryNo || '',
+                item.noOfNBBags || '',
+                item.noOfONBBags || '',
+                item.noOfSSBags || '',
+                item.noOfSWPBags || ''
             ]),
         });
-        doc.save('ricedata.pdf');
+        doc.save('paddyTable.pdf');
     };
 
     // Pagination logic
@@ -113,11 +119,11 @@ const RiceTable = () => {
 
     // Navigate to add data form
     const handleAddRiceClick = () => {
-        navigate('/rice'); // Replace with the actual route for adding data
+        navigate('/paddy'); // Replace with the actual route for adding data
     };
     const handleEdit = (id) => {
-        alert(navigate(`/riceEdit/${id}`))
-        // navigate(`/edit/${id}`);
+        //alert(navigate(`/riceEdit/${id}`))
+        navigate(`/edit/${id}`);
     }
     return (
         <div className="mt-4 container-fluid p-4">
@@ -133,7 +139,7 @@ const RiceTable = () => {
                 </MDBCol>
                 <MDBCol md='6' className='my-3 text-end'>
                     <Button variant="primary" onClick={generatePDF}>Download PDF</Button>
-                    <Button variant="success" onClick={handleAddRiceClick} className="ms-2 mx-2">Add Rice</Button>
+                    <Button variant="success" onClick={handleAddRiceClick} className="ms-2 mx-2">Add Paddy</Button>
                     {/* <Button variant="info" onClick={() => toggleViewMode('table')}>Table View</Button>
                     <Button variant="info" onClick={() => toggleViewMode('grid')} className="ms-2">Grid View</Button> */}
                 </MDBCol>
@@ -154,7 +160,7 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('date', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.date))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.date))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('date', value)}>
                                                     {value}
                                                 </Dropdown.Item>
@@ -162,16 +168,48 @@ const RiceTable = () => {
                                         </DropdownButton>
                                     </th>
                                     <th rowSpan="2" className="px-2 fs-6">
-                                        Truck Memo
+                                        KMS
                                         <DropdownButton
                                             variant="link"
-                                            id="dropdown-truckMemoNo"
+                                            id="dropdown-kms"
                                             title={<i className="fas fa-filter"></i>}
                                             className="float-end"
                                         >
-                                            <Dropdown.Item onClick={() => handleFilterChange('truckMemoNo', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.truckMemoNo))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('truckMemoNo', value)}>
+                                            <Dropdown.Item onClick={() => handleFilterChange('kms', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.kms))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('kms', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th rowSpan="2" className="px-2 fs-6">
+                                         Godwon
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-godwon"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('godwon', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.godwon))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('godwon', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th rowSpan="2" className="px-2 fs-6">
+                                         Issue Memo No
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-issueMemoNo"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('issueMemoNo', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.issueMemoNo))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('issueMemoNo', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
@@ -186,49 +224,33 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th colSpan="4" className="gunnyColor text-center p-0">
+                                    <th rowSpan="2" className="px-2 fs-6">
+                                     % MC
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-moitureContent"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('moitureContent', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.moitureContent))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('moitureContent', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th colSpan="2" className="gunnyColor text-center p-0">
                                         <div className="d-flex align-items-center justify-content-center">
                                             Qty Nett
                                         </div>
-                                    </th>
-                                    <th rowSpan="2" className="px-2 fs-6">
-                                        AD Number
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-adNo"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('adNo', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.adNo))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('adNo', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
-                                    </th>
-                                    <th rowSpan="2" className="px-2 fs-6">
-                                        AD Date
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-adDate"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('adDate', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.adDate))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('adDate', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
                                     </th>
                                     <th rowSpan="2" className="px-2 fs-6">
                                         Lorry No
@@ -239,17 +261,12 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('lorryNo', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.lorryNo))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.lorryNo))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('lorryNo', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
-                                    </th>
-                                    <th colSpan="4" className="gunnyColor text-center p-0">
-                                        <div className="d-flex align-items-center justify-content-center">
-                                           QC
-                                        </div>
                                     </th>
                                     <th colSpan="4" className="gunnyColor text-center p-0">
                                         <div className="d-flex align-items-center text-center justify-content-center">
@@ -258,7 +275,7 @@ const RiceTable = () => {
                                     </th>
                                 </tr>
                                 <tr>
-                                    <th className="px-2 fs-6">
+                                    <th className="qtyColorSub px-2 fs-6">
                                         Bags
                                         <DropdownButton
                                             variant="link"
@@ -267,126 +284,47 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('noOfBags', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.noOfBags))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.noOfBags))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfBags', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
-                                    </th>  
-                                    <th className="px-2 fs-6">
-                                        Rice
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-weightOfRice"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfRice', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.weightOfRice))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfRice', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">
+                                   
+                                    <th className="qtyColorSub px-2 fs-6">
                                         Weight
                                         <DropdownButton
                                             variant="link"
-                                            id="dropdown-weightOfRiceWithFRK"
+                                            id="dropdown-weight"
                                             title={<i className="fas fa-filter"></i>}
                                             className="float-end"
                                         >
-                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfRiceWithFRK', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.weightOfRiceWithFRK))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfRiceWithFRK', value)}>
+                                            <Dropdown.Item onClick={() => handleFilterChange('weight', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.weight))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weight', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">
-                                        FRK
+                                    <th className="gunnyColorSub px-2 fs-6">
+                                    NB
                                         <DropdownButton
                                             variant="link"
-                                            id="dropdown-weightOfFRK"
+                                            id="dropdown-noOfNBBags"
                                             title={<i className="fas fa-filter"></i>}
                                             className="float-end"
                                         >
-                                            <Dropdown.Item onClick={() => handleFilterChange('weightOfFRK', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.weightOfFRK))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('weightOfFRK', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
-                                    </th>  
-                                    <th className="px-2 fs-6">
-                                        Moisture
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-qcMoitureContent"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('qcMoitureContent', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.qcMoitureContent))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('qcMoitureContent', value)}>
+                                            <Dropdown.Item onClick={() => handleFilterChange('noOfNBBags', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.noOfNBBags))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfNBBags', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">
-                                        Number
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-qcNo"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('qcNo', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.qcNo))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('qcNo', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
-                                    </th>
-                                    <th className="px-2 fs-6">
-                                        De HUsted
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-qcDeHUsted"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('qcDeHUsted', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.qcDeHUsted))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('qcDeHUsted', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
-                                    </th>
-                                    <th className="px-2 fs-6">
-                                        FRK
-                                        <DropdownButton
-                                            variant="link"
-                                            id="dropdown-qcfrk"
-                                            title={<i className="fas fa-filter"></i>}
-                                            className="float-end"
-                                        >
-                                            <Dropdown.Item onClick={() => handleFilterChange('qcfrk', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.qcfrk))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('qcfrk', value)}>
-                                                    {value}
-                                                </Dropdown.Item>
-                                            ))}
-                                        </DropdownButton>
-                                    </th>
-                                    <th className="px-2 fs-6">
+                                    <th className="gunnyColorSub px-2 fs-6">
                                         ONB
                                         <DropdownButton
                                             variant="link"
@@ -395,14 +333,14 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('noOfONBBags', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.noOfONBBags))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.noOfONBBags))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfONBBags', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">
+                                    <th className="gunnyColorSub px-2 fs-6">
                                         SS
                                         <DropdownButton
                                             variant="link"
@@ -411,14 +349,14 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('noOfSSBags', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.noOfSSBags))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.noOfSSBags))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfSSBags', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">
+                                    <th className="gunnyColorSub px-2 fs-6">
                                         SWP
                                         <DropdownButton
                                             variant="link"
@@ -427,36 +365,33 @@ const RiceTable = () => {
                                             className="float-end"
                                         >
                                             <Dropdown.Item onClick={() => handleFilterChange('noOfSWPBags', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.noOfSWPBags))).map((value, index) => (
+                                            {Array.from(new Set(paddydata.map(item => item.noOfSWPBags))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('noOfSWPBags', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">Actions</th>    
+                                    <th className="px-2 fs-6">Actions</th>
                                 </tr>
                             </MDBTableHead>
                             <MDBTableBody>
                                 {currentData.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.date || ''}</td>
-                                        <td>{item.truckMemoNo || ''}</td>
-                                        <td>{item.variety || ''}</td>
-                                        <td>{item.noOfBags || ''}</td>
-                                        <td>{item.weightOfRice || ''}</td>
-                                        <td>{item.weightOfRiceWithFRK || ''}</td>
-                                        <td>{item.weightOfFRK || ''}</td>
-                                        <td>{item.adNo || ''}</td>
-                                        <td>{item.adDate || ''}</td>
-                                        <td>{item.lorryNo || ''}</td>
-                                        <td>{item.qcMoitureContent || ''}</td>
-                                        <td>{item.qcNo || ''}</td>
-                                        <td>{item.qcDeHUsted || ''}</td>
-                                        <td>{item.qcfrk || ''}</td>
-                                        <td>{item.noOfONBBags || ''}</td>
-                                        <td>{item.noOfSSBags || ''}</td>
-                                        <td>{item.noOfSWPBags || ''}</td>
+                                        <td>{item.date ? new Date(item.date).toLocaleDateString() : ''}</td>
+                                        <td>{item.kms}</td>
+                                        {/* <td>{item.region}</td> */}
+                                        <td>{item.godwon}</td>
+                                        <td>{item.issueMemoNo}</td>
+                                        <td>{item.variety}</td>
+                                        <td>{item.moitureContent}</td>
+                                        <td>{item.noOfBags}</td>
+                                        <td>{item.weight}</td>
+                                        <td>{item.lorryNo}</td>
+                                        <td>{item.noOfNBBags}</td>
+                                        <td>{item.noOfONBBags}</td>
+                                        <td>{item.noOfSSBags}</td>
+                                        <td>{item.noOfSWPBags}</td>
                                         <td>
                                             <i class="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                         </td>
@@ -472,16 +407,16 @@ const RiceTable = () => {
                         <MDBCol md="3" key={index} className="mb-3">
                             <MDBCard>
                                 <MDBCardBody>
-                                    <h5>Date: {item.date || ''}</h5>
-                                    <p>Truck Memo No: {item.truckMemoNo || ''}</p>
-                                    <p>Variety: {item.variety || ''}</p>
-                                    <p>No Of Bags: {item.noOfBags || ''}</p>
-                                    <p>Weight Of Rice: {item.weightOfRice || ''}</p>
-                                    <p>Weight Of Rice With FRK: {item.weightOfRiceWithFRK || ''}</p>
-                                    <p>Weight Of FRK: {item.weightOfFRK || ''}</p>
-                                    <p>AD No: {item.adNo || ''}</p>
-                                    <p>AD Date: {item.adDate || ''}</p>
-                                    <p>Lorry No: {item.lorryNo || ''}</p>
+                                    <h5 className='card-title'>{item.issueMemoNo}</h5>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Date</span> : {item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>KMS</span> : {item.kms}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Godwon</span> : {item.godwon}</p>
+                                    {/* <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Region</span> : {item.region}</p> */}
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Variety</span> : {item.variety}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>% MC</span> : {item.moitureContent}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Qty Nett</span> - Bags: {item.noOfBags}, Weight: {item.weight}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Gunny Condition</span> - NB: {item.noOfNBBags}, ONB: {item.noOfONBBags}, SS: {item.noOfSSBags}, SWP: {item.noOfSWPBags}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Lorry No</span> : {item.lorryNo}</p>
                                 </MDBCardBody>
                             </MDBCard>
                         </MDBCol>
@@ -512,7 +447,4 @@ const RiceTable = () => {
     );
 };
 
-export default RiceTable;
-
-
-
+export default PaddyTable;

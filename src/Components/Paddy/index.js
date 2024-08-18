@@ -203,14 +203,13 @@ const Paddy = ({ onSubmit }) => {
     //     }
     // }
     return (
-        <MDBContainer fluid className='p-0'>
+        <MDBContainer fluid className='p-0 bgImgPaddy'>
             <MDBRow className='d-flex h-100 p-4'>
-                <MDBCol md='4' className="d-none d-md-block text-center">
+                {/* <MDBCol md='4' className="d-none d-md-block text-center">
                     <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />
-                </MDBCol>
-                <MDBCol md='8'>
-                    <MDBCard className='cardBGImg p-4'>
-                        <form onSubmit={handleSubmitPaddy}>
+                </MDBCol> */}
+                <MDBCol md='12'>
+                <form onSubmit={handleSubmitPaddy} className='bgColor'>
                             <MDBRow className='g-4'>
                                 {/* <MDBCol md='4'>
                                     <label htmlFor="date-range" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Date Range</label>
@@ -442,9 +441,8 @@ const Paddy = ({ onSubmit }) => {
                                     </div>
                                 </MDBCol>
                             </MDBRow>
-                            <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Add Data</button>
+                            <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Add Paddy</button>
                         </form>
-                    </MDBCard>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
