@@ -12,3 +12,17 @@
   .form-control.disabled {
     background-color: #e9ecef;
   }
+  body {
+    background: url('./../../assets//rice-bags.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.cardBGImg {
+    background: rgba(255, 255, 255, 0.8); /* Light background for readability */
+}
+.bgColor{
+    background: rgba(255, 255, 255, 0.8); /* Translucent white background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow effect */
+    border-radius: 8px; /* Optional: rounded corners */
+    padding: 20px; /* Optional: spacing inside the card */
+}
