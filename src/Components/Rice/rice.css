@@ -26,3 +26,13 @@
     border-radius: 8px; /* Optional: rounded corners */
     padding: 20px; /* Optional: spacing inside the card */
 }
+.form-control ,.form-outline .form-control{
+    /* border: 1px solid green !important; */
+    background-color: transparent !important;
+}
+.form-outline .input-invalid{
+    border: 2px solid #dc4c64 !important;
+}
+/* .form-outline .form-control{
+    border: 2px solid green !important;
+} */
