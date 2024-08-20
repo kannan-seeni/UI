@@ -37,3 +37,17 @@ tbody tr td{
     opacity: 1;
     visibility: visible;
 }
+.navBar .nav-item{
+    margin-right: 12px;
+}
+.navBar .nav-link{
+    font-weight: bold;
+    color: #000 !important;
+}
+.navBar .nav-link.active{
+    font-weight: bold;
+    color: green !important;
+    border: 1px solid #fff;
+    border-top-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
