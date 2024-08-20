@@ -495,8 +495,8 @@ const RiceTable = () => {
                                         <td>{item.godwon || ''}</td>
                                         <td>{item.truckMemoNo || ''}</td>
                                         <td>{item.variety || ''}</td>
-                                        <td>{item.variety || ''}</td>
-                                        <td>{item.variety || ''}</td>
+                                        <td>1%</td>{/* <td>{item.frk || ''}</td> */}
+                                        <td>68%</td> {/* <td>{item.outTurn || ''}</td> */}
                                         <td>{item.noOfBags || ''}</td>
                                         <td>{item.weightOfFRK || ''}</td>
                                         <td>{item.weightOfRice || ''}</td>

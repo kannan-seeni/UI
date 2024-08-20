@@ -42,11 +42,11 @@ tbody tr td{
 }
 .navBar .nav-link{
     font-weight: bold;
-    color: #000 !important;
+    color: #fff !important;
 }
 .navBar .nav-link.active{
     font-weight: bold;
-    color: green !important;
+    color: #ffff00 !important;
     border: 1px solid #fff;
     border-top-left-radius: 12px;
     border-bottom-right-radius: 12px;
