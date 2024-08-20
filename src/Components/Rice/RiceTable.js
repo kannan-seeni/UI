@@ -222,7 +222,7 @@ const RiceTable = () => {
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
                                             {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
-                                                    {value}
+                                                   1% {/* {value} */}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
@@ -238,7 +238,7 @@ const RiceTable = () => {
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
                                             {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
-                                                    {value}
+                                                   68% {/* {value} */}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
