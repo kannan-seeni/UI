@@ -11,6 +11,7 @@ const RiceEditForm = () => {
         kmsStartYear: null,
         kmsEndYear: null,
         region: '',
+        truckMemoNo: '',
         godwon: '',
         issueMemoNo: '',
         variety: '',
@@ -62,7 +63,12 @@ const RiceEditForm = () => {
             date: date
         }));
     };
-
+    const handleADDateChange = (adDate) => {
+        setFormValues(prevState => ({
+            ...prevState,
+            adDate
+        }));
+    };
     const handleStartDateChange = (date) => {
         setFormValues(prevValues => ({
             ...prevValues,
@@ -113,236 +119,369 @@ const RiceEditForm = () => {
     const handleCancel = () => {
         navigate('/riceTable');
     };
-    
+
     const toggleEditMode = () => {
         setEditMode(prevMode => !prevMode);
     };
 
     return (
-        <MDBContainer fluid className='p-0'>
+        <MDBContainer fluid className='p-0 bgImg'>
             <MDBRow className='d-flex h-100 p-4'>
-                <MDBCol md='4' className="d-none d-md-block text-center">
+                {/* <MDBCol md='4' className="d-none d-md-block text-center">
                     <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />
-                </MDBCol>
-                <MDBCol md='8'>
-                    <MDBCard className='cardBGImg p-4'>
-                        <form onSubmit={handleSubmitPaddy}>
-                            <MDBRow className='g-4'>
-                                <MDBCol md='2'>
-                                    <label htmlFor="date" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Date</label>
-                                    <DatePicker
-                                        selected={formValues.date}
-                                        onChange={handleDateChange}
-                                        dateFormat="MM/dd/yyyy"
-                                        className={`form-control ${errors.date ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.date && <span className="text-danger fontSize">{errors.date}</span>}
-                                </MDBCol>
-                                <MDBCol md='4'>
-                                    <label htmlFor="kmsStartYear" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS Start Year</label>
-                                    <DatePicker
-                                        selected={formValues.kmsStartYear}
-                                        onChange={handleStartDateChange}
-                                        placeholderText="Start Year"
-                                        showYearPicker
-                                        dateFormat="yyyy"
-                                        className={`form-control ${errors.kmsStartYear ? 'input-invalid' : ''}`}
-                                        maxDate={new Date()}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.kmsStartYear && <span className="text-danger fontSize">{errors.kmsStartYear}</span>}
-                                </MDBCol>
-                                <MDBCol md='4'>
-                                    <label htmlFor="kmsEndYear" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS End Year</label>
-                                    <DatePicker
-                                        selected={formValues.kmsEndYear}
-                                        onChange={handleEndDateChange}
-                                        placeholderText="End Year"
-                                        showYearPicker
-                                        dateFormat="yyyy"
-                                        className={`form-control ${errors.kmsEndYear ? 'input-invalid' : ''}`}
-                                        maxDate={new Date()}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.kmsEndYear && <span className="text-danger fontSize">{errors.kmsEndYear}</span>}
-                                </MDBCol>
-                                <MDBCol md='6'>
-                                    <label htmlFor="region" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Region</label>
-                                    <select
-                                        id="region"
-                                        name="region"
-                                        value={formValues.region}
-                                        onChange={handleChange}
-                                        className={`form-control ${errors.region ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    >
-                                        <option value="">Select Region</option>
-                                        <option value="Madurai">Madurai</option>
-                                        <option value="Tiruchirappalli">Tiruchirappalli</option>
-                                        <option value="Thanjavur">Thanjavur</option>
-                                    </select>
-                                    {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
-                                </MDBCol>
-                                <MDBCol md='6'>
-                                    <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
-                                    <select
-                                        id="godwon"
-                                        name="godwon"
-                                        value={formValues.godwon}
-                                        onChange={handleChange}
-                                        className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    >
-                                        <option value="">Select Godwon</option>
-                                        <option value="RailHead">RailHead</option>
-                                        <option value="MRM">MRM</option>
-                                        <option value="PANDIYARAJAPURAM">PANDIYARAJAPURAM</option>
-                                        <option value="THIRUVATHAVUR">THIRUVATHAVUR</option>
-                                    </select>
-                                    {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-5 pt-1'>
-                                    <MDBInput
-                                        value={formValues.issueMemoNo}
-                                        name='issueMemoNo'
-                                        onChange={handleChange}
-                                        id='issueMemoNo'
-                                        label='Issue Memo No'
-                                        className={`form-control ${errors.issueMemoNo ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.issueMemoNo && <span className="text-danger fontSize">{errors.issueMemoNo}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="variety" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Variety</label>
-                                    <select
-                                        id="variety"
-                                        name="variety"
-                                        value={formValues.variety}
-                                        onChange={handleChange}
-                                        className={`form-control ${errors.variety ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    >
-                                        <option value="">Select Variety</option>
-                                        <option value="Samba">Samba</option>
-                                        <option value="Thaladi">Thaladi</option>
-                                    </select>
-                                    {errors.variety && <span className="text-danger fontSize">{errors.variety}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="moitureContent" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Moisture Content (%)</label>
-                                    <MDBInput
-                                        value={formValues.moitureContent}
-                                        name='moitureContent'
-                                        onChange={handleChange}
-                                        id='moitureContent'
-                                        className={`form-control ${errors.moitureContent ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.moitureContent && <span className="text-danger fontSize">{errors.moitureContent}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="noOfBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">No of Bags</label>
-                                    <MDBInput
-                                        value={formValues.noOfBags}
-                                        name='noOfBags'
-                                        onChange={handleChange}
-                                        id='noOfBags'
-                                        className={`form-control ${errors.noOfBags ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="weight" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Weight</label>
-                                    <MDBInput
-                                        value={formValues.weight}
-                                        name='weight'
-                                        onChange={handleChange}
-                                        id='weight'
-                                        className={`form-control ${errors.weight ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.weight && <span className="text-danger fontSize">{errors.weight}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="lorryNo" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Lorry No</label>
-                                    <MDBInput
-                                        value={formValues.lorryNo}
-                                        name='lorryNo'
-                                        onChange={handleChange}
-                                        id='lorryNo'
-                                        className={`form-control ${errors.lorryNo ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.lorryNo && <span className="text-danger fontSize">{errors.lorryNo}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="noOfNBBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">No of NB Bags</label>
-                                    <MDBInput
-                                        value={formValues.noOfNBBags}
-                                        name='noOfNBBags'
-                                        onChange={handleChange}
-                                        id='noOfNBBags'
-                                        className={`form-control ${errors.noOfNBBags ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.noOfNBBags && <span className="text-danger fontSize">{errors.noOfNBBags}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="noOfONBBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">No of ONB Bags</label>
-                                    <MDBInput
-                                        value={formValues.noOfONBBags}
-                                        name='noOfONBBags'
-                                        onChange={handleChange}
-                                        id='noOfONBBags'
-                                        className={`form-control ${errors.noOfONBBags ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.noOfONBBags && <span className="text-danger fontSize">{errors.noOfONBBags}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="noOfSSBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">No of SS Bags</label>
-                                    <MDBInput
-                                        value={formValues.noOfSSBags}
-                                        name='noOfSSBags'
-                                        onChange={handleChange}
-                                        id='noOfSSBags'
-                                        className={`form-control ${errors.noOfSSBags ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.noOfSSBags && <span className="text-danger fontSize">{errors.noOfSSBags}</span>}
-                                </MDBCol>
-                                <MDBCol md='6 mt-2'>
-                                    <label htmlFor="noOfSWPBags" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">No of SWP Bags</label>
-                                    <MDBInput
-                                        value={formValues.noOfSWPBags}
-                                        name='noOfSWPBags'
-                                        onChange={handleChange}
-                                        id='noOfSWPBags'
-                                        className={`form-control ${errors.noOfSWPBags ? 'input-invalid' : ''}`}
-                                        disabled={!editMode}
-                                    />
-                                    {errors.noOfSWPBags && <span className="text-danger fontSize">{errors.noOfSWPBags}</span>}
-                                </MDBCol>
-                            </MDBRow>
-                            
-                            {editMode && (
-                                <>
-                                    <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Update Data</button>
-                                    {/* <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button> */}
-                                </>
-                            )}
-                            {!editMode && (
+                </MDBCol> */}
+                <MDBCol md='12'>
+                    <form onSubmit={handleSubmitPaddy} className="bgColor">
+                        <MDBRow className='g-4'>
+                            <MDBCol md='2'>
+                                <label htmlFor="date" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Date</label>
+                                <DatePicker
+                                    selected={formValues.date}
+                                    onChange={handleDateChange}
+                                    dateFormat="MM/dd/yyyy"
+                                    className={`form-control ${errors.date ? 'input-invalid' : ''}`}
+                                    disabled={!editMode}
+                                />
+                                {errors.date && <span className="text-danger fontSize">{errors.date}</span>}
+                            </MDBCol>
+                            <MDBCol md='2'>
+                                <label htmlFor="kmsStartYear" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS Start Year</label>
+                                <DatePicker
+                                    selected={formValues.kmsStartYear}
+                                    onChange={handleStartDateChange}
+                                    placeholderText="Start Year"
+                                    showYearPicker
+                                    dateFormat="yyyy"
+                                    className={`form-control ${errors.kmsStartYear ? 'input-invalid' : ''}`}
+                                    maxDate={new Date()}
+                                    disabled={!editMode}
+                                />
+                                {errors.kmsStartYear && <span className="text-danger fontSize">{errors.kmsStartYear}</span>}
+                            </MDBCol>
+                            <MDBCol md='2'>
+                                <label htmlFor="kmsEndYear" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS End Year</label>
+                                <DatePicker
+                                    selected={formValues.kmsEndYear}
+                                    onChange={handleEndDateChange}
+                                    placeholderText="End Year"
+                                    showYearPicker
+                                    dateFormat="yyyy"
+                                    className={`form-control ${errors.kmsEndYear ? 'input-invalid' : ''}`}
+                                    maxDate={new Date()}
+                                    disabled={!editMode}
+                                />
+                                {errors.kmsEndYear && <span className="text-danger fontSize">{errors.kmsEndYear}</span>}
+                            </MDBCol>
+                            <MDBCol md='6'>
+                                <label htmlFor="region" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Region</label>
+                                <select
+                                    id="region"
+                                    name="region"
+                                    value={formValues.region}
+                                    onChange={handleChange}
+                                    className={`form-control ${errors.region ? 'input-invalid' : ''}`}
+                                    disabled={!editMode}
+                                >
+                                    <option value="">Select Region</option>
+                                    <option value="Madurai">Madurai</option>
+                                    <option value="Tiruchirappalli">Tiruchirappalli</option>
+                                    <option value="Thanjavur">Thanjavur</option>
+                                </select>
+                                {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
+                            </MDBCol>
+                            <MDBCol md='4 mt-2'>
+                                <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
+                                <select
+                                    id="godwon"
+                                    name="godwon"
+                                    value={formValues.godwon}
+                                    onChange={handleChange}
+                                    className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
+                                    disabled={!editMode}
+                                >
+                                    <option value="">Select Godwon</option>
+                                    <option value="RailHead">RailHead</option>
+                                    <option value="MRM">MRM</option>
+                                    <option value="PANDIYARAJAPURAM">PANDIYARAJAPURAM</option>
+                                    <option value="THIRUVATHAVUR">THIRUVATHAVUR</option>
+                                </select>
+                                {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
+                            </MDBCol>
+                            {/* Truck Memo */}
+                            <MDBCol md='4 mt-5 pt-1'>
+                                <MDBInput
+                                    value={formValues.truckMemoNo}
+                                    name='truckMemoNo'
+                                    onChange={handleChange}
+                                    id='truckMemoNo'
+                                    label='Truck Memo'
+                                    className={`form-control ${errors.truckMemoNo ? 'input-invalid' : ''}`}
+                                    disabled={!editMode}
+                                />
+                                {errors.truckMemoNo && <span className="text-danger fontSize">{errors.truckMemoNo}</span>}
+                            </MDBCol>
+                            {/* Variety */}
+                            <MDBCol md='4 mt-2'>
+                                <label htmlFor="variety" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Variety</label>
+                                <select
+                                    id="variety"
+                                    name="variety"
+                                    value={formValues.variety}
+                                    onChange={handleChange}
+                                    className={`form-control ${errors.variety ? 'input-invalid' : ''}`}
+                                    disabled={!editMode}
+                                >
+                                    <option value="">Select Variety</option>
+                                    <option value="ADT FRK">ADT FRK</option>
+                                    <option value="CR FRK">CR FRK</option>
+                                </select>
+                                {errors.variety && <span className="text-danger fontSize">{errors.variety}</span>}
+                            </MDBCol>
+                            {/* Qty Nett */}
+                            <MDBCol md='12'>
+                                <label htmlFor="qtynett" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Qty Nett</label>
+                                <MDBRow className='g-2 w-100'>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            type="number"
+                                            id="weightOfRice"
+                                            name="weightOfRice"
+                                            value={formValues.weightOfRice}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.weightOfRice ? 'is-invalid' : ''}`}
+                                            label="Rice"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.weightOfRice && <span className="text-danger fontSize">{errors.weightOfRice}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            type="number"
+                                            id="weightOfFRK"
+                                            name="weightOfFRK"
+                                            value={formValues.weightOfFRK}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.weightOfFRK ? 'is-invalid' : ''}`}
+                                            label="FRK"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.weightOfFRK && <span className="text-danger fontSize">{errors.weightOfFRK}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            type="number"
+                                            id="noOfBags"
+                                            name="noOfBags"
+                                            value={formValues.noOfBags}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.noOfBags ? 'is-invalid' : ''}`}
+                                            label="Bags"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            type="number"
+                                            id="weightOfRiceWithFRK"
+                                            name="weightOfRiceWithFRK"
+                                            value={formValues.weightOfRiceWithFRK}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.weightOfRiceWithFRK ? 'is-invalid' : ''}`}
+                                            label="Weight"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.weightOfRiceWithFRK && <span className="text-danger fontSize">{errors.weightOfRiceWithFRK}</span>}
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCol>
+                            {/* FRK and Qutturn */}
+                            <MDBCol md='12'>
+                                <MDBRow className='g-2'>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            value={formValues.frk}
+                                            name='frk'
+                                            onChange={handleChange}
+                                            id='frk'
+                                            label='1%'
+                                            disabled
+                                            className={`form-control ${errors.frk ? 'input-invalid' : ''}`}
+                                        />
+                                        {errors.frk && <span className="text-danger fontSize">{errors.frk}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            value={formValues.qutturn}
+                                            name='qutturn'
+                                            onChange={handleChange}
+                                            id='qutturn'
+                                            label='68%'
+                                            disabled
+                                            className={`form-control ${errors.qutturn ? 'input-invalid' : ''}`}
+                                        />
+                                        {errors.qutturn && <span className="text-danger fontSize">{errors.qutturn}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            value={formValues.lorryNo}
+                                            name='lorryNo'
+                                            onChange={handleChange}
+                                            id='lorryNo'
+                                            label='Lorry No'
+                                            className={`form-control ${errors.lorryNo ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.lorryNo && <span className="text-danger fontSize">{errors.lorryNo}</span>}
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCol>
+                            {/* Lorry No and AD Number */}
+                            <MDBCol md="12">
+                                <label htmlFor="addetails" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Ad Date & Ad Details</label>
+                                <MDBRow className='w-100'>
+                                    <MDBCol md='5'>
+                                        <MDBInput
+                                            value={formValues.adNo}
+                                            name='adNo'
+                                            onChange={handleChange}
+                                            id='adNo'
+                                            label='AD Number'
+                                            className={`form-control ${errors.adNo ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.adNo && <span className="text-danger fontSize">{errors.adNo}</span>}
+                                    </MDBCol>
+
+                                    {/* Ad Date */}
+                                    <MDBCol md='5'>
+                                        {/* <label htmlFor="addate" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Ad Date</label> */}
+                                        <DatePicker
+                                            selected={formValues.adDate}
+                                            onChange={handleADDateChange}
+                                            dateFormat="MM/dd/yyyy"
+                                            className={`form-control ${errors.adDate ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.adDate && <span className="text-danger fontSize">{errors.adDate}</span>}
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCol>
+                            {/* Gunny Condition */}
+                            <MDBCol md='12'>
+                                <label htmlFor="gunnyCondition" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Gunny Condition</label>
+                                <MDBRow className='g-2 w-100'>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            type="number"
+                                            id="nb"
+                                            name="noOfONBBags"
+                                            value={formValues.noOfONBBags}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.noOfONBBags ? 'is-invalid' : ''}`}
+                                            label="ONB"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.noOfONBBags && <span className="text-danger fontSize">{errors.noOfONBBags}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            type="number"
+                                            id="ss"
+                                            name="noOfSSBags"
+                                            value={formValues.noOfSSBags}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.noOfSSBags ? 'is-invalid' : ''}`}
+                                            label="SS"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.noOfSSBags && <span className="text-danger fontSize">{errors.noOfSSBags}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='4'>
+                                        <MDBInput
+                                            type="number"
+                                            id="swp"
+                                            name="noOfSWPBags"
+                                            value={formValues.noOfSWPBags}
+                                            onChange={handleChange}
+                                            className={`form-control ${errors.noOfSWPBags ? 'is-invalid' : ''}`}
+                                            label="SWP"
+                                            disabled={!editMode}
+                                        />
+                                        {errors.noOfSWPBags && <span className="text-danger fontSize">{errors.noOfSWPBags}</span>}
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCol>
+                            {/* QC Numbers and Conditions */}
+                            <MDBCol md='12'>
+                                <label htmlFor="qc" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">QC</label>
+                                <MDBRow className='g-2 w-100'>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            value={formValues.qcNo}
+                                            name='qcNo'
+                                            onChange={handleChange}
+                                            id='qcNo'
+                                            label='QC Number'
+                                            className={`form-control ${errors.qcNo ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.qcNo && <span className="text-danger fontSize">{errors.qcNo}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            value={formValues.qcMoitureContent}
+                                            name='qcMoitureContent'
+                                            onChange={handleChange}
+                                            id='qcMoitureContent'
+                                            label='Moisture Content'
+                                            className={`form-control ${errors.qcMoitureContent ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.qcMoitureContent && <span className="text-danger fontSize">{errors.qcMoitureContent}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            value={formValues.qcDeHUsted}
+                                            name='qcDeHUsted'
+                                            onChange={handleChange}
+                                            id='qcDeHUsted'
+                                            label='De-Husked'
+                                            className={`form-control ${errors.qcDeHUsted ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.qcDeHUsted && <span className="text-danger fontSize">{errors.qcDeHUsted}</span>}
+                                    </MDBCol>
+                                    <MDBCol md='3'>
+                                        <MDBInput
+                                            value={formValues.qcfrk}
+                                            name='qcfrk'
+                                            onChange={handleChange}
+                                            id='qcfrk'
+                                            label='QC FRK'
+                                            className={`form-control ${errors.qcfrk ? 'input-invalid' : ''}`}
+                                            disabled={!editMode}
+                                        />
+                                        {errors.qcfrk && <span className="text-danger fontSize">{errors.qcfrk}</span>}
+                                    </MDBCol>
+                                </MDBRow>
+                            </MDBCol>
+                        </MDBRow>
+
+                        {editMode && (
+                            <>
+                                <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Update Data</button>
+                                {/* <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button> */}
+                            </>
+                        )}
+                        {!editMode && (
                             <button type="button" className="loginBtn btn btn-primary mb-3 mt-3  mx-2" onClick={toggleEditMode}>
                                 {/* {editMode ? 'Disable Editing' : 'Enable Editing'} */}
                                 Enable Editing
                             </button>
-                            )}
-                            <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button>
-                        </form>
-                    </MDBCard>
+                        )}
+                        <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button>
+                    </form>
                 </MDBCol>
             </MDBRow>
         </MDBContainer>

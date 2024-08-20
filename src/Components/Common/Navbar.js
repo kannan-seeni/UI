@@ -24,20 +24,20 @@ const NavbarComponent = ({onLogout}) => {
       <MDBNavbarNav>
         <MDBNavbarItem>
           <NavLink 
-            to="/riceTable"
-            className={isActiveRice ? 'active nav-link' : 'nav-link'}
-            // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
-          >
-            Rice
-          </NavLink>
-        </MDBNavbarItem>
-        <MDBNavbarItem>
-          <NavLink 
             to="/paddyTable"
             className={isActivePaddy ? 'active nav-link' : 'nav-link'}
             // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
             Paddy
+          </NavLink>
+        </MDBNavbarItem>
+        <MDBNavbarItem>
+          <NavLink 
+            to="/riceTable"
+            className={isActiveRice ? 'active nav-link' : 'nav-link'}
+            // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
+          >
+            Rice
           </NavLink>
         </MDBNavbarItem>
       </MDBNavbarNav>

@@ -393,7 +393,7 @@ const PaddyTable = ({data}) => {
                                         <td>{item.noOfSSBags}</td>
                                         <td>{item.noOfSWPBags}</td>
                                         <td>
-                                            <i class="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
+                                            <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                         </td>
                                     </tr>
                                 ))}

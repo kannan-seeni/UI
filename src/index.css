@@ -14,7 +14,7 @@ code {
 li{
   list-style-type: none;
 }
-.header {
+.header ,.bgFooter{
   background-color: #144e13!important; /*#ffc107 !important;*/
 }
 .react-datepicker-wrapper{

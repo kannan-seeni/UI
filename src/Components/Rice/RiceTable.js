@@ -118,8 +118,8 @@ const RiceTable = () => {
         navigate('/rice'); // Replace with the actual route for adding data
     };
     const handleEdit = (id) => {
-        alert(navigate(`/riceEdit/${id}`))
-        // navigate(`/edit/${id}`);
+        // alert(navigate(`/riceEdit/${id}`))
+        navigate(`/riceEdit/${id}`);
     }
     return (
         <div className="mt-4 container-fluid p-4">
@@ -512,7 +512,7 @@ const RiceTable = () => {
                                         <td>{item.noOfSSBags || ''}</td>
                                         <td>{item.noOfSWPBags || ''}</td>
                                         <td>
-                                            <i class="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
+                                            <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                         </td>
                                     </tr>
                                 ))}
