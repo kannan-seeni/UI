@@ -56,7 +56,9 @@ function App() {
     fetchData();
     fetchDataRice();
   }, []);
-
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,16 +71,19 @@ function App() {
 
       <Router>
         {/* <Header /> */}
-        {isAuthenticated && <Header />}
+        {isAuthenticated && <Header onLogout={handleLogout} />}
         <Routes>
-          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout/>} />
           {/* Protected routes */}
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit}  /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data}  /> : <Navigate to="/" />} />
           <Route path='/edit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
-          <Route path="/riceTable" element={<RiceTable data={data} />} />
+          {/* <Route path="/riceTable" element={<RiceTable data={data} />} />
           <Route path="/rice" element={<Rice onSubmit={handleFormRiceSubmit} />} />
-          <Route path='/riceEdit/:id' element={<RiceEditForm />} />
+          <Route path='/riceEdit/:id' element={<RiceEditForm />} /> */}
+          <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data}  /> : <Navigate to="/" />} />
+          <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit}  /> : <Navigate to="/" />} />
+          <Route path='/riceEdit/:id' element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />
         </Routes>
       </Router>
     </div>
@@ -86,3 +91,5 @@ function App() {
 }
 
 export default App;
+
+
