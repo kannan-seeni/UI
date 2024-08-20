@@ -77,7 +77,7 @@ function App() {
           <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout/>} />
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit}  /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data}  /> : <Navigate to="/" />} />
-          <Route path='/edit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
+          <Route path='/paddyEdit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
           <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit}  /> : <Navigate to="/" />} />
           <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data}  /> : <Navigate to="/" />} />
           <Route path='/riceEdit/:id' element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />

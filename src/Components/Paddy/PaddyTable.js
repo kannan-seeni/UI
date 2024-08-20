@@ -123,7 +123,7 @@ const PaddyTable = ({data}) => {
     };
     const handleEdit = (id) => {
         //alert(navigate(`/riceEdit/${id}`))
-        navigate(`/edit/${id}`);
+        navigate(`/paddyEdit/${id}`);
     }
     return (
         <div className="mt-4 container-fluid p-4">
