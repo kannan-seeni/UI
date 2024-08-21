@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './Components/Login/index';
 import Header from './Components/Common/Header';
+import Footer from './Components/Common/Footer';
 import Paddy from './Components/Paddy/index';
 import EditForm from './Components/Paddy/EditForm';
 import RiceTable from './Components/Rice/RiceTable';
@@ -56,7 +57,9 @@ function App() {
     fetchData();
     fetchDataRice();
   }, []);
-
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -69,20 +72,22 @@ function App() {
 
       <Router>
         {/* <Header /> */}
-        {isAuthenticated && <Header />}
+        {isAuthenticated && <Header onLogout={handleLogout} />}
         <Routes>
-          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-          {/* Protected routes */}
+          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout/>} />
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit}  /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data}  /> : <Navigate to="/" />} />
-          <Route path='/edit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
-          <Route path="/riceTable" element={<RiceTable data={data} />} />
-          <Route path="/rice" element={<Rice onSubmit={handleFormRiceSubmit} />} />
-          <Route path='/riceEdit/:id' element={<RiceEditForm />} />
-        </Routes>
+          <Route path='/paddyEdit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
+          <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit}  /> : <Navigate to="/" />} />
+          <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data}  /> : <Navigate to="/" />} />
+          <Route path='/riceEdit/:id' element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />
+        </Routes> 
+        {isAuthenticated && <Footer />}
       </Router>
     </div>
   );
 }
 
 export default App;
+
+

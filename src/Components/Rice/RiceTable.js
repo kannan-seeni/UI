@@ -118,8 +118,8 @@ const RiceTable = () => {
         navigate('/rice'); // Replace with the actual route for adding data
     };
     const handleEdit = (id) => {
-        alert(navigate(`/riceEdit/${id}`))
-        // navigate(`/edit/${id}`);
+        // alert(navigate(`/riceEdit/${id}`))
+        navigate(`/riceEdit/${id}`);
     }
     return (
         <div className="mt-4 container-fluid p-4">
@@ -222,7 +222,7 @@ const RiceTable = () => {
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
                                             {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
-                                                    {value}
+                                                   1% {/* {value} */}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
@@ -238,7 +238,7 @@ const RiceTable = () => {
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
                                             {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
-                                                    {value}
+                                                   68% {/* {value} */}
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
@@ -495,8 +495,8 @@ const RiceTable = () => {
                                         <td>{item.godwon || ''}</td>
                                         <td>{item.truckMemoNo || ''}</td>
                                         <td>{item.variety || ''}</td>
-                                        <td>{item.variety || ''}</td>
-                                        <td>{item.variety || ''}</td>
+                                        <td>1%</td>{/* <td>{item.frk || ''}</td> */}
+                                        <td>68%</td> {/* <td>{item.outTurn || ''}</td> */}
                                         <td>{item.noOfBags || ''}</td>
                                         <td>{item.weightOfFRK || ''}</td>
                                         <td>{item.weightOfRice || ''}</td>
@@ -512,7 +512,7 @@ const RiceTable = () => {
                                         <td>{item.noOfSSBags || ''}</td>
                                         <td>{item.noOfSWPBags || ''}</td>
                                         <td>
-                                            <i class="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
+                                            <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                         </td>
                                     </tr>
                                 ))}
