@@ -199,8 +199,8 @@ const Rice = ({ onSubmit }) => {
     };
 
     return (
-        <MDBContainer fluid className='p-0 bgImg'>
-            <MDBRow className='d-flex h-100 p-4'>
+        <MDBContainer fluid className='p-0 bgImg mt-5'>
+            <MDBRow className='d-flex h-100 p-4 align-items-center'>
                 <MDBCol md='12'>
                     <form onSubmit={handleSubmitRice} className='bgColor p-4 rounded shadow'>
                         <MDBRow className='g-4'>
@@ -321,14 +321,14 @@ const Rice = ({ onSubmit }) => {
                                     <MDBCol md='3'>
                                         <MDBInput
                                             type="number"
-                                            id="weightOfRice"
-                                            name="weightOfRice"
-                                            value={formValues.weightOfRice}
+                                            id="noOfBags"
+                                            name="noOfBags"
+                                            value={formValues.noOfBags}
                                             onChange={handleChange}
-                                            className={`form-control ${errors.weightOfRice ? 'is-invalid' : ''}`}
-                                            label="Rice"
+                                            className={`form-control ${errors.noOfBags ? 'is-invalid' : ''}`}
+                                            label="Bags"
                                         />
-                                        {errors.weightOfRice && <span className="text-danger fontSize">{errors.weightOfRice}</span>}
+                                        {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
                                     </MDBCol>
                                     <MDBCol md='3'>
                                         <MDBInput
@@ -345,14 +345,14 @@ const Rice = ({ onSubmit }) => {
                                     <MDBCol md='3'>
                                         <MDBInput
                                             type="number"
-                                            id="noOfBags"
-                                            name="noOfBags"
-                                            value={formValues.noOfBags}
+                                            id="weightOfRice"
+                                            name="weightOfRice"
+                                            value={formValues.weightOfRice}
                                             onChange={handleChange}
-                                            className={`form-control ${errors.noOfBags ? 'is-invalid' : ''}`}
-                                            label="Bags"
+                                            className={`form-control ${errors.weightOfRice ? 'is-invalid' : ''}`}
+                                            label="Rice"
                                         />
-                                        {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
+                                        {errors.weightOfRice && <span className="text-danger fontSize">{errors.weightOfRice}</span>}
                                     </MDBCol>
                                     <MDBCol md='3'>
                                         <MDBInput
@@ -373,7 +373,7 @@ const Rice = ({ onSubmit }) => {
                                 <MDBRow className='g-2'>
                                     <MDBCol md='4'>
                                         <MDBInput
-                                            value={formValues.frk}
+                                            value='1%'
                                             name='frk'
                                             onChange={handleChange}
                                             id='frk'
@@ -385,7 +385,7 @@ const Rice = ({ onSubmit }) => {
                                     </MDBCol>
                                     <MDBCol md='4'>
                                         <MDBInput
-                                            value={formValues.qutturn}
+                                            value='68%'
                                             name='qutturn'
                                             onChange={handleChange}
                                             id='qutturn'

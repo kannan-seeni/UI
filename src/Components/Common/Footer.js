@@ -3,8 +3,8 @@ import { MDBFooter } from 'mdb-react-ui-kit';
 
 const Footer = () => {
     return (
-        <MDBFooter className='text-center text-lg-left bgFooter'>
-            <div className='text-center p-3 text-white' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+        <MDBFooter className='text-end text-lg-left bgFooter fixed-bottom'>
+            <div className='text-end p-2 text-white' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
                 &copy; {new Date().getFullYear()} Copyright:{' '}
                 TNCSC Hulling Mill Management System
             </div>

@@ -13,10 +13,10 @@ const Header = ({onLogout}) => {
     }
     return (
         <>
-            <div className='header'>
+            <div className='header fixed-top'>
                 <MDBNavbarBrand className="justify-content-between">
                     <MDBNavbarBrand className='text-black'>
-                        <img src={headerImg} alt='Logo' height='90px' width='90px' className='w-100 text-black d-inline-block align-top me-2' />
+                        <img src={headerImg} alt='Logo' height='60px' width='90px' className='w-100 text-black d-inline-block align-top me-2' />
                         {/* TNCSC Hulling Mill Management System */}
                     </MDBNavbarBrand>
                     <NavbarComponent onLogout={onLogout} />
