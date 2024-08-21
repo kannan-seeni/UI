@@ -18,11 +18,16 @@ const RiceEditForm = () => {
         moitureContent: '',
         noOfBags: '',
         weight: '',
+        qutturn:'1%',
+        frk: '68%',
         lorryNo: '',
+        adDate: new Date(),
         noOfNBBags: '',
         noOfONBBags: '',
         noOfSSBags: '',
-        noOfSWPBags: ''
+        noOfSWPBags: '',
+        qcfrk: "",
+        qcMoitureContent: "",
     });
     const { id } = useParams();
     const [item, setItem] = useState(null);
@@ -125,8 +130,8 @@ const RiceEditForm = () => {
     };
 
     return (
-        <MDBContainer fluid className='p-0 bgImg'>
-            <MDBRow className='d-flex h-100 p-4'>
+        <MDBContainer fluid className='p-0 bgImg mt-5'>
+            <MDBRow className='d-flex h-100 p-4 align-items-center'>
                 {/* <MDBCol md='4' className="d-none d-md-block text-center">
                     <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />
                 </MDBCol> */}
@@ -244,15 +249,15 @@ const RiceEditForm = () => {
                                     <MDBCol md='3'>
                                         <MDBInput
                                             type="number"
-                                            id="weightOfRice"
-                                            name="weightOfRice"
-                                            value={formValues.weightOfRice}
+                                            id="noOfBags"
+                                            name="noOfBags"
+                                            value={formValues.noOfBags}
                                             onChange={handleChange}
-                                            className={`form-control ${errors.weightOfRice ? 'is-invalid' : ''}`}
-                                            label="Rice"
+                                            className={`form-control ${errors.noOfBags ? 'is-invalid' : ''}`}
+                                            label="Bags"
                                             disabled={!editMode}
                                         />
-                                        {errors.weightOfRice && <span className="text-danger fontSize">{errors.weightOfRice}</span>}
+                                        {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
                                     </MDBCol>
                                     <MDBCol md='3'>
                                         <MDBInput
@@ -270,15 +275,15 @@ const RiceEditForm = () => {
                                     <MDBCol md='3'>
                                         <MDBInput
                                             type="number"
-                                            id="noOfBags"
-                                            name="noOfBags"
-                                            value={formValues.noOfBags}
+                                            id="weightOfRice"
+                                            name="weightOfRice"
+                                            value={formValues.weightOfRice}
                                             onChange={handleChange}
-                                            className={`form-control ${errors.noOfBags ? 'is-invalid' : ''}`}
-                                            label="Bags"
+                                            className={`form-control ${errors.weightOfRice ? 'is-invalid' : ''}`}
+                                            label="Rice"
                                             disabled={!editMode}
                                         />
-                                        {errors.noOfBags && <span className="text-danger fontSize">{errors.noOfBags}</span>}
+                                        {errors.weightOfRice && <span className="text-danger fontSize">{errors.weightOfRice}</span>}
                                     </MDBCol>
                                     <MDBCol md='3'>
                                         <MDBInput
@@ -297,14 +302,17 @@ const RiceEditForm = () => {
                             </MDBCol>
                             {/* FRK and Qutturn */}
                             <MDBCol md='12'>
-                                <MDBRow className='g-2'>
+                                <label htmlFor="qtynett" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Qty Nett</label>
+                                <MDBRow className='g-2 w-100'>
                                     <MDBCol md='4'>
                                         <MDBInput
-                                            value={formValues.frk}
+                                            type="number"
+                                            value='1%'
                                             name='frk'
                                             onChange={handleChange}
                                             id='frk'
                                             label='1%'
+                                            placeholder='1%'
                                             disabled
                                             className={`form-control ${errors.frk ? 'input-invalid' : ''}`}
                                         />
@@ -312,11 +320,13 @@ const RiceEditForm = () => {
                                     </MDBCol>
                                     <MDBCol md='4'>
                                         <MDBInput
-                                            value={formValues.qutturn}
+                                            type="number"
+                                            value='68%'
                                             name='qutturn'
                                             onChange={handleChange}
                                             id='qutturn'
                                             label='68%'
+                                            placeholder='68%'
                                             disabled
                                             className={`form-control ${errors.qutturn ? 'input-invalid' : ''}`}
                                         />
