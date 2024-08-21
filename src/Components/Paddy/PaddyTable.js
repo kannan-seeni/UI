@@ -30,7 +30,7 @@ const PaddyTable = ({data}) => {
         noOfSWPBags: ''
     });
 
-    const itemsPerPage = 30;
+    const itemsPerPage = 20;
     const navigate = useNavigate(); // Initialize useNavigate
     // Fetch data from server
     const fetchData = async () => {
@@ -273,6 +273,7 @@ const PaddyTable = ({data}) => {
                                             Gunny Condition
                                         </div>
                                     </th>
+                                    <th rowSpan="2" className="px-2 fs-6">Actions</th>
                                 </tr>
                                 <tr>
                                     <th className="qtyColorSub px-2 fs-6">
@@ -372,7 +373,6 @@ const PaddyTable = ({data}) => {
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th className="px-2 fs-6">Actions</th>
                                 </tr>
                             </MDBTableHead>
                             <MDBTableBody>

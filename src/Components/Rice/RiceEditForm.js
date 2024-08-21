@@ -18,7 +18,7 @@ const RiceEditForm = () => {
         moitureContent: '',
         noOfBags: '',
         weight: '',
-        qutturn:'1%',
+        outturn:'1%',
         frk: '68%',
         lorryNo: '',
         adDate: new Date(),
@@ -300,9 +300,8 @@ const RiceEditForm = () => {
                                     </MDBCol>
                                 </MDBRow>
                             </MDBCol>
-                            {/* FRK and Qutturn */}
+                            {/* FRK and OutTurn */}
                             <MDBCol md='12'>
-                                <label htmlFor="qtynett" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Qty Nett</label>
                                 <MDBRow className='g-2 w-100'>
                                     <MDBCol md='4'>
                                         <MDBInput
@@ -311,7 +310,7 @@ const RiceEditForm = () => {
                                             name='frk'
                                             onChange={handleChange}
                                             id='frk'
-                                            label='1%'
+                                            label='FRK'
                                             placeholder='1%'
                                             disabled
                                             className={`form-control ${errors.frk ? 'input-invalid' : ''}`}
@@ -322,15 +321,15 @@ const RiceEditForm = () => {
                                         <MDBInput
                                             type="number"
                                             value='68%'
-                                            name='qutturn'
+                                            name='outturn'
                                             onChange={handleChange}
-                                            id='qutturn'
-                                            label='68%'
+                                            id='outturn'
+                                            label='outturn'
                                             placeholder='68%'
                                             disabled
-                                            className={`form-control ${errors.qutturn ? 'input-invalid' : ''}`}
+                                            className={`form-control ${errors.outturn ? 'input-invalid' : ''}`}
                                         />
-                                        {errors.qutturn && <span className="text-danger fontSize">{errors.qutturn}</span>}
+                                        {errors.outturn && <span className="text-danger fontSize">{errors.outturn}</span>}
                                     </MDBCol>
                                     <MDBCol md='4'>
                                         <MDBInput

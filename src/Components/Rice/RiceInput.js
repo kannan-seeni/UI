@@ -131,7 +131,7 @@ const Rice = ({ onSubmit }) => {
             kms: "",
             region: "",
             frk: "",
-            qutturn: "",
+            outturn: "",
             truckMemoNo: "",
             variety: "",
             noOfBags: "",
@@ -368,7 +368,7 @@ const Rice = ({ onSubmit }) => {
                                     </MDBCol>
                                 </MDBRow>
                             </MDBCol>
-                            {/* FRK and Qutturn */}
+                            {/* FRK and OutTurn */}
                             <MDBCol md='12'>
                                 <MDBRow className='g-2'>
                                     <MDBCol md='4'>
@@ -377,7 +377,7 @@ const Rice = ({ onSubmit }) => {
                                             name='frk'
                                             onChange={handleChange}
                                             id='frk'
-                                            label='1%'
+                                            label='FRK'
                                             disabled
                                             className={`form-control ${errors.frk ? 'input-invalid' : ''}`}
                                         />
@@ -386,14 +386,14 @@ const Rice = ({ onSubmit }) => {
                                     <MDBCol md='4'>
                                         <MDBInput
                                             value='68%'
-                                            name='qutturn'
+                                            name='outturn'
                                             onChange={handleChange}
-                                            id='qutturn'
-                                            label='68%'
+                                            id='outturn'
+                                            label='OutTurn'
                                             disabled
-                                            className={`form-control ${errors.qutturn ? 'input-invalid' : ''}`}
+                                            className={`form-control ${errors.outturn ? 'input-invalid' : ''}`}
                                         />
-                                        {errors.qutturn && <span className="text-danger fontSize">{errors.qutturn}</span>}
+                                        {errors.outturn && <span className="text-danger fontSize">{errors.outturn}</span>}
                                     </MDBCol>
                                     <MDBCol md='4'>
                                         <MDBInput
