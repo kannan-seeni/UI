@@ -11,6 +11,7 @@ import RiceTable from './Components/Rice/RiceTable';
 import Rice from './Components/Rice/RiceInput';
 import RiceEditForm from './Components/Rice/RiceEditForm';
 import PaddyTable from './Components/Paddy/PaddyTable';
+import MasteData from './Components/MasterData/MasterData';
 function App() {
   const [data, setData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -81,6 +82,7 @@ function App() {
           <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit}  /> : <Navigate to="/" />} />
           <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data}  /> : <Navigate to="/" />} />
           <Route path='/riceEdit/:id' element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />
+          <Route path='/masterdataregion' element={isAuthenticated ? <MasteData /> : <Navigate to="/" />} />
         </Routes> 
         {isAuthenticated && <Footer />}
       </Router>
