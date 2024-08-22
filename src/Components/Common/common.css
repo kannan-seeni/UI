@@ -44,7 +44,7 @@ tbody tr td{
     font-weight: bold;
     color: #fff !important;
 }
-.navBar .nav-link.active{
+.navBar .nav-link.active,.navBar .dropdown-menu .nav-link.active.nav-link.active{
     font-weight: bold;
     color: #ffff00 !important;
     border: 1px solid #fff;
@@ -53,4 +53,15 @@ tbody tr td{
 }
 .fontSize{
     font-size: 12px !important;
+}
+.navBar .dropdown-menu .nav-link {
+    color: #000 !important;
+}
+.navBar .dropdown-menu .nav-link.active.nav-link.active{
+    font-weight: bold;
+    color: #ffff00 !important;
+    border: 1px solid #fff;
+    border-top-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    background-color: #28a745;
 }

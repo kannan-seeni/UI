@@ -301,12 +301,12 @@ const RiceTable = () => {
                                             QC
                                         </div>
                                     </th> */}
-                                    <th colSpan="4" className="gunnyColor text-center p-0">
+                                    <th colSpan="5" className="gunnyColor text-center p-0">
                                         <div className="d-flex align-items-center text-center justify-content-center">
                                             Gunny Condition
                                         </div>
                                     </th>
-                                    <th rowSpan="2" className="px-2 fs-6">Actions</th>
+                                    {/* <th rowSpan="2" className="gunnyColor px-2 fs-6">Actions</th> */}
                                 </tr>
                                 <tr>
                                     <th className="px-2 fs-6">
@@ -486,6 +486,7 @@ const RiceTable = () => {
                                             ))}
                                         </DropdownButton>
                                     </th>
+                                    <th className="px-2 fs-6">Actions</th>
                                 </tr>
                             </MDBTableHead>
                             <MDBTableBody>
