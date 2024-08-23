@@ -63,3 +63,15 @@ input.form-control.fst-italic.fw-bold::placeholder {
 .fontSize{
   font-size: 12px;
 }
+.modalWidth .modal-dialog{
+  width: 100%;
+}
+.modalWidth .modal-title{
+  color: #28a745 !important;
+}
+.modalWidth .btn-close{
+  color: #28a745 !important;
+border: 3px solid #28a745;
+border-radius: 50%;
+
+}
