@@ -11,15 +11,22 @@ import RiceTable from './Components/Rice/RiceTable';
 import Rice from './Components/Rice/RiceInput';
 import RiceEditForm from './Components/Rice/RiceEditForm';
 import PaddyTable from './Components/Paddy/PaddyTable';
-import MasteData from './Components/MasterData/MasterData';
+import GodownTable from './Components/MasterData/Godown/GodownTable';
+import GodownInput from './Components/MasterData/Godown/GodownInput';
+import RegionTable from './Components/MasterData/Region/Region';
+import GodownEditForm from './Components/MasterData/Godown/GodownEditForm';
+
 function App() {
   const [data, setData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const handleFormSubmit = (formData) => {
     setData(prevData => [...prevData, formData]);
   };
-  const handleFormRiceSubmit  = (formData) => {
+  const handleFormRiceSubmit = (formData) => {
     setData(prevData => [...prevData, formData]);
+  };
+  const handleFormGodownInput = (formValues) => {
+    setData(prevData => [...prevData, formValues]);
   };
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -39,15 +46,15 @@ function App() {
         setLoading(false);
       }
     };
-    const fetchDataRice = async () =>{
-      try{
+    const fetchDataRice = async () => {
+      try {
         const response = await fetch('http://localhost:3001/riceData');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
         const result = await response.json();
         setData(result);
-      }catch(error) {
+      } catch (error) {
         setError(error);
         console.error('Error fetching data:', error);
       } finally {
@@ -67,7 +74,6 @@ function App() {
   if (error) {
     return <div>Error loading data: {error.message}</div>;
   }
-  
   return (
     <div className="App">
 
@@ -75,15 +81,19 @@ function App() {
         {/* <Header /> */}
         {isAuthenticated && <Header onLogout={handleLogout} />}
         <Routes>
-          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout/>} />
-          <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit}  /> : <Navigate to="/" />} />
-          <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data}  /> : <Navigate to="/" />} />
+          <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout />} />
+          <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit} /> : <Navigate to="/" />} />
+          <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data} /> : <Navigate to="/" />} />
           <Route path='/paddyEdit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
-          <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit}  /> : <Navigate to="/" />} />
-          <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data}  /> : <Navigate to="/" />} />
-          <Route path='/riceEdit/:id' element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />
-          <Route path='/masterdataregion' element={isAuthenticated ? <MasteData /> : <Navigate to="/" />} />
-        </Routes> 
+          <Route path="/rice" element={isAuthenticated ? <Rice onSubmit={handleFormRiceSubmit} /> : <Navigate to="/" />} />
+          <Route path="/riceTable" element={isAuthenticated ? <RiceTable data={data} /> : <Navigate to="/" />} />
+          <Route path="/riceEdit/:id" element={isAuthenticated ? <RiceEditForm /> : <Navigate to="/" />} />
+          <Route path="/masterdataregion" element={isAuthenticated ? <RegionTable /> : <Navigate to="/" />} />
+          <Route path="/masterdatagodown" element={isAuthenticated ? <GodownTable data={data} /> : <Navigate to="/" />} />
+          <Route path="/masterdatagodowninput" element={isAuthenticated ? <GodownInput handleFormGodownInput={handleFormGodownInput} /> : <Navigate to="/" />} />
+          <Route path="/masterdatagodownEdit/:id" element={isAuthenticated ? <GodownEditForm /> : <Navigate to="/" />} />
+
+        </Routes>
         {isAuthenticated && <Footer />}
       </Router>
     </div>
