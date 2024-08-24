@@ -540,7 +540,7 @@ const TableComponent = ({ data }) => {
                                             <td>{item.noOfSSBags}</td>
                                             <td>{item.noOfSWPBags}</td>
                                             <td>
-                                                <i class="fas fa-arrow-right-long"onClick={() => handleEdit(item.id)}></i>
+                                                <i className="fas fa-arrow-right-long"onClick={() => handleEdit(item.id)}></i>
                                                 {/* <i className="fas fa-xs fa-pen p-1 " onClick={() => handleEdit(item.id)}></i> */}
                                                 {/* <i className="fas fa-trash" onClick={() => handleDelete(item.id)}></i> */}
                                             </td>
