@@ -80,12 +80,12 @@ const NavbarComponent = ({ onLogout }) => {
         </MDBNavbarItem>
         <MDBNavbarItem>
           <MDBDropdown>
-            <MDBDropdownToggle tag='a'  className={isDropdownActive ? 'active nav-link' : 'nav-link'}>
+            <MDBDropdownToggle tag='a'  className="nav-link w-100">
                 {user && <span>{user.email} ({user.role})</span>}
             </MDBDropdownToggle>
             <MDBDropdownMenu>
                   <MDBDropdownItem>
-                    <NavLink onClick={onLogout}>
+                    <NavLink onClick={onLogout} className="w-100">
                       Logout
                     </NavLink>
                   </MDBDropdownItem>

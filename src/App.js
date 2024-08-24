@@ -15,6 +15,7 @@ import GodownTable from './Components/MasterData/Godown/GodownTable';
 import GodownInput from './Components/MasterData/Godown/GodownInput';
 import RegionTable from './Components/MasterData/Region/Region';
 import GodownEditForm from './Components/MasterData/Godown/GodownEditForm';
+import Settings from './Components/MasterData/Settings/index';
 
 function App() {
   const [data, setData] = useState([]);
@@ -92,7 +93,7 @@ function App() {
           <Route path="/masterdatagodown" element={isAuthenticated ? <GodownTable data={data} /> : <Navigate to="/" />} />
           <Route path="/masterdatagodowninput" element={isAuthenticated ? <GodownInput handleFormGodownInput={handleFormGodownInput} /> : <Navigate to="/" />} />
           <Route path="/masterdatagodownEdit/:id" element={isAuthenticated ? <GodownEditForm /> : <Navigate to="/" />} />
-
+          <Route path="/masterdatasettings" element={isAuthenticated ? <Settings /> : <Navigate to="/" />} />
         </Routes>
         {isAuthenticated && <Footer />}
       </Router>
