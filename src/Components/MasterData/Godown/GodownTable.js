@@ -167,16 +167,16 @@ const GodownTable = ({data}) => {
                                     </DropdownButton>
                                 </th>
                                 <th className="px-2 fs-6">
-                                    District
+                                    Distance
                                     <DropdownButton
                                         variant="link"
-                                        id="dropdown-district"
+                                        id="dropdown-distance"
                                         title={<i className="fas fa-filter"></i>}
                                         className="float-end"
                                     >
-                                        <Dropdown.Item onClick={() => handleFilterChange('district', '')}>All</Dropdown.Item>
-                                        {Array.from(new Set(godwonData.map(item => item.district))).map((value, index) => (
-                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('district', value)}>
+                                        <Dropdown.Item onClick={() => handleFilterChange('distance', '')}>All</Dropdown.Item>
+                                        {Array.from(new Set(godwonData.map(item => item.distance))).map((value, index) => (
+                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('distance', value)}>
                                                 {value}
                                             </Dropdown.Item>
                                         ))}
@@ -192,7 +192,7 @@ const GodownTable = ({data}) => {
                                     <td>{item.region || ''}</td>
                                     <td>{item.godownName || ''}</td>
                                     <td>{item.emailId || ''}</td>
-                                    <td>{item.district || ''}</td>
+                                    <td>{item.distance || ''}</td>
                                     <td>
                                         <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                     </td>

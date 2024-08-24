@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 
-const GodownInput = ({ onSubmit }) => {
+const GodownInput = ({ handleFormGodownInput }) => {
     const [formValues, setFormValues] = useState({
         godownId: "",
         region: "",
@@ -63,7 +63,7 @@ const GodownInput = ({ onSubmit }) => {
             const data = await response.json();
             console.log('Data submitted successfully:', data);
             resetForm();
-            onSubmit(formValues);
+            handleFormGodownInput(formValues);
             navigate('/masterdatagodown');
         } catch (error) {
             console.error('Error submitting data:', error);
@@ -221,7 +221,7 @@ const GodownInput = ({ onSubmit }) => {
                                 {errors.address && <span className="text-danger fontSize">{errors.address}</span>}
                             </MDBCol>
                         </MDBRow>
-                        <button type="submit" className="loginBtn btn btn-success mb-3 mt-3 mx-2">Save</button>
+                        <button type="submit" className="loginBtn btn btn-success mb-3 mt-3 mx-2" onClick={handleSubmitGodown}>Save</button>
                         <button type="button" className="loginBtn btn mb-3 mt-3" onClick={handleBackGodownTable}>Back</button>
                     </form>
                 </MDBCol>

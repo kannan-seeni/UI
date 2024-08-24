@@ -45,11 +45,9 @@ const GodownEditForm = () => {
             [name]: ''
         }));
     };
-    const handleSubmitPaddy = (e) => {
+    const handleSubmitGodown = (e) => {
         e.preventDefault();
         const newErrors = {};
-        if (!formValues.date) newErrors.date = 'Date is required';
-        // Add other validations as needed
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -65,10 +63,17 @@ const GodownEditForm = () => {
             body: JSON.stringify(updatedData),
         })
             .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                navigate('/masterdatagodown'); // Redirect back to the main page after saving
+                console.log("Response Status:", response.status);
+                if (!response.ok) {
+                    console.error('Network response was not ok');
+                    throw new Error('Network response was not ok');
+                }
+                console.log("Navigating to /masterdatagodown");
+                navigate('/masterdatagodown');
             })
-            .catch(error => console.error('Error updating data:', error));
+            .catch(error => {
+                console.error('Error updating data:', error);
+            });
     };
 
     const handleCancel = () => {
@@ -86,7 +91,7 @@ const GodownEditForm = () => {
                     <MDBCardImage src={headerImg} alt="Sample photo" className="rounded-start w-100 h-100" fluid />
                 </MDBCol> */}
                 <MDBCol md='12'>
-                    <form onSubmit={handleSubmitPaddy} className="bgColor">
+                    <form onSubmit={handleSubmitGodown} className="bgColor">
                         <MDBRow className='g-4'>
                             <MDBRow className='g-4'>
                                 {/* Godown Id*/}
@@ -196,6 +201,19 @@ const GodownEditForm = () => {
                                     />
                                     {errors.superintendent && <span className="text-danger fontSize">{errors.superintendent}</span>}
                                 </MDBCol>
+                                <MDBCol md='4'>
+                                <MDBInput
+                                    type="text"
+                                    id="distance"
+                                    name="distance"
+                                    value={formValues.distance}
+                                    onChange={handleChange}
+                                    className={`form-control ${errors.distance ? 'is-invalid' : ''}`}
+                                    label="Distance"
+                                    disabled={!editMode}
+                                />
+                                {errors.distance && <span className="text-danger fontSize">{errors.distance}</span>}
+                            </MDBCol>
                                 {/* Superintendent */}
                                 <MDBCol md='4 '>
                                     <MDBTextArea
@@ -215,7 +233,7 @@ const GodownEditForm = () => {
 
                         {editMode && (
                             <>
-                                <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitPaddy}>Update Data</button>
+                                <button type="submit" className="loginBtn btn btn-success mb-3 mt-3" onClick={handleSubmitGodown}>Update Data</button>
                                 {/* <button type="button" className="loginBtn btn btn-default mb-3 mt-3 mx-2" onClick={handleCancel}>Cancel</button> */}
                             </>
                         )}
