@@ -50,18 +50,52 @@ const RiceEditForm = () => {
             .catch(error => console.error('Error fetching data:', error));
     }, [id]);
 
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setFormValues(prevState => ({
+    //         ...prevState,
+    //         [name]: value
+    //     }));
+    //     setErrors(prevErrors => ({
+    //         ...prevErrors,
+    //         [name]: ''
+    //     }));
+    // };
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormValues(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+        const isNumericField = ['noOfBags', 'weightOfRiceWithFRK', 'weightOfRice', 'weightOfFRK'].includes(name);
+        
+        // Validate numeric fields
+        if (isNumericField && (value === '' || !/^\d*\.?\d*$/.test(value))) {
+            return;
+        }
+    
+        setFormValues(prevState => {
+            const newState = {
+                ...prevState,
+                [name]: value
+            };
+    
+            // Calculate weightOfRiceWithFRK, weightOfFRK, and weightOfRice
+            if (name === 'noOfBags') {
+                const weightOfRiceWithFRK = parseFloat(value) * 50;
+                newState.weightOfRiceWithFRK = weightOfRiceWithFRK;
+                newState.weightOfFRK = weightOfRiceWithFRK * 0.01; // 1% of weightOfRiceWithFRK
+                newState.weightOfRice = weightOfRiceWithFRK - newState.weightOfFRK;
+            } else if (name === 'weightOfRiceWithFRK') {
+                const weightOfFRK = parseFloat(value) * 0.01; // 1% of weightOfRiceWithFRK
+                newState.weightOfFRK = weightOfFRK;
+                newState.weightOfRice = parseFloat(value) - weightOfFRK;
+            }
+    
+            return newState;
+        });
+    
         setErrors(prevErrors => ({
             ...prevErrors,
             [name]: ''
         }));
     };
-
     const handleDateChange = (date) => {
         setFormValues(prevValues => ({
             ...prevValues,

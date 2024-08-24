@@ -35,21 +35,57 @@ const Rice = ({ onSubmit }) => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
+    // const handleChange = (e) => {
+    //     const { name, value } = e.target;
+    //     const isNumericField = ['noOfBags', 'weight', 'noOfNBBags', 'noOfONBBags', 'noOfSSBags', 'noOfSWPBags'].includes(name);
+    //     if (isNumericField && (value === '' || !/^\d*$/.test(value))) {
+    //         return;
+    //     }
+    //     setFormValues(prevState => ({
+    //         ...prevState,
+    //         [name]: value
+    //     }));
+    //     setErrors(prevErrors => ({
+    //         ...prevErrors,
+    //         [name]: ''
+    //     }));
+    // };
     const handleChange = (e) => {
         const { name, value } = e.target;
-        const isNumericField = ['noOfBags', 'weight', 'noOfNBBags', 'noOfONBBags', 'noOfSSBags', 'noOfSWPBags'].includes(name);
-        if (isNumericField && (value === '' || !/^\d*$/.test(value))) {
+        const isNumericField = ['noOfBags', 'weightOfRiceWithFRK', 'weightOfRice', 'weightOfFRK'].includes(name);
+        
+        // Validate numeric fields
+        if (isNumericField && (value === '' || !/^\d*\.?\d*$/.test(value))) {
             return;
         }
-        setFormValues(prevState => ({
-            ...prevState,
-            [name]: value
-        }));
+    
+        setFormValues(prevState => {
+            const newState = {
+                ...prevState,
+                [name]: value
+            };
+    
+            // Calculate weightOfRiceWithFRK, weightOfFRK, and weightOfRice
+            if (name === 'noOfBags') {
+                const weightOfRiceWithFRK = parseFloat(value) * 50;
+                newState.weightOfRiceWithFRK = weightOfRiceWithFRK;
+                newState.weightOfFRK = weightOfRiceWithFRK * 0.01; // 1% of weightOfRiceWithFRK
+                newState.weightOfRice = weightOfRiceWithFRK - newState.weightOfFRK;
+            } else if (name === 'weightOfRiceWithFRK') {
+                const weightOfFRK = parseFloat(value) * 0.01; // 1% of weightOfRiceWithFRK
+                newState.weightOfFRK = weightOfFRK;
+                newState.weightOfRice = parseFloat(value) - weightOfFRK;
+            }
+    
+            return newState;
+        });
+    
         setErrors(prevErrors => ({
             ...prevErrors,
             [name]: ''
         }));
     };
+    
 
     const handleDateChange = (date) => {
         setFormValues(prevState => ({
