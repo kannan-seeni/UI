@@ -4,10 +4,10 @@ import {
 } from 'mdb-react-ui-kit';
 import './login.css';
 import { useNavigate } from "react-router-dom";
-
+import { useUser } from '../Common/UserContext';
 const Login = ({ setIsAuthenticated }) => {
     const navigate = useNavigate();
-
+    const { loginUser } = useUser();
     const [formValues, setFormValues] = useState({
         email: '',
         password: '',
@@ -53,21 +53,52 @@ const Login = ({ setIsAuthenticated }) => {
         return isValid;
     };
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     if (validate()) {
+    //         setSubmitted(true);
+    //         try {
+    //             const response = await fetch(`http://localhost:3001/users`);
+    //             const users = await response.json();
+    //             const user = users.find(user => user.email === formValues.email && user.password === formValues.password);
+    //             if (user) {
+    //                 loginUser(user);
+    //                 if (user.role === 'admin') {
+    //                     navigate("/paddyTable");
+    //                     setIsAuthenticated(true);
+    //                 } else if (user.role === 'user') {
+    //                     navigate("/paddy");
+    //                     setIsAuthenticated(true);
+    //                 }
+    //             } else {
+    //                 setLoginError('Invalid email or password');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching users:', error);
+    //             setLoginError('Failed to log in, please try again later');
+    //         }
+    //     }
+    // };
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validate()) {
             setSubmitted(true);
             try {
                 const response = await fetch(`http://localhost:3001/users`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const users = await response.json();
                 const user = users.find(user => user.email === formValues.email && user.password === formValues.password);
+
                 if (user) {
+                    loginUser(user);
+                    setIsAuthenticated(true);
+                    // Redirect based on user role
                     if (user.role === 'admin') {
                         navigate("/paddyTable");
-                        setIsAuthenticated(true);
                     } else if (user.role === 'user') {
                         navigate("/paddy");
-                        setIsAuthenticated(true);
                     }
                 } else {
                     setLoginError('Invalid email or password');
@@ -76,6 +107,8 @@ const Login = ({ setIsAuthenticated }) => {
                 console.error('Error fetching users:', error);
                 setLoginError('Failed to log in, please try again later');
             }
+        } else {
+            setLoginError('Please fill in all fields');
         }
     };
 

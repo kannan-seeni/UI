@@ -3,7 +3,7 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarItem, MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './common.css';
-
+import { useUser } from './UserContext';
 
 const useActiveSection = () => {
   const { pathname } = useLocation();
@@ -25,10 +25,14 @@ const NavbarComponent = ({ onLogout }) => {
   ]);
   const { isActivePaddy, isActiveRice, isActiveRegion, isActiveGodown, isActiveSettings } = useActiveSection();
   const isDropdownActive = isActiveRegion || isActiveGodown || isActiveSettings;
+  const { user } = useUser();
   return (
     <MDBNavbar expand="lg" className='shadow-0 px-4 navBar'>
-      <MDBNavbarBrand>
-      </MDBNavbarBrand>
+      {/* <MDBNavbarBrand> */}
+        {/* <div>
+          {user && <span>{user.email} ({user.role})</span>}
+        </div> */}
+      {/* </MDBNavbarBrand> */}
       <MDBNavbarNav>
         <MDBNavbarItem>
           <NavLink
@@ -36,7 +40,7 @@ const NavbarComponent = ({ onLogout }) => {
             className={isActivePaddy ? 'active nav-link' : 'nav-link'}
           // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
-            Incoming Googds   
+            Incoming Googds
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
@@ -55,11 +59,11 @@ const NavbarComponent = ({ onLogout }) => {
             </MDBDropdownToggle>
             <MDBDropdownMenu>
               {options.map((option, index) => {
-                const isActive = 
+                const isActive =
                   option.path === '/masterdataregion' ? isActiveRegion :
-                  option.path === '/masterdatagodown' ? isActiveGodown :
-                  option.path === '/masterdatasettings' ? isActiveSettings :
-                  false;
+                    option.path === '/masterdatagodown' ? isActiveGodown :
+                      option.path === '/masterdatasettings' ? isActiveSettings :
+                        false;
                 return (
                   <MDBDropdownItem key={index}>
                     <NavLink
@@ -74,10 +78,24 @@ const NavbarComponent = ({ onLogout }) => {
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>
+        <MDBNavbarItem>
+          <MDBDropdown>
+            <MDBDropdownToggle tag='a'  className={isDropdownActive ? 'active nav-link' : 'nav-link'}>
+                {user && <span>{user.email} ({user.role})</span>}
+            </MDBDropdownToggle>
+            <MDBDropdownMenu>
+                  <MDBDropdownItem>
+                    <NavLink onClick={onLogout}>
+                      Logout
+                    </NavLink>
+                  </MDBDropdownItem>
+            </MDBDropdownMenu>
+          </MDBDropdown>
+        </MDBNavbarItem>
       </MDBNavbarNav>
-      <MDBBtn color="danger" onClick={onLogout} className='w-100'>
+      {/* <MDBBtn color="danger" onClick={onLogout} className='w-100'>
         Logout
-      </MDBBtn>
+      </MDBBtn>  */}
     </MDBNavbar>
   );
 };
