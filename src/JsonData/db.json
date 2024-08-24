@@ -541,10 +541,10 @@
       "lorryNo": "TN143",
       "noOfBags": "76",
       "weight": "600",
-      "noOfNBBags": "597",
+      "noOfNBBags": "72",
       "noOfONBBags": "1",
       "noOfSSBags": "1",
-      "noOfSWPBags": "0"
+      "noOfSWPBags": "2"
     },
     {
       "id": "f6fd",
@@ -560,15 +560,15 @@
       "lorryNo": "TN143",
       "noOfBags": "566",
       "weight": "100",
-      "noOfNBBags": "242",
-      "noOfONBBags": "124",
+      "noOfNBBags": "241",
+      "noOfONBBags": "125",
       "noOfSSBags": "190",
       "noOfSWPBags": "10"
     }
   ],
   "riceData": [
     {
-      "id": 1,
+      "id": "1",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -599,7 +599,7 @@
       "status": true
     },
     {
-      "id": 2,
+      "id": "2",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -630,7 +630,7 @@
       "status": true
     },
     {
-      "id": 3,
+      "id": "3",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -661,7 +661,7 @@
       "status": true
     },
     {
-      "id": 4,
+      "id": "4",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -692,7 +692,7 @@
       "status": true
     },
     {
-      "id": 5,
+      "id": "5",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -723,7 +723,7 @@
       "status": true
     },
     {
-      "id": 6,
+      "id": "6",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -754,7 +754,7 @@
       "status": true
     },
     {
-      "id": 7,
+      "id": "7",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -785,7 +785,7 @@
       "status": true
     },
     {
-      "id": 8,
+      "id": "8",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -816,7 +816,7 @@
       "status": true
     },
     {
-      "id": 9,
+      "id": "9",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -847,7 +847,7 @@
       "status": true
     },
     {
-      "id": 10,
+      "id": "10",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -878,7 +878,7 @@
       "status": true
     },
     {
-      "id": 11,
+      "id": "11",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "V.K.Puram II",
@@ -909,7 +909,7 @@
       "status": true
     },
     {
-      "id": 12,
+      "id": "12",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -940,7 +940,7 @@
       "status": true
     },
     {
-      "id": 13,
+      "id": "13",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "V.K.Puram II",
@@ -971,7 +971,7 @@
       "status": true
     },
     {
-      "id": 14,
+      "id": "14",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1002,7 +1002,7 @@
       "status": true
     },
     {
-      "id": 15,
+      "id": "15",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -1033,7 +1033,7 @@
       "status": true
     },
     {
-      "id": 16,
+      "id": "16",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -1064,7 +1064,7 @@
       "status": true
     },
     {
-      "id": 17,
+      "id": "17",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1095,7 +1095,7 @@
       "status": true
     },
     {
-      "id": 18,
+      "id": "18",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -1126,7 +1126,7 @@
       "status": true
     },
     {
-      "id": 19,
+      "id": "19",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1157,7 +1157,7 @@
       "status": true
     },
     {
-      "id": 20,
+      "id": "20",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -1186,6 +1186,288 @@
       "createdBy": 0,
       "modifiedBy": 0,
       "status": true
+    },
+    {
+      "id": "2d32",
+      "godwon": "VADIPATTI",
+      "date": "2024-08-20T19:43:37.000Z",
+      "kms": "2021-24",
+      "truckMemoNo": "343",
+      "variety": "ADT FRK",
+      "noOfBags": "12",
+      "weightOfRice": "1",
+      "weightOfRiceWithFRK": "1",
+      "weightOfFRK": "1",
+      "adNo": "42342",
+      "adDate": "2024-08-20T19:43:37.000Z",
+      "qcMoitureContent": "54",
+      "qcNo": "1",
+      "qcDeHUsted": "1",
+      "qcfrk": "2",
+      "lorryNo": "TN143",
+      "noOfONBBags": "1",
+      "noOfSSBags": "1",
+      "noOfSWPBags": "1",
+      "kmsStartYear": "2021",
+      "kmsEndYear": "2024"
+    },
+    {
+      "id": "fd34",
+      "godwon": "THIRUMANGALAM",
+      "date": "2024-08-22T07:41:33.000Z",
+      "kms": "2023-24",
+      "region": "Tiruchirappalli",
+      "truckMemoNo": "7767",
+      "variety": "ADT FRK",
+      "frk": "",
+      "qutturn": "",
+      "noOfBags": "7",
+      "weightOfRice": "54",
+      "weightOfRiceWithFRK": "21",
+      "weightOfFRK": "34",
+      "adNo": "45454",
+      "adDate": "2024-08-21T07:41:33.000Z",
+      "qcMoitureContent": "67",
+      "qcNo": "4",
+      "qcDeHUsted": "11",
+      "qcfrk": "112",
+      "lorryNo": "TN143",
+      "noOfONBBags": "4",
+      "noOfSSBags": "2",
+      "noOfSWPBags": "1",
+      "kmsStartYear": "2023",
+      "kmsEndYear": "2024"
+    },
+    {
+      "id": "60c6",
+      "godwon": "MELLUR",
+      "date": "2024-08-21T09:53:10.000Z",
+      "kms": "2023-24",
+      "region": "Madurai",
+      "truckMemoNo": "12",
+      "variety": "CR FRK",
+      "frk": "",
+      "qutturn": "",
+      "noOfBags": "12",
+      "weightOfRice": "12",
+      "weightOfRiceWithFRK": "12",
+      "weightOfFRK": "12",
+      "adNo": "1212",
+      "adDate": "2024-08-20T09:53:10.000Z",
+      "qcMoitureContent": "12",
+      "qcNo": "12",
+      "qcDeHUsted": "12",
+      "qcfrk": "12",
+      "lorryNo": "TN143",
+      "noOfONBBags": "1",
+      "noOfSSBags": "5",
+      "noOfSWPBags": "6",
+      "kmsStartYear": "2023",
+      "kmsEndYear": "2024"
+    },
+    {
+      "id": "baa7",
+      "godwon": "MELLUR",
+      "date": "2024-08-21T09:59:25.000Z",
+      "kms": "2022-23",
+      "region": "Tiruchirappalli",
+      "truckMemoNo": "7",
+      "variety": "ADT FRK",
+      "frk": "",
+      "qutturn": "",
+      "noOfBags": "4",
+      "weightOfRice": "5",
+      "weightOfRiceWithFRK": "1",
+      "weightOfFRK": "43",
+      "adNo": "12121",
+      "adDate": "2024-08-20T09:59:25.000Z",
+      "qcMoitureContent": "2",
+      "qcNo": "2",
+      "qcDeHUsted": "3",
+      "qcfrk": "2",
+      "lorryNo": "TN59RS3433",
+      "noOfONBBags": "1",
+      "noOfSSBags": "1",
+      "noOfSWPBags": "2",
+      "kmsStartYear": "2022-01-01T00:00:00.000Z",
+      "kmsEndYear": "2023-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "8fa3",
+      "region": "lklklklklk",
+      "frk": "N/A"
+    },
+    {
+      "id": "72e7",
+      "godwon": "USILAMPATTI",
+      "date": "2024-08-08T19:25:57.000Z",
+      "kms": "2024-24",
+      "region": "Tiruchirappalli",
+      "truckMemoNo": "www",
+      "variety": "CR FRK",
+      "frk": "",
+      "qutturn": "",
+      "noOfBags": "1",
+      "weightOfRice": "1",
+      "weightOfRiceWithFRK": "1",
+      "weightOfFRK": "1",
+      "adNo": "1",
+      "adDate": "2024-08-24T19:25:57.000Z",
+      "qcMoitureContent": "1",
+      "qcNo": "1",
+      "qcDeHUsted": "1",
+      "qcfrk": "1",
+      "lorryNo": "TN143",
+      "noOfONBBags": "1",
+      "noOfSSBags": "0",
+      "noOfSWPBags": "0",
+      "kmsStartYear": "2024",
+      "kmsEndYear": "2024"
+    },
+    {
+      "id": "8b6f",
+      "godwon": "VADIPATTI",
+      "date": "2024-08-25T09:18:39.000Z",
+      "kms": "2023-24",
+      "region": "Thanjavur",
+      "truckMemoNo": "reret",
+      "variety": "CR FRK",
+      "frk": "",
+      "qutturn": "",
+      "noOfBags": "20",
+      "weightOfRice": 990,
+      "weightOfRiceWithFRK": 1000,
+      "weightOfFRK": 10,
+      "adNo": "eerewr",
+      "adDate": "2024-08-25T09:18:39.000Z",
+      "qcMoitureContent": "3",
+      "qcNo": "1",
+      "qcDeHUsted": "3",
+      "qcfrk": "2",
+      "lorryNo": "TN143",
+      "noOfONBBags": "10",
+      "noOfSSBags": "10",
+      "noOfSWPBags": "0",
+      "kmsStartYear": "2023-01-01T00:00:00.000Z",
+      "kmsEndYear": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "addRegion": [
+    {
+      "id": 1,
+      "regionName": "Madurai",
+      "frkPercentage": 1
+    },
+    {
+      "id": 2,
+      "regionName": "Sivaganga",
+      "frkPercentage": 1
+    }
+  ],
+  "godwonData": [
+    {
+      "id": 1,
+      "godownId": "101_022_G_001",
+      "godownName": "RailHead",
+      "emailId": "abcd@gmail.com",
+      "mobileNo": "0987654321",
+      "gstNo": "33SUSLT2199J9Z6",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 20,
+      "aqName": "Varun K",
+      "superintendent": "Ajay",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": 2,
+      "godownId": "101_002_G_002",
+      "godownName": "CAP-I",
+      "emailId": "srmmill@gmail.com",
+      "mobileNo": "9876543210",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Chennai",
+      "region": "Chennai",
+      "address": "Chennai",
+      "distance": 20,
+      "aqName": "Krishna Kumar",
+      "superintendent": "Ashok Selvan",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": 3,
+      "godownId": "101_022_G_003",
+      "godownName": "MRM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 24,
+      "aqName": "Varun",
+      "superintendent": "Arun",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": 4,
+      "godownId": "101_022_G_004",
+      "godownName": "PANDIYARAJAPURAM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 24,
+      "aqName": "Varun",
+      "superintendent": "Arun",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": "9c20",
+      "godownId": "101_022_G_003",
+      "region": "Tiruchirappalli",
+      "godownName": "THIRUMANGALAM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "aqName": " Krishna Kumar",
+      "superintendent": "Baskaran K",
+      "distance": "Chennai",
+      "address": "Chennai"
+    },
+    {
+      "id": "611a",
+      "godownId": "101_022_G_004",
+      "region": "Thanjavur",
+      "godownName": "V.K.Puram II",
+      "emailId": "qwq@gmail.com",
+      "mobileNo": "545645",
+      "aqName": "yyuyu",
+      "superintendent": "weqw",
+      "distance": "20",
+      "address": "wqwq"
+    },
+    {
+      "id": "82b7",
+      "godownId": "101_022_G_011",
+      "region": "Tiruchirappalli",
+      "godownName": "THIRUMANGALAM",
+      "emailId": "uu@gmail.com",
+      "mobileNo": "789745678",
+      "aqName": "arun K",
+      "superintendent": "ghfghfgfhg",
+      "distance": "tiruchi",
+      "address": "No. 23, 6th Cross, Adithya Layout, Ramamurthynagara"
     }
   ]
 }
