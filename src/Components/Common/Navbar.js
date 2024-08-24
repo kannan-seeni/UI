@@ -36,7 +36,7 @@ const NavbarComponent = ({ onLogout }) => {
             className={isActivePaddy ? 'active nav-link' : 'nav-link'}
           // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
-            Paddy
+            Incoming Googds   
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
@@ -45,7 +45,7 @@ const NavbarComponent = ({ onLogout }) => {
             className={isActiveRice ? 'active nav-link' : 'nav-link'}
           // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
-            Rice
+            Delivered Googds
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
