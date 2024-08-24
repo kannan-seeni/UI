@@ -568,7 +568,7 @@
   ],
   "riceData": [
     {
-      "id": 1,
+      "id": "1",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -599,7 +599,7 @@
       "status": true
     },
     {
-      "id": 2,
+      "id": "2",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -630,7 +630,7 @@
       "status": true
     },
     {
-      "id": 3,
+      "id": "3",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -661,7 +661,7 @@
       "status": true
     },
     {
-      "id": 4,
+      "id": "4",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -692,7 +692,7 @@
       "status": true
     },
     {
-      "id": 5,
+      "id": "5",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -723,7 +723,7 @@
       "status": true
     },
     {
-      "id": 6,
+      "id": "6",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -754,7 +754,7 @@
       "status": true
     },
     {
-      "id": 7,
+      "id": "7",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -785,7 +785,7 @@
       "status": true
     },
     {
-      "id": 8,
+      "id": "8",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -816,7 +816,7 @@
       "status": true
     },
     {
-      "id": 9,
+      "id": "9",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -847,7 +847,7 @@
       "status": true
     },
     {
-      "id": 10,
+      "id": "10",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -878,7 +878,7 @@
       "status": true
     },
     {
-      "id": 11,
+      "id": "11",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "V.K.Puram II",
@@ -909,7 +909,7 @@
       "status": true
     },
     {
-      "id": 12,
+      "id": "12",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -940,7 +940,7 @@
       "status": true
     },
     {
-      "id": 13,
+      "id": "13",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "V.K.Puram II",
@@ -971,7 +971,7 @@
       "status": true
     },
     {
-      "id": 14,
+      "id": "14",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1002,7 +1002,7 @@
       "status": true
     },
     {
-      "id": 15,
+      "id": "15",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "THIRUMANGALAM",
@@ -1033,7 +1033,7 @@
       "status": true
     },
     {
-      "id": 16,
+      "id": "16",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -1064,7 +1064,7 @@
       "status": true
     },
     {
-      "id": 17,
+      "id": "17",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1095,7 +1095,7 @@
       "status": true
     },
     {
-      "id": 18,
+      "id": "18",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "VADIPATTI",
@@ -1126,7 +1126,7 @@
       "status": true
     },
     {
-      "id": 19,
+      "id": "19",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "MELLUR",
@@ -1157,7 +1157,7 @@
       "status": true
     },
     {
-      "id": 20,
+      "id": "20",
       "userName": "Baskaran K",
       "millId": "101_022_Mdu-41",
       "godwon": "USILAMPATTI",
@@ -1186,6 +1186,117 @@
       "createdBy": 0,
       "modifiedBy": 0,
       "status": true
+    }
+  ],
+  "addRegion": [
+    {
+      "id": "fa62",
+      "regionName": "Madurai",
+      "frkPercentage": "1%"
+    },
+    {
+      "id": "761c",
+      "regionName": "Sivaganga",
+      "frkPercentage": "1%"
+    },
+    {
+      "id": "730f",
+      "regionName": "Salem",
+      "frkPercentage": "1"
+    }
+  ],
+  "godwonData": [
+    {
+      "id": "1",
+      "godownId": "101_022_G_001",
+      "godownName": "RailHead",
+      "emailId": "abcd@gmail.com",
+      "mobileNo": "0987654321",
+      "gstNo": "33SUSLT2199J9Z6",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 20,
+      "aqName": "Varun K",
+      "superintendent": "Ajay",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": "2",
+      "godownId": "101_002_G_002",
+      "godownName": "CAP-I",
+      "emailId": "srmmill@gmail.com",
+      "mobileNo": "9876543210",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Chennai",
+      "region": "Chennai",
+      "address": "Chennai",
+      "distance": 20,
+      "aqName": "Krishna Kumar",
+      "superintendent": "Ashok Selvan",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": "3",
+      "godownId": "101_022_G_003",
+      "godownName": "MRM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 24,
+      "aqName": "Varun",
+      "superintendent": "Arun",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": "4",
+      "godownId": "101_022_G_004",
+      "godownName": "PANDIYARAJAPURAM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "gstNo": "33RALLD0324J3Z1",
+      "country": "India",
+      "state": "Tamil Nadu",
+      "district": "Madurai",
+      "region": "Madurai",
+      "address": "Madurai",
+      "distance": 24,
+      "aqName": "Varun",
+      "superintendent": "Arun",
+      "userName": "Baskaran K"
+    },
+    {
+      "id": "9c20",
+      "godownId": "101_022_G_003",
+      "region": "Tiruchirappalli",
+      "godownName": "THIRUMANGALAM",
+      "emailId": "srh@gmail.com",
+      "mobileNo": "98765430",
+      "aqName": " Krishna Kumar",
+      "superintendent": "Baskaran K",
+      "distance": "Chennai",
+      "address": "Chennai"
+    },
+    {
+      "id": "611a",
+      "godownId": "101_022_G_004",
+      "region": "Thanjavur",
+      "godownName": "V.K.Puram II",
+      "emailId": "qwq@gmail.com",
+      "mobileNo": "545645",
+      "aqName": "yyuyu",
+      "superintendent": "weqw",
+      "distance": "qqw",
+      "address": "wqwq"
     }
   ]
 }

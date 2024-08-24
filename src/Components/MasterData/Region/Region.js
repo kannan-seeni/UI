@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBInput } from 'mdb-react-ui-kit';
-import { Button, DropdownButton, Dropdown, Modal,InputGroup, FormControl, } from 'react-bootstrap';
+import { Button, DropdownButton, Dropdown, Modal, InputGroup, FormControl, } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 import { useNavigate } from 'react-router-dom';
 
 const RegionTable = () => {
     const [filters, setFilters] = useState({
-        region: '',
-        frk: ''
+        regionName: '',
+        frkPercentage: ''
     });
     const [ricedata, setRiceData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const [showModal, setShowModal] = useState(false);
-    const [formValues, setFormValues] = useState({ region: '', frk: '' });
+    const [formValues, setFormValues] = useState({ regionName: '', frkPercentage: '' });
     const [errors, setErrors] = useState({});
     const itemsPerPage = 20;
     const navigate = useNavigate();
@@ -81,8 +81,8 @@ const RegionTable = () => {
 
     const validateForm = () => {
         const newErrors = {};
-        if (!formValues.region.trim()) newErrors.region = 'Region is required';
-        if (!formValues.frk.trim()) newErrors.frk = 'FRK is required';
+        if (!formValues.regionName.trim()) newErrors.regionName = 'Region is required';
+        if (!formValues.frkPercentage.trim()) newErrors.frkPercentage = 'FRK is required';
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -99,17 +99,19 @@ const RegionTable = () => {
                 body: JSON.stringify(formValues)
             });
             if (!response.ok) throw new Error('Network response was not ok');
-            
+
             await fetchData();
-            setFormValues({ region: '', frk: '' });
+            setFormValues({ regionName: '', frkPercentage: '' });
             setShowModal(false);
         } catch (error) {
             console.error('Error adding region:', error);
         }
     };
-
+    const handleRegionCancel = () => {
+        setShowModal(false)
+    }
     return (
-        <MDBContainer fluid className='p-0 mt-5'>
+        <MDBContainer fluid className='mt-5 p-4'>
             <MDBRow>
                 <MDBCol md='6' className='my-3'>
                     <InputGroup>
@@ -133,13 +135,13 @@ const RegionTable = () => {
                                     Region
                                     <DropdownButton
                                         variant="link"
-                                        id="dropdown-region"
+                                        id="dropdown-regionName"
                                         title={<i className="fas fa-filter"></i>}
                                         className="float-end"
                                     >
-                                        <Dropdown.Item onClick={() => handleFilterChange('region', '')}>All</Dropdown.Item>
-                                        {Array.from(new Set(ricedata.map(item => item.region))).map((value, index) => (
-                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('region', value)}>
+                                        <Dropdown.Item onClick={() => handleFilterChange('regionName', '')}>All</Dropdown.Item>
+                                        {Array.from(new Set(ricedata.map(item => item.regionName))).map((value, index) => (
+                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('regionName', value)}>
                                                 {value}
                                             </Dropdown.Item>
                                         ))}
@@ -149,13 +151,13 @@ const RegionTable = () => {
                                     FRK%
                                     <DropdownButton
                                         variant="link"
-                                        id="dropdown-frk"
+                                        id="dropdown-frkPercentage"
                                         title={<i className="fas fa-filter"></i>}
                                         className="float-end"
                                     >
-                                        <Dropdown.Item onClick={() => handleFilterChange('frk', '')}>All</Dropdown.Item>
-                                        {Array.from(new Set(ricedata.map(item => item.frk))).map((value, index) => (
-                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('frk', value)}>
+                                        <Dropdown.Item onClick={() => handleFilterChange('frkPercentage', '')}>All</Dropdown.Item>
+                                        {Array.from(new Set(ricedata.map(item => item.frkPercentage))).map((value, index) => (
+                                            <Dropdown.Item key={index} onClick={() => handleFilterChange('frkPercentage', value)}>
                                                 {value}
                                             </Dropdown.Item>
                                         ))}
@@ -166,8 +168,8 @@ const RegionTable = () => {
                         <MDBTableBody>
                             {currentData.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.region || ''}</td>
-                                    <td>{item.frk || ''}</td>
+                                    <td>{item.regionName || ''}</td>
+                                    <td>{item.frkPercentage || ''}</td>
                                 </tr>
                             ))}
                         </MDBTableBody>
@@ -194,30 +196,35 @@ const RegionTable = () => {
                 activeClassName={"active"}
             />
             {/* Add Region Modal */}
-            <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal show={showModal} onHide={() => setShowModal(false)} className='modalWidth d-flex align-items-center justify-content-center;'>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Region</Modal.Title>
+                    <Modal.Title className='fst-italic fw-bold fs-5'>Add Region</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <MDBInput
-                        value={formValues.region}
-                        name='region'
+                        value={formValues.regionName}
+                        name='regionName'
                         onChange={handleChange}
-                        id='region'
+                        id='regionName'
                         label='Region'
-                        className={`form-control ${errors.region ? 'input-invalid' : ''}`}
+                        className={`form-control mb-4 ${errors.regionName ? 'input-invalid' : ''}`}
                     />
                     <MDBInput
-                        value={formValues.frk}
-                        name='frk'
+                        value={formValues.frkPercentage}
+                        name='frkPercentage'
                         onChange={handleChange}
-                        id='frk'
+                        id='frkPercentage'
                         label='FRK%'
-                        className={`form-control ${errors.frk ? 'input-invalid' : ''}`}
+                        className={`form-control ${errors.frkPercentage ? 'input-invalid' : ''}`}
                     />
-                    <Button variant="primary" onClick={handleRegionAdd}>
-                        Add
-                    </Button>
+                    <div className='d-flex align-items-center justify-content-center'>
+                        <Button variant="primary" onClick={handleRegionAdd} className='loginBtn'>
+                            Add
+                        </Button>
+                        <Button onClick={handleRegionCancel} variant="default" className='loginBtn btn mb-3 mt-3 mx-2'>
+                            Cancel
+                        </Button>
+                    </div>
                 </Modal.Body>
             </Modal>
         </MDBContainer>
