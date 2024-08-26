@@ -496,8 +496,8 @@ const RiceTable = () => {
                                         <td>{item.godwon || ''}</td>
                                         <td>{item.truckMemoNo || ''}</td>
                                         <td>{item.variety || ''}</td>
-                                        <td>1%</td>{/* <td>{item.frk || ''}</td> */}
-                                        <td>68%</td> {/* <td>{item.outTurn || ''}</td> */}
+                                        <td>1%</td>
+                                        <td>68%</td> 
                                         <td>{item.noOfBags || ''}</td>
                                         <td>{item.weightOfFRK || ''}</td>
                                         <td>{item.weightOfRice || ''}</td>
@@ -505,10 +505,6 @@ const RiceTable = () => {
                                         <td>{item.adNo || ''}</td>
                                         <td>{item.adDate || ''}</td>
                                         <td>{item.lorryNo || ''}</td>
-                                        {/* <td>{item.qcMoitureContent || ''}</td>
-                                        <td>{item.qcNo || ''}</td>
-                                        <td>{item.qcDeHUsted || ''}</td>
-                                        <td>{item.qcfrk || ''}</td> */}
                                         <td>{item.noOfONBBags || ''}</td>
                                         <td>{item.noOfSSBags || ''}</td>
                                         <td>{item.noOfSWPBags || ''}</td>
