@@ -110,9 +110,11 @@ const GunnyCondition = ({ gunnyconditionData }) => {
             console.error('Error adding region:', error);
         }
     };
-    const handleRegionCancel = () => {
+    const handleAddCancel = () => {
         setShowModal(false)
-        //setShowEditModal(false)
+    }
+    const handleEditCancel = () =>{
+        setShowEditModal(false)
     }
     const [showEditModal, setShowEditModal] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null); 
@@ -122,6 +124,7 @@ const GunnyCondition = ({ gunnyconditionData }) => {
         setFormValues({ condition: item.condition, downgrade: item.downgrade });
         setShowEditModal(true);
     };
+    
     // Handle updating region
     const handleRegionUpdate = async () => {
         if (!selectedItem) return;
@@ -253,7 +256,7 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                 breakLinkClassName={"page-link"}
                 activeClassName={"active"}
             />
-            <Modal show={showModal} onHide={() => setShowModal(false)} className='modalWidth d-flex align-items-center justify-content-center;'>
+            <Modal show={showModal} onHide={handleAddCancel} className='modalWidth d-flex align-items-center justify-content-center;'>
                 <Modal.Header closeButton>
                     <Modal.Title className='fst-italic fw-bold fs-5'>Add Gunny Condition</Modal.Title>
                 </Modal.Header>
@@ -278,14 +281,14 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                         <Button variant="primary" onClick={handleRegionAdd} className='loginBtn'>
                             Add
                         </Button>
-                        <Button onClick={handleRegionCancel} variant="default" className='loginBtn btn mb-3 mt-3 mx-2'>
+                        <Button onClick={handleAddCancel} variant="default" className='loginBtn btn mb-3 mt-3 mx-2'>
                             Cancel
                         </Button>
                     </div>
                 </Modal.Body>
             </Modal>
             {/* Edit Modal */}
-            <Modal show={showEditModal} onHide={handleRegionCancel} className='modalWidth d-flex align-items-center justify-content-center;'>
+            <Modal show={showEditModal} onHide={handleEditCancel} className='modalWidth d-flex align-items-center justify-content-center;'>
                 <Modal.Header closeButton>
                     <Modal.Title className='fst-italic fw-bold fs-5'>Edit Gunny Condition</Modal.Title>
                 </Modal.Header>
@@ -308,7 +311,7 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                     />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleRegionCancel}>Cancel</Button>
+                    <Button variant="secondary" onClick={handleEditCancel}>Cancel</Button>
                     <Button variant="primary" onClick={handleRegionUpdate}>Update</Button>
                 </Modal.Footer>
             </Modal>

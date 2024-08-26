@@ -77,14 +77,15 @@ const NavbarComponent = ({ onLogout }) => {
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>
-        <MDBNavbarItem>
+        <MDBNavbarItem className='mx-0'>
           <MDBDropdown>
-            <MDBDropdownToggle tag='a'  className="nav-link w-100">
-                {user && <span>{user.email} ({user.role})</span>}
+            <MDBDropdownToggle tag='a'  className="nav-link w-100 square bg-primary rounded-circle bg-primary p-3">
+                {/* {user && <span>{user.email} ({user.role})</span>} */}
+                {user && <span className='text-uppercase '>{user.role[0]}</span>}
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-                  <MDBDropdownItem>
-                    <NavLink onClick={onLogout} className="w-100">
+                  <MDBDropdownItem className="p-2">
+                    <NavLink onClick={onLogout} className="bg-transparent">
                       Logout
                     </NavLink>
                   </MDBDropdownItem>
