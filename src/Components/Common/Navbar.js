@@ -27,17 +27,11 @@ const NavbarComponent = ({ onLogout }) => {
   const { user } = useUser();
   return (
     <MDBNavbar expand="lg" className='shadow-0 px-4 navBar'>
-      {/* <MDBNavbarBrand> */}
-        {/* <div>
-          {user && <span>{user.email} ({user.role})</span>}
-        </div> */}
-      {/* </MDBNavbarBrand> */}
       <MDBNavbarNav>
         <MDBNavbarItem>
           <NavLink
             to="/paddyTable"
             className={isActivePaddy ? 'active nav-link' : 'nav-link'}
-          // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
             Incoming Googds
           </NavLink>
@@ -46,14 +40,13 @@ const NavbarComponent = ({ onLogout }) => {
           <NavLink
             to="/riceTable"
             className={isActiveRice ? 'active nav-link' : 'nav-link'}
-          // className={({ isActive }) => (isActive ? 'active nav-link' : 'nav-link')}
           >
             Delivered Googds
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
           <MDBDropdown>
-            <MDBDropdownToggle tag='a' className={isDropdownActive ? 'active nav-link' : 'nav-link'}>
+            <MDBDropdownToggle className={`${isDropdownActive ? 'active ' : ''}nav-link bg-transparent shadow-0 text-capitalize`}>
               Master Data
             </MDBDropdownToggle>
             <MDBDropdownMenu>
@@ -79,7 +72,7 @@ const NavbarComponent = ({ onLogout }) => {
         </MDBNavbarItem>
         <MDBNavbarItem className='mx-0'>
           <MDBDropdown>
-            <MDBDropdownToggle tag='a'  className="nav-link w-100 square bg-primary rounded-circle bg-primary p-3">
+            <MDBDropdownToggle  className="nav-link w-100 square bg-primary rounded-circle bg-primary p-3">
                 {/* {user && <span>{user.email} ({user.role})</span>} */}
                 {user && <span className='text-uppercase '>{user.role[0]}</span>}
             </MDBDropdownToggle>
@@ -93,9 +86,6 @@ const NavbarComponent = ({ onLogout }) => {
           </MDBDropdown>
         </MDBNavbarItem>
       </MDBNavbarNav>
-      {/* <MDBBtn color="danger" onClick={onLogout} className='w-100'>
-        Logout
-      </MDBBtn>  */}
     </MDBNavbar>
   );
 };
