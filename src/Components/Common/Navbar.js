@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import { MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavbarItem, MDBBtn, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
+import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { MDBNavbar, MDBNavbarNav, MDBNavbarItem, MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem } from 'mdb-react-ui-kit';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './common.css';
 import { useUser } from './UserContext';
@@ -17,8 +17,7 @@ const useActiveSection = () => {
   };
 };
 const NavbarComponent = ({ onLogout }) => {
-  const navigate = useNavigate();
-  const [options, setOptions] = useState([
+  const options = ([
     { name: 'Region', path: '/masterdataregion' },
     { name: 'Godown', path: '/masterdatagodown' },
     { name: 'Settings', path: '/masterdatasettings' }
