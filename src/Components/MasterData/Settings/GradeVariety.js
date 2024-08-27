@@ -108,6 +108,8 @@ const GradeVariety = () => {
         setShowModal(false);
     };
     const handleRegionEditCancel = () => {
+        setFormValues({ grade: '', varietyName: '' });
+        setSelectedItem(null);
         setShowEditModal(false);
     };
     // Handle edit item
@@ -117,8 +119,39 @@ const GradeVariety = () => {
         setShowEditModal(true);
     };
     // Handle updating gunny variety
-    const handleRegionUpdate = async () => {
-        if (!selectedItem) return;
+    // const handleRegionUpdate = async () => {
+    //     if (!selectedItem) return;
+    //     const updatedGunnyVariety = {
+    //         grade: formValues.grade,
+    //         variety: varietyList.map(v =>
+    //             v.id === selectedItem.id
+    //                 ? { ...v, varietyName: formValues.varietyName }
+    //                 : v
+    //         ),
+    //         status: true
+    //     };
+    //     try {
+    //         const response = await fetch(`http://localhost:3001/gunnyvariety/${selectedItem.id}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(updatedGunnyVariety)
+    //         });
+    //         if (!response.ok) throw new Error('Network response was not ok');
+    //         await fetchData();
+    //         setShowEditModal(false);
+    //         alert("hi")
+    //     } catch (error) {
+    //         console.error('Error updating gunny variety:', error);
+    //     }
+    // };
+    const handleRegionUpdate = () => {
+        if (!selectedItem) {
+            console.error('No item selected for update');
+            return;
+        }
+
         const updatedGunnyVariety = {
             grade: formValues.grade,
             variety: varietyList.map(v =>
@@ -128,135 +161,19 @@ const GradeVariety = () => {
             ),
             status: true
         };
-        try {
-            const response = await fetch(`http://localhost:3001/gunnyvariety/${selectedItem.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updatedGunnyVariety)
-            });
-            if (!response.ok) throw new Error('Network response was not ok');
-            await fetchData();
-            setShowEditModal(false);
-            alert("hi")
-        } catch (error) {
-            console.error('Error updating gunny variety:', error);
-        }
+
+        // Simulate updating the state
+        const updatedData = gunnyvariety.map(item =>
+            item.grade === selectedItem.grade
+                ? updatedGunnyVariety
+                : item
+        );
+
+        setGunnyVariety(updatedData);
+        setFilteredData(updatedData);
+        handleRegionEditCancel();
     };
-    // const handleRegionUpdate = async () => {
-    //     if (!selectedItem) return;
-    
-    //     // Ensure you include necessary details in formValues
-    //     const updatedData = {
-    //         grade: formValues.grade,
-    //         variety: [
-    //             {
-    //                 id: selectedItem.varietyId, // Ensure variety ID is correct
-    //                 varietyName: formValues.varietyName
-    //             }
-    //         ],
-    //         status: selectedItem.status
-    //     };
-    
-    //     try {
-    //         const response = await fetch(`http://localhost:3001/gunnyvariety/${selectedItem.id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(updatedData)
-    //         });
-    
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             throw new Error(`Network response was not ok: ${errorData.message}`);
-    //         }
-    
-    //         await fetchData(); // Refresh data to include updated item
-    //         setShowEditModal(false);
-    //     } catch (error) {
-    //         console.error('Error updating gunny variety:', error.message);
-    //     }
-    // };
-    // const handleRegionUpdate = async () => {
-    //     if (!selectedItem) return;
-    
-    //     const updatedData = {
-    //         grade: formValues.grade,
-    //         variety: [
-    //             {
-    //                 id: selectedItem.varietyId,
-    //                 varietyName: formValues.varietyName
-    //             }
-    //         ],
-    //         status: selectedItem.status
-    //     };
-    
-    //     try {
-    //         const response = await fetch(`http://localhost:3001/gunnyvariety/${selectedItem.id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(updatedData)
-    //         });
-    
-    //         if (!response.ok) {
-    //             // Attempt to parse JSON if possible, otherwise handle text
-    //             const errorText = await response.text();
-    //             console.error('Server response:', errorText);
-    //             throw new Error(`Network response was not ok: ${errorText}`);
-    //         }
-    
-    //         await fetchData(); // Refresh data to include updated item
-    //         setShowEditModal(false);
-    //     } catch (error) {
-    //         console.error('Error updating gunny variety:', error.message);
-    //     }
-    // };
-    // const handleRegionUpdate = async () => {
-    //     if (!selectedItem) return; // Ensure there is a selected item
-    
-    //     // Prepare updated data
-    //     const updatedData = {
-    //         grade: formValues.grade,
-    //         variety: [
-    //             {
-    //                 id: selectedItem.varietyId, // Ensure this ID is correct
-    //                 varietyName: formValues.varietyName
-    //             }
-    //         ],
-    //         status: true // Or whatever the status should be
-    //     };
-    
-    //     try {
-    //         // Make PUT request to update the item
-    //         const response = await fetch(`http://localhost:3001/gunnyvariety/${selectedItem.id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(updatedData)
-    //         });
-    
-    //         // Check if the response is OK
-    //         if (!response.ok) {
-    //             // Read and log the response text for debugging
-    //             const errorText = await response.text();
-    //             console.error('Server response:', errorText);
-    //             throw new Error(`Network response was not ok: ${errorText}`);
-    //         }
-    
-    //         // Optionally handle successful update
-    //         await fetchData(); // Refresh the data
-    //         setShowEditModal(false); // Close the edit modal
-    //     } catch (error) {
-    //         // Log the error
-    //         console.error('Error updating gunny variety:', error.message);
-    //     }
-    // };
-    
+
     // Populate varietyList for editing
     useEffect(() => {
         if (selectedItem) {
@@ -265,7 +182,7 @@ const GradeVariety = () => {
         }
     }, [selectedItem, gunnyvariety]);
     return (
-        <div className="mt-5 container-fluid p-4">
+        <div className="container-fluid p-4">
             <MDBRow>
                 <MDBCol md='6' className='my-3'>
                     <InputGroup>
@@ -323,17 +240,23 @@ const GradeVariety = () => {
                         </MDBTableHead>
                         <MDBTableBody>
                             {currentData.flatMap(item =>
-                                item.variety.map(v => (
-                                    <tr key={`${item.grade}-${v.id}`}>
-                                        <td>{item.grade}</td>
-                                        <td>{v.varietyName}</td>
-                                        <td>
-                                            <i className="fas fa-arrow-right-long" onClick={() => handleEdit(v, item.grade)}></i>
-                                        </td>
-                                    </tr>
-                                ))
+                                item.variety.map(v => {
+                                    // Use `item.id` and `v.id` to ensure uniqueness
+                                    const key = `${item.id}-${v.id}`;
+                                    return (
+                                        <tr key={key}>
+                                            <td>{item.grade}</td>
+                                            <td>{v.varietyName}</td>
+                                            <td>
+                                                <i className="fas fa-arrow-right-long" onClick={() => handleEdit(v, item.grade)}></i>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
                             )}
                         </MDBTableBody>
+
+
                     </MDBTable>
                 </MDBCol>
             </MDBRow>

@@ -145,7 +145,7 @@ const GunnyCondition = ({ gunnyconditionData }) => {
     };
 
     return (
-        <div className="mt-5 container-fluid p-4">
+        <div className="container-fluid p-4">
             <MDBRow>
                 <MDBCol md='6' className='my-3'>
                     <InputGroup>

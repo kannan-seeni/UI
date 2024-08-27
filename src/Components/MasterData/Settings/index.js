@@ -19,47 +19,54 @@ import {
   MDBTabsItem,
   MDBTabsLink,
   MDBTabsContent,
-  MDBTabsPane
+  MDBTabsPane, MDBRow, MDBCol
 } from 'mdb-react-ui-kit';
 import OutTurn from './OutTurn';
 import GunnyCondition from './ GunnyCondition';
 import GradeVariety from './GradeVariety';
-export default function App() {
-  const [basicActive, setBasicActive] = useState('tab1');
+import './../master.css';
+
+export default function Settings() {
+  const [activeTab, setActiveTab] = useState('outturn');
 
   const handleBasicClick = (value) => {
-    if (value === basicActive) {
+    if (value === activeTab) {
       return;
     }
 
-    setBasicActive(value);
+    setActiveTab(value);
   };
 
   return (
-    <div className="mt-5 container-fluid p-4">
-      <MDBTabs className='mb-3'>
-        <MDBTabsItem>
-          <MDBTabsLink onClick={() => handleBasicClick('tab1')} active={basicActive === 'tab1'}>
-            OutTurn
-          </MDBTabsLink>
-        </MDBTabsItem>
-        <MDBTabsItem>
-          <MDBTabsLink onClick={() => handleBasicClick('tab2')} active={basicActive === 'tab2'}>
-          GunnyCondition
-          </MDBTabsLink>
-        </MDBTabsItem>
-        <MDBTabsItem>
-          <MDBTabsLink onClick={() => handleBasicClick('tab3')} active={basicActive === 'tab3'}>
-          GradeVariety
-          </MDBTabsLink>
-        </MDBTabsItem>
-      </MDBTabs>
+    <div className="mt-5 container-fluid p-4 tabMaster">
+      <MDBRow>
+        <MDBCol md='12' className='my-3'>
+          <MDBTabs className='mb-3'>
+            <MDBTabsItem className='mx-2'>
+              <MDBTabsLink onClick={() => handleBasicClick('outturn')} active={activeTab === 'outturn'}>
+                OutTurn
+              </MDBTabsLink>
+            </MDBTabsItem>
+            <MDBTabsItem className='mx-2'>
+              <MDBTabsLink onClick={() => handleBasicClick('gunnycondition')} active={activeTab === 'gunnycondition'}>
+                GunnyCondition
+              </MDBTabsLink>
+            </MDBTabsItem>
+            <MDBTabsItem className='mx-2'>
+              <MDBTabsLink onClick={() => handleBasicClick('gradevariety')} active={activeTab === 'gradevariety'}>
+                GradeVariety
+              </MDBTabsLink>
+            </MDBTabsItem>
+          </MDBTabs>
 
-      <MDBTabsContent>
-        <MDBTabsPane open={basicActive === 'tab1'}><OutTurn /></MDBTabsPane>
-        <MDBTabsPane open={basicActive === 'tab2'}><GunnyCondition /></MDBTabsPane>
-        <MDBTabsPane open={basicActive === 'tab3'}><GradeVariety /></MDBTabsPane>
-      </MDBTabsContent>
+          <MDBTabsContent>
+            <MDBTabsPane open={activeTab === 'outturn'}><OutTurn /></MDBTabsPane>
+            <MDBTabsPane open={activeTab === 'gunnycondition'}><GunnyCondition /></MDBTabsPane>
+            <MDBTabsPane open={activeTab === 'gradevariety'}><GradeVariety /></MDBTabsPane>
+          </MDBTabsContent>
+        </MDBCol>
+      </MDBRow>
+
     </div>
   );
 }
