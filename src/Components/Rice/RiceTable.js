@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table, InputGroup, FormControl, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import {InputGroup, FormControl, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import ReactPaginate from 'react-paginate';
 import jsPDF from 'jspdf';

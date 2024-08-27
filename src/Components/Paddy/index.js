@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBInput, MDBCardImage } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBRow, MDBCol, MDBInput } from 'mdb-react-ui-kit';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
-import headerImg from '../../assets/riceimg.jpg';
+// import headerImg from '../../assets/riceimg.jpg';
 import './Paddy.css';
 
 const Paddy = ({ onSubmit }) => {

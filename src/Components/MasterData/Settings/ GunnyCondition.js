@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { InputGroup, FormControl, Button, Dropdown, DropdownButton, Modal } from 'react-bootstrap';
-import { MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody, MDBCard, MDBCardBody, MDBInput } from 'mdb-react-ui-kit';
+import { MDBRow, MDBCol, MDBTable, MDBTableHead, MDBTableBody,MDBInput } from 'mdb-react-ui-kit';
 import ReactPaginate from 'react-paginate';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import { useNavigate } from 'react-router-dom'; // Add for navigation
+// import jsPDF from 'jspdf';
+// import 'jspdf-autotable';
 // import './rice.css';
 const GunnyCondition = ({ gunnyconditionData }) => {
     const [gunnycondition, setGunnyCondition] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
-    const [viewMode, setViewMode] = useState('table'); // State for view mode
+    // const [viewMode, setViewMode] = useState('table'); // State for view mode
     const [showModal, setShowModal] = useState(false);
     // State for filters
     const [filters, setFilters] = useState({
@@ -21,7 +20,6 @@ const GunnyCondition = ({ gunnyconditionData }) => {
     const [errors, setErrors] = useState({});
     const [formValues, setFormValues] = useState({ regionName: '', frkPercentage: '' });
     const itemsPerPage = 20;
-    const navigate = useNavigate(); // Initialize useNavigate
     // Fetch data from server
     const fetchData = async () => {
         try {
@@ -63,17 +61,17 @@ const GunnyCondition = ({ gunnyconditionData }) => {
     }, [searchTerm, filters, gunnycondition]);
 
     // Generate PDF
-    const generatePDF = () => {
-        const doc = new jsPDF();
-        doc.autoTable({
-            head: [["Condition", "Downgrade"]],
-            body: filteredData.map(item => [
-                item.condition || '',
-                item.downgrade || '',
-            ]),
-        });
-        doc.save('gunnycondition.pdf');
-    };
+    // const generatePDF = () => {
+    //     const doc = new jsPDF();
+    //     doc.autoTable({
+    //         head: [["Condition", "Downgrade"]],
+    //         body: filteredData.map(item => [
+    //             item.condition || '',
+    //             item.downgrade || '',
+    //         ]),
+    //     });
+    //     doc.save('gunnycondition.pdf');
+    // };
     // Pagination logic
     const pageCount = Math.ceil(filteredData.length / itemsPerPage);
     const handlePageClick = (event) => {
@@ -88,6 +86,10 @@ const GunnyCondition = ({ gunnyconditionData }) => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormValues(prevValues => ({ ...prevValues, [name]: value }));
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            [name]: ''
+        }));
     };
     // Navigate to add data form
     const handleAddRiceClick = () => {
@@ -163,8 +165,63 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                     <Button variant="info" onClick={() => toggleViewMode('grid')} className="ms-2">Grid View</Button> */}
                 </MDBCol>
             </MDBRow>
-
-            {viewMode === 'table' ? (
+            <MDBRow className="mt-2 g-0">
+                    <MDBCol className="ml-auto mt-2 mb-2" md='12'>
+                        <MDBTable striped bordered hover responsive>
+                            <MDBTableHead>
+                                <tr>
+                                    <th rowSpan="2" className="px-2 fs-6">
+                                        Condition
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-condition"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('condition', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(gunnycondition.map(item => item.condition))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('condition', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                    <th rowSpan="2" className="px-2 fs-6">
+                                        Downgrade
+                                        <DropdownButton
+                                            variant="link"
+                                            id="dropdown-downgrade"
+                                            title={<i className="fas fa-filter"></i>}
+                                            className="float-end"
+                                        >
+                                            <Dropdown.Item onClick={() => handleFilterChange('downgrade', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(gunnycondition.map(item => item.downgrade))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('downgrade', value)}>
+                                                    {value}
+                                                </Dropdown.Item>
+                                            ))}
+                                        </DropdownButton>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th className="px-2 fs-6">Actions</th>
+                                </tr>
+                            </MDBTableHead>
+                            <MDBTableBody>
+                                {currentData.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>{item.downgrade}</td>
+                                        <td>{item.condition}</td>
+                                        <td>
+                                            <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item)}></i>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </MDBTableBody>
+                        </MDBTable>
+                    </MDBCol>
+                </MDBRow>
+            {/* {viewMode === 'table' ? (
                 <MDBRow className="mt-2 g-0">
                     <MDBCol className="ml-auto mt-2 mb-2" md='12'>
                         <MDBTable striped bordered hover responsive>
@@ -235,7 +292,7 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                         </MDBCol>
                     ))}
                 </MDBRow>
-            )}
+            )} */}
 
             <ReactPaginate
                 previousLabel={"Previous"}
