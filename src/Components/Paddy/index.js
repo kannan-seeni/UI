@@ -241,7 +241,7 @@ const Paddy = ({ onSubmit }) => {
                             <MDBCol md='4'>
                                 <label htmlFor="kms" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">KMS</label>
                                 <div className="row w-100">
-                                    <MDBCol md='6'>
+                                    <MDBCol md='6' className='mb-sm-2'>
                                         <DatePicker
                                             selected={startDate}
                                             onChange={handleStartDateChange}

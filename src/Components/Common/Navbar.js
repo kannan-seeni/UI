@@ -27,13 +27,13 @@ const NavbarComponent = ({ onLogout }) => {
   const { user } = useUser();
   return (
     <MDBNavbar expand="lg" className='shadow-0 px-4 navBar'>
-      <MDBNavbarNav>
+      <MDBNavbarNav className="w-100">
         <MDBNavbarItem>
           <NavLink
             to="/paddyTable"
             className={isActivePaddy ? 'active nav-link' : 'nav-link'}
           >
-            Incoming Googds
+            Incoming Goods
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
@@ -41,12 +41,14 @@ const NavbarComponent = ({ onLogout }) => {
             to="/riceTable"
             className={isActiveRice ? 'active nav-link' : 'nav-link'}
           >
-            Delivered Googds
+            Delivered Goods
           </NavLink>
         </MDBNavbarItem>
         <MDBNavbarItem>
           <MDBDropdown>
-            <MDBDropdownToggle className={`${isDropdownActive ? 'active ' : ''}nav-link bg-transparent shadow-0 text-capitalize`}>
+            <MDBDropdownToggle 
+              className={`${isDropdownActive ? 'active ' : ''}nav-link bg-transparent shadow-0 text-capitalize`}
+            >
               Master Data
             </MDBDropdownToggle>
             <MDBDropdownMenu>
@@ -72,16 +74,17 @@ const NavbarComponent = ({ onLogout }) => {
         </MDBNavbarItem>
         <MDBNavbarItem className='mx-0'>
           <MDBDropdown>
-            <MDBDropdownToggle  className="nav-link w-100 square bg-primary rounded-circle bg-primary p-3">
-                {/* {user && <span>{user.email} ({user.role})</span>} */}
-                {user && <span className='text-uppercase '>{user.role[0]}</span>}
+            <MDBDropdownToggle 
+              className="nav-link w-100 square bg-primary rounded-circle p-3"
+            >
+              {user && <span className='text-uppercase'>{user.role[0]}</span>}
             </MDBDropdownToggle>
             <MDBDropdownMenu>
-                  <MDBDropdownItem className="p-2">
-                    <NavLink onClick={onLogout} className="bg-transparent">
-                      Logout
-                    </NavLink>
-                  </MDBDropdownItem>
+              <MDBDropdownItem className="p-2">
+                <NavLink onClick={onLogout} className="bg-transparent">
+                  Logout
+                </NavLink>
+              </MDBDropdownItem>
             </MDBDropdownMenu>
           </MDBDropdown>
         </MDBNavbarItem>

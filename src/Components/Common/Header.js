@@ -14,7 +14,7 @@ const Header = ({onLogout}) => {
                 <div className="justify-content-between navbar-brand">
                     <div className='text-white navbar-brand'>
                         <img src={headerImg} alt='Logo' height='60px' width='90px' className='w-100 text-black d-inline-block align-top me-2' />
-                        TN Hulling Mill Management System
+                        <span className="fs-6 fs-sm-4">TN Hulling Mill Management System</span>
                     </div>
                     <NavbarComponent onLogout={onLogout} />
                 </div>

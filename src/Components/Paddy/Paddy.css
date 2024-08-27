@@ -58,3 +58,8 @@ tbody tr td{
     border-radius: 8px; /* Optional: rounded corners */
     padding: 20px; /* Optional: spacing inside the card */
 }
+@media (max-width: 576px) {
+    .bgImgPaddy{
+        overflow: scroll;
+    }
+}

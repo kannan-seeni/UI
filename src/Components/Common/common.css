@@ -65,3 +65,20 @@ tbody tr td{
     border-bottom-right-radius: 12px;
     background-color: #28a745;
 }
+@media (max-width: 576px) {
+    .navbar-brand{
+        display: block !important;
+    }
+    .navbar-brand img,.navBar button.dropdown-toggle.nav-link{
+        width: 25% !important;
+    }
+    .navBar .nav-link {
+        font-size: 14px; /* Adjust font size for mobile */
+    }
+    .navBar .bg-primary {
+        font-size: 12px; /* Adjust font size for profile icon */
+    }
+    .fixed-top{
+        position: unset !important;
+    }
+}
