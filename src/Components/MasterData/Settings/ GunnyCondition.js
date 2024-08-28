@@ -210,8 +210,8 @@ const GunnyCondition = ({ gunnyconditionData }) => {
                             <MDBTableBody>
                                 {currentData.map((item, index) => (
                                     <tr key={index}>
-                                        <td>{item.downgrade}</td>
                                         <td>{item.condition}</td>
+                                        <td>{item.downgrade}</td>
                                         <td>
                                             <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item)}></i>
                                         </td>
