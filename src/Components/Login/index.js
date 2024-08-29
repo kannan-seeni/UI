@@ -96,7 +96,7 @@ const Login = ({ setIsAuthenticated }) => {
                     setIsAuthenticated(true);
                     // Redirect based on user role
                     if (user.role === 'admin') {
-                        navigate("/paddyTable");
+                        navigate("/dashboard");
                     } else if (user.role === 'user') {
                         navigate("/paddy");
                     }

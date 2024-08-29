@@ -16,6 +16,7 @@ import GodownInput from './Components/MasterData/Godown/GodownInput';
 import RegionTable from './Components/MasterData/Region/Region';
 import GodownEditForm from './Components/MasterData/Godown/GodownEditForm';
 import Settings from './Components/MasterData/Settings/index';
+import Dashboard from './Components/Common/Dashboard';
 
 function App() {
   const [data, setData] = useState([]);
@@ -83,6 +84,7 @@ function App() {
         {isAuthenticated && <Header onLogout={handleLogout} />}
         <Routes>
           <Route path="/" exact element={<Login setIsAuthenticated={setIsAuthenticated} handleLogout />} />
+          <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
           <Route path="/paddy" element={isAuthenticated ? <Paddy onSubmit={handleFormSubmit} /> : <Navigate to="/" />} />
           <Route path="/paddyTable" element={isAuthenticated ? <PaddyTable data={data} /> : <Navigate to="/" />} />
           <Route path='/paddyEdit/:id' element={isAuthenticated ? <EditForm /> : <Navigate to="/" />} />
