@@ -17,7 +17,7 @@ const PaddyTable = ({data}) => {
     const [filters, setFilters] = useState({
         date: '',
         kms: '',
-        godwon: '',
+        godown: '',
         issueMemoNo: '',
         variety: '',
         moitureContent: '',
@@ -81,11 +81,11 @@ const PaddyTable = ({data}) => {
     const generatePDF = () => {
         const doc = new jsPDF();
         doc.autoTable({
-            head: [["Date", "KMS", "Godwon", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]],
+            head: [["Date", "KMS", "Godown", "Issue Memo No.", "Variety", "% MC", "Bags", "Weight", "Lorry No", "NB", "ONB", "SS", "SWP"]],
             body: filteredData.map(item => [
                 item.date || '',
                 item.kms || '',
-                item.godwon || '',
+                item.godown || '',
                 item.issueMemoNo || '',
                 item.variety || '',
                 item.moitureContent || '',
@@ -184,16 +184,16 @@ const PaddyTable = ({data}) => {
                                         </DropdownButton>
                                     </th>
                                     <th rowSpan="2" className="px-2 fs-6">
-                                         Godwon
+                                         Godown
                                         <DropdownButton
                                             variant="link"
-                                            id="dropdown-godwon"
+                                            id="dropdown-godown"
                                             title={<i className="fas fa-filter"></i>}
                                             className="float-end"
                                         >
-                                            <Dropdown.Item onClick={() => handleFilterChange('godwon', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(paddydata.map(item => item.godwon))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('godwon', value)}>
+                                            <Dropdown.Item onClick={() => handleFilterChange('godown', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(paddydata.map(item => item.godown))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('godown', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
@@ -382,7 +382,7 @@ const PaddyTable = ({data}) => {
                                         <td>{item.date ? new Date(item.date).toLocaleDateString() : ''}</td>
                                         <td>{item.kms}</td>
                                         {/* <td>{item.region}</td> */}
-                                        <td>{item.godwon}</td>
+                                        <td>{item.godown}</td>
                                         <td>{item.issueMemoNo}</td>
                                         <td>{item.variety}</td>
                                         <td>{item.moitureContent}</td>
@@ -411,7 +411,7 @@ const PaddyTable = ({data}) => {
                                     <h5 className='card-title'>{item.issueMemoNo}</h5>
                                     <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Date</span> : {item.date ? new Date(item.date).toLocaleDateString() : ''}</p>
                                     <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>KMS</span> : {item.kms}</p>
-                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Godwon</span> : {item.godwon}</p>
+                                    <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Godown</span> : {item.godown}</p>
                                     {/* <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Region</span> : {item.region}</p> */}
                                     <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>Variety</span> : {item.variety}</p>
                                     <p className='card-text mb-0'><span className='fst-italic fw-bold fs-6'>% MC</span> : {item.moitureContent}</p>

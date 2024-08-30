@@ -11,7 +11,7 @@ const EditForm = () => {
         kmsStartYear: null,
         kmsEndYear: null,
         region: '',
-        godwon: '',
+        godown: '',
         issueMemoNo: '',
         variety: '',
         moitureContent: '',
@@ -247,16 +247,16 @@ const EditForm = () => {
                                 {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                             </MDBCol>
                             <MDBCol md='6 mt-2'>
-                                <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
+                                <label htmlFor="godown" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown</label>
                                 <select
-                                    id="godwon"
-                                    name="godwon"
-                                    value={formValues.godwon}
+                                    id="godown"
+                                    name="godown"
+                                    value={formValues.godown}
                                     onChange={handleChange}
-                                    className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
+                                    className={`form-control ${errors.godown ? 'input-invalid' : ''}`}
                                     disabled={!editMode}
                                 >
-                                    <option value="">Select Godwon</option>
+                                    <option value="">Select Godown</option>
                                     <option value="RailHead">RailHead</option>
                                     <option value="MRM">MRM</option>
                                     <option value="PANDIYARAJAPURAM">PANDIYARAJAPURAM</option>
@@ -264,14 +264,14 @@ const EditForm = () => {
                                 </select>
                                 {/* <MDBInput
                                         type="text"
-                                        id="godwon"
-                                        name="godwon"
-                                        value={formValues.godwon}
+                                        id="godown"
+                                        name="godown"
+                                        value={formValues.godown}
                                         onChange={handleChange}
-                                        className={`form-control ${errors.godwon ? 'is-invalid' : ''}`}
-                                        label="Godwon"
+                                        className={`form-control ${errors.godown ? 'is-invalid' : ''}`}
+                                        label="Godown"
                                     /> */}
-                                {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
+                                {errors.godown && <span className="text-danger fontSize">{errors.godown}</span>}
                             </MDBCol>
                             <MDBCol md='6 mt-5 pt-1'>
                                 <MDBInput

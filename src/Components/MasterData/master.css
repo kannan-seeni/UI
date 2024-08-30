@@ -17,3 +17,6 @@
     border-top-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }
+.form-check{
+    margin: 0 4px;
+}

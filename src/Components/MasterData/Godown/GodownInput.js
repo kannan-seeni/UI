@@ -11,7 +11,7 @@ const GodownInput = ({ handleFormGodownInput }) => {
         mobileNo: "",
         aqName: "",
         superintendent: "",
-        distance: "",
+        // distance: "",
         address: "",
     });
 
@@ -39,7 +39,7 @@ const GodownInput = ({ handleFormGodownInput }) => {
         if (!formValues.mobileNo) newErrors.mobileNo = "Mobile No is required";
         if (!formValues.aqName) newErrors.aqName = "AQ Name is required";
         if (!formValues.superintendent) newErrors.superintendent = "Superintendent is required";
-        if (!formValues.distance) newErrors.distance = "Distance is required";
+        // if (!formValues.distance) newErrors.distance = "Distance is required";
         if (!formValues.address) newErrors.address = "Address is required";
         return newErrors;
     };
@@ -83,7 +83,7 @@ const GodownInput = ({ handleFormGodownInput }) => {
             mobileNo: "",
             aqName: "",
             superintendent: "",
-            distance: "",
+            // distance: "",
             address: "",
         });
         setErrors({});
@@ -126,9 +126,9 @@ const GodownInput = ({ handleFormGodownInput }) => {
                                 {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                             </MDBCol>
 
-                            {/* Godwon Name */}
+                            {/* Godown Name */}
                             <MDBCol md='4 mt-4'>
-                                <label htmlFor="godownName" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon Name</label>
+                                <label htmlFor="godownName" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown Name</label>
                                 <select
                                     id="godownName"
                                     name="godownName"
@@ -196,7 +196,7 @@ const GodownInput = ({ handleFormGodownInput }) => {
                                 />
                                 {errors.superintendent && <span className="text-danger fontSize">{errors.superintendent}</span>}
                             </MDBCol>
-                            <MDBCol md='4'>
+                            {/* <MDBCol md='4'>
                                 <MDBInput
                                     type="text"
                                     id="distance"
@@ -207,7 +207,7 @@ const GodownInput = ({ handleFormGodownInput }) => {
                                     label="Distance"
                                 />
                                 {errors.distance && <span className="text-danger fontSize">{errors.distance}</span>}
-                            </MDBCol>
+                            </MDBCol> */}
                             <MDBCol md='4'>
                                 <MDBInput
                                     value={formValues.address}

@@ -13,7 +13,7 @@ const GodownTable = ({data}) => {
         mobileNo: "",
         aqName: "",
         superintendent: "",
-        distance: "",
+        // distance: "",
         address: ""
     });
     const [godwonData, setGodwonData] = useState([]);
@@ -166,7 +166,7 @@ const GodownTable = ({data}) => {
                                         ))}
                                     </DropdownButton>
                                 </th>
-                                <th className="px-2 fs-6">
+                                {/* <th className="px-2 fs-6">
                                     Distance
                                     <DropdownButton
                                         variant="link"
@@ -181,7 +181,7 @@ const GodownTable = ({data}) => {
                                             </Dropdown.Item>
                                         ))}
                                     </DropdownButton>
-                                </th>
+                                </th> */}
                                 <th className="px-2 fs-6">Actions</th>
                             </tr>
                         </MDBTableHead>
@@ -192,7 +192,7 @@ const GodownTable = ({data}) => {
                                     <td>{item.region || ''}</td>
                                     <td>{item.godownName || ''}</td>
                                     <td>{item.emailId || ''}</td>
-                                    <td>{item.distance || ''}</td>
+                                    {/* <td>{item.distance || ''}</td> */}
                                     <td>
                                         <i className="fas fa-arrow-right-long" onClick={() => handleEdit(item.id)}></i>
                                     </td>

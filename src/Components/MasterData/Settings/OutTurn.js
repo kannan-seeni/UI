@@ -1,12 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardHeader, MDBInput, MDBCheckbox, MDBBtn } from 'mdb-react-ui-kit';
 
 const OutTurn = () => {
-    // Initial state for entries with default value 68% and checked state true
-    const [entries, setEntries] = useState([{ value: '68', checked: true }]);
+    // Load entries from localStorage or use default
+    const loadEntriesFromStorage = () => {
+        const storedEntries = localStorage.getItem('entries');
+        return storedEntries ? JSON.parse(storedEntries) : [{ value: '68', checked: true }];
+    };
 
-    // Handle adding a new entry
-    const addEntry = () => {
+    const [entries, setEntries] = useState(loadEntriesFromStorage);
+
+    // Save entries to localStorage
+    useEffect(() => {
+        localStorage.setItem('entries', JSON.stringify(entries));
+    }, [entries]);
+
+    // Handle adding a new entry and sending data to server
+    const addEntry = async () => {
+        // Send the current entries to the server
+        try {
+            const response = await fetch('http://localhost:3001/OutTurn', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(entries)
+            });
+            if (!response.ok) throw new Error('Network response was not ok');
+            // Handle response if needed
+            console.log('Data sent successfully:', await response.json());
+        } catch (error) {
+            console.error('Error sending data:', error);
+        }
+
+        // Add a new entry to the local state
         setEntries([...entries, { value: '', checked: false }]);
     };
 
@@ -19,8 +46,10 @@ const OutTurn = () => {
 
     // Handle change in checkbox state
     const handleCheckboxChange = (index) => {
-        const newEntries = [...entries];
-        newEntries[index].checked = !newEntries[index].checked;
+        const newEntries = entries.map((entry, i) => ({
+            ...entry,
+            checked: i === index // Uncheck all except the clicked one
+        }));
         setEntries(newEntries);
     };
 
@@ -77,3 +106,4 @@ const OutTurn = () => {
 };
 
 export default OutTurn;
+

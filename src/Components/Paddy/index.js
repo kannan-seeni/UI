@@ -13,7 +13,7 @@ const Paddy = ({ onSubmit }) => {
         kmsEndYear: '',
         kms: '',
         issueMemoNo: '',
-        godwon: '',
+        godown: '',
         region: '',
         variety: '',
         moitureContent: '',
@@ -62,7 +62,7 @@ const Paddy = ({ onSubmit }) => {
         if (!formValues.date) newErrors.date = "Date is required";
         if (!formValues.kmsStartYear) newErrors.kmsStartYear = "Start Year is required";
         if (!formValues.kmsEndYear) newErrors.kmsEndYear = "End Year is required";
-        if (!formValues.godwon) newErrors.godwon = "Godwon is required";
+        if (!formValues.godown) newErrors.godown = "Godown is required";
         if (!formValues.region) newErrors.region = "Region is required";
         if (!formValues.variety) newErrors.variety = "Variety is required";
         if (!formValues.moitureContent) newErrors.moitureContent = "MC is required";
@@ -116,7 +116,7 @@ const Paddy = ({ onSubmit }) => {
             kms: '',
             issueMemoNo: '',
             region: '',
-            godwon: '',
+            godown: '',
             variety: '',
             moitureContent: '',
             lorryNo: '',
@@ -284,15 +284,15 @@ const Paddy = ({ onSubmit }) => {
                                 {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                             </MDBCol>
                             <MDBCol md='6 mt-2'>
-                                <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
+                                <label htmlFor="godown" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown</label>
                                 <select
-                                    id="godwon"
-                                    name="godwon"
-                                    value={formValues.godwon}
+                                    id="godown"
+                                    name="godown"
+                                    value={formValues.godown}
                                     onChange={handleChange}
-                                    className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
+                                    className={`form-control ${errors.godown ? 'input-invalid' : ''}`}
                                 >
-                                    <option value="">Select Godwon</option>
+                                    <option value="">Select Godown</option>
                                     <option value="RailHead">RailHead</option>
                                     <option value="MRM">MRM</option>
                                     <option value="PANDIYARAJAPURAM">PANDIYARAJAPURAM</option>
@@ -300,14 +300,14 @@ const Paddy = ({ onSubmit }) => {
                                 </select>
                                 {/* <MDBInput
                                         type="text"
-                                        id="godwon"
-                                        name="godwon"
-                                        value={formValues.godwon}
+                                        id="godown"
+                                        name="godown"
+                                        value={formValues.godown}
                                         onChange={handleChange}
-                                        className={`form-control ${errors.godwon ? 'is-invalid' : ''}`}
-                                        label="Godwon"
+                                        className={`form-control ${errors.godown ? 'is-invalid' : ''}`}
+                                        label="Godown"
                                     /> */}
-                                {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
+                                {errors.godown && <span className="text-danger fontSize">{errors.godown}</span>}
                             </MDBCol>
                             <MDBCol md='6 mt-5 pt-1'>
                                 <MDBInput

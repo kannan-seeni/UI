@@ -16,7 +16,7 @@ const RiceTable = () => {
     // State for filters
     const [filters, setFilters] = useState({
         date: '',
-        godwon: '',
+        godon: '',
         truckMemoNo: '',
         variety: '',
         noOfBags: '',
@@ -79,10 +79,10 @@ const RiceTable = () => {
     const generatePDF = () => {
         const doc = new jsPDF();
         doc.autoTable({
-            head: [['Date', 'Godwon', 'Truck', 'Variety', 'No Of Bags', 'Weight Of Rice', 'Weight Of Rice With FRK', 'Weight Of FRK', 'AD No', 'AD Date', 'Lorry No']],
+            head: [['Date', 'Godown', 'Truck', 'Variety', 'No Of Bags', 'Weight Of Rice', 'Weight Of Rice With FRK', 'Weight Of FRK', 'AD No', 'AD Date', 'Lorry No']],
             body: filteredData.map(item => [
                 item.date || '',
-                item.godwon || '',
+                item.godon || '',
                 item.truckMemoNo || '',
                 item.variety || '',
                 item.noOfBags || '',
@@ -164,16 +164,16 @@ const RiceTable = () => {
                                         </DropdownButton>
                                     </th>
                                     <th rowSpan="2" className="px-2 fs-6">
-                                        Godwon
+                                         Godown
                                         <DropdownButton
                                             variant="link"
-                                            id="dropdown-godwon"
+                                            id="dropdown-godon"
                                             title={<i className="fas fa-filter"></i>}
                                             className="float-end"
                                         >
-                                            <Dropdown.Item onClick={() => handleFilterChange('godwon', '')}>All</Dropdown.Item>
-                                            {Array.from(new Set(ricedata.map(item => item.godwon))).map((value, index) => (
-                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('godwon', value)}>
+                                            <Dropdown.Item onClick={() => handleFilterChange('godon', '')}>All</Dropdown.Item>
+                                            {Array.from(new Set(ricedata.map(item => item.godon))).map((value, index) => (
+                                                <Dropdown.Item key={index} onClick={() => handleFilterChange('godon', value)}>
                                                     {value}
                                                 </Dropdown.Item>
                                             ))}
@@ -227,7 +227,7 @@ const RiceTable = () => {
                                             ))}
                                         </DropdownButton>
                                     </th>
-                                    <th rowSpan="2" className="px-2 fs-6">
+                                    {/* <th rowSpan="2" className="px-2 fs-6">
                                        OutTurn %
                                         <DropdownButton
                                             variant="link"
@@ -238,11 +238,11 @@ const RiceTable = () => {
                                             <Dropdown.Item onClick={() => handleFilterChange('variety', '')}>All</Dropdown.Item>
                                             {Array.from(new Set(ricedata.map(item => item.variety))).map((value, index) => (
                                                 <Dropdown.Item key={index} onClick={() => handleFilterChange('variety', value)}>
-                                                   68% {/* {value} */}
+                                                   68%  {value} 
                                                 </Dropdown.Item>
                                             ))}
                                         </DropdownButton>
-                                    </th>
+                                    </th> */}
                                     <th colSpan="4" className="gunnyColor text-center p-0">
                                         <div className="d-flex align-items-center justify-content-center">
                                             Qty Nett
@@ -493,11 +493,10 @@ const RiceTable = () => {
                                 {currentData.map((item, index) => (
                                     <tr key={index}>
                                         <td>{item.date || ''}</td>
-                                        <td>{item.godwon || ''}</td>
+                                        <td>{item.godon || ''}</td>
                                         <td>{item.truckMemoNo || ''}</td>
                                         <td>{item.variety || ''}</td>
-                                        <td>1%</td>
-                                        <td>68%</td> 
+                                        <td>1</td>
                                         <td>{item.noOfBags || ''}</td>
                                         <td>{item.weightOfFRK || ''}</td>
                                         <td>{item.weightOfRice || ''}</td>

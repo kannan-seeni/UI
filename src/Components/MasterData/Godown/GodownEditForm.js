@@ -13,7 +13,7 @@ const GodownEditForm = () => {
         mobileNo: "",
         aqName: "",
         superintendent: "",
-        distance: "",
+        // distance: "",
         address: ""
     });
     const { id } = useParams();
@@ -23,7 +23,7 @@ const GodownEditForm = () => {
     const [editMode, setEditMode] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3001/godwonData/${id}`)
+        fetch(`http://localhost:3001/godownData/${id}`)
             .then(response => response.json())
             .then(data => {
                 setItem(data);
@@ -55,7 +55,7 @@ const GodownEditForm = () => {
         }
 
         const updatedData = { ...formValues };
-        fetch(`http://localhost:3001/godwonData/${id}`, {
+        fetch(`http://localhost:3001/godownData/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -125,9 +125,9 @@ const GodownEditForm = () => {
                                     </select>
                                     {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                                 </MDBCol>
-                                {/* Godwon Name*/}
+                                {/* Godown Name*/}
                                 <MDBCol md='4'>
-                                    <label htmlFor="godownName" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon Name</label>
+                                    <label htmlFor="godownName" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown Name</label>
                                     <select
                                         id="godownName"
                                         name="godownName"
@@ -136,7 +136,7 @@ const GodownEditForm = () => {
                                         className={`form-control ${errors.godownName ? 'input-invalid' : ''}`}
                                         disabled={!editMode}
                                     >
-                                        <option value="">Select Godwon Name</option>
+                                        <option value="">Select Godown Name</option>
                                         <option value="MADURAI">Madurai</option>
                                         <option value="SIVAGANGA">Sivaganga</option>
                                         <option value="Pudukkottai">Pudukkottai</option>
@@ -201,19 +201,19 @@ const GodownEditForm = () => {
                                     />
                                     {errors.superintendent && <span className="text-danger fontSize">{errors.superintendent}</span>}
                                 </MDBCol>
-                                <MDBCol md='4'>
-                                <MDBInput
-                                    type="text"
-                                    id="distance"
-                                    name="distance"
-                                    value={formValues.distance}
-                                    onChange={handleChange}
-                                    className={`form-control ${errors.distance ? 'is-invalid' : ''}`}
-                                    label="Distance"
-                                    disabled={!editMode}
-                                />
-                                {errors.distance && <span className="text-danger fontSize">{errors.distance}</span>}
-                            </MDBCol>
+                                {/* <MDBCol md='4'>
+                                    <MDBInput
+                                        type="text"
+                                        id="distance"
+                                        name="distance"
+                                        value={formValues.distance}
+                                        onChange={handleChange}
+                                        className={`form-control ${errors.distance ? 'is-invalid' : ''}`}
+                                        label="Distance"
+                                        disabled={!editMode}
+                                    />
+                                    {errors.distance && <span className="text-danger fontSize">{errors.distance}</span>}
+                                </MDBCol> */}
                                 {/* Superintendent */}
                                 <MDBCol md='4 '>
                                     <MDBTextArea

@@ -7,7 +7,7 @@ import headerImg from '../../assets/rice-bags.jpg';
 
 const Rice = ({ onSubmit }) => {
     const [formValues, setFormValues] = useState({
-        godwon: "",
+        godown: "",
         date: new Date(),
         kms: "",
         region: "",
@@ -106,7 +106,7 @@ const Rice = ({ onSubmit }) => {
         if (!formValues.date) newErrors.date = "Date is required";
         if (!formValues.kmsStartYear) newErrors.kmsStartYear = "Start Year is required";
         if (!formValues.kmsEndYear) newErrors.kmsEndYear = "End Year is required";
-        if (!formValues.godwon) newErrors.godwon = "Godwon is required";
+        if (!formValues.godown) newErrors.godown = "Godown is required";
         if (!formValues.region) newErrors.region = "Region is required";
         if (!formValues.variety) newErrors.variety = "Variety is required";
         if (!formValues.truckMemoNo) newErrors.truckMemoNo = "Memo is required";
@@ -162,7 +162,7 @@ const Rice = ({ onSubmit }) => {
 
     const resetForm = () => {
         setFormValues({
-            godwon: "",
+            godown: "",
             date: new Date(),
             kms: "",
             region: "",
@@ -301,24 +301,24 @@ const Rice = ({ onSubmit }) => {
                                 {errors.region && <span className="text-danger fontSize">{errors.region}</span>}
                             </MDBCol>
 
-                            {/* Godwon */}
+                            {/* Godown */}
                             <MDBCol md='4 mt-0'>
-                                <label htmlFor="godwon" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godwon</label>
+                                <label htmlFor="godown" className="form-label-text mt-2 form-label float-start fst-italic fw-bold fs-6">Godown</label>
                                 <select
-                                    id="godwon"
-                                    name="godwon"
-                                    value={formValues.godwon}
+                                    id="godown"
+                                    name="godown"
+                                    value={formValues.godown}
                                     onChange={handleChange}
-                                    className={`form-control ${errors.godwon ? 'input-invalid' : ''}`}
+                                    className={`form-control ${errors.godown ? 'input-invalid' : ''}`}
                                 >
-                                    <option value="">Select Godwon</option>
+                                    <option value="">Select Godown</option>
                                     <option value="MELLUR">MELLUR</option>
                                     <option value="USILAMPATTI">USILAMPATTI</option>
                                     <option value="THIRUMANGALAM">THIRUMANGALAM</option>
                                     <option value="VADIPATTI">VADIPATTI</option>
                                     <option value="V.K.Puram II">V.K.Puram II</option>
                                 </select>
-                                {errors.godwon && <span className="text-danger fontSize">{errors.godwon}</span>}
+                                {errors.godown && <span className="text-danger fontSize">{errors.godown}</span>}
                             </MDBCol>
 
                             {/* Truck Memo */}
